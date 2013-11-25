@@ -8,6 +8,8 @@
 
 #import "WelcomeUsernameViewController.h"
 
+#import "JSONKit.h"
+
 @interface WelcomeUsernameViewController () {
 	UIBarButtonItem *continueBarButton;
 	
@@ -24,6 +26,8 @@
 - (void) keyboardWillHide: (NSNotification *) notif;
 
 - (void) checkUsername: (NSTimer *) timer;
+
+- (void) updateButton;
 
 @end
 
@@ -65,6 +69,11 @@
 - (void) viewDidDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void) updateButton {
+	continueButton.enabled = uvalid;
+	continueBarButton.enabled = uvalid;
 }
 
 #pragma mark - Keyboard Methods
@@ -113,8 +122,14 @@
 #pragma mark - UITextFieldDelegate Methods
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-	[status.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
 	if (timer && [timer.fireDate timeIntervalSinceNow] > 0) [timer invalidate];
+	if (conn && active) [conn cancel];
+	
+	[status.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+	
+	uvalid = NO;
+	[self updateButton];
+	
 	timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(checkUsername:) userInfo:nil repeats:FALSE];
 	return YES;
 }
@@ -127,8 +142,10 @@
 
 - (void) checkUsername: (NSTimer *) timer {
 	[status.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-	NSString *text = username.text;
+	NSString *text = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef) username.text, NULL, CFSTR("!*'();:@&=+$,/?%#[]\" "), kCFStringEncodingUTF8));
 	uvalid = NO;
+	
+	[self updateButton];
 	
 	UIActivityIndicatorView *prog = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 	CGFloat height = status.frame.size.height;
@@ -137,7 +154,6 @@
 	[prog startAnimating];
 	
 	NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://rqs5owaukvnh37b4.onion/exists.php?name=%@", text]]];
-	if (conn && active) [conn cancel];
 	active = YES;
 	data = [[NSMutableData alloc] init];
 	conn = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
@@ -153,35 +169,49 @@
 	active = NO;
 	uvalid = NO;
 	
+	[status.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+	
 	UILabel *label = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, status.frame.size.width, status.frame.size.height)];
-	label.text = [[[NSString stringWithFormat:@"An error occured: %@, %@", error, error.userInfo] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
+	label.text = [[[NSString stringWithFormat:@"An error occured: %@", error.description] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
 	label.textAlignment = NSTextAlignmentCenter;
 	label.textColor= [UIColor colorWithRed:(252/255.0) green:(2/255.0) blue:(7/255.0) alpha:1];
 	[status addSubview:label];
+	[self updateButton];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	active = NO;
 	
-	NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	[status.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-	if (valid) {
-		uvalid = YES;
+	
+	NSError *error;
+	NSDictionary *json = [(NSData *)data objectFromJSONDataWithParseOptions:JKParseOptionNone error:&error];
+	if (error != nil) {
+		[self connection:connection didFailWithError:error];
+		return;
+	}
+	
+	NSString *msg = nil;
+	if ([json objectForKey:@"error"]) msg = [json objectForKey:@"error"];
+	else if ([(NSNumber *)[json objectForKey:@"exists"] boolValue]) msg = @"Username already exists!";
+	
+	if (msg) {
 		UILabel *label = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, status.frame.size.width, status.frame.size.height)];
-		label.text = @"Valid Username!";
-		label.textAlignment = NSTextAlignmentCenter;
-		label.textColor= [UIColor colorWithRed:(11/255.0) green:(128/255.0) blue:(0/255.0) alpha:1];
-		[status addSubview:label];
-		//[self updateCloneButton];
-	} else {
-		uvalid = NO;
-		UILabel *label = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, status.frame.size.width, status.frame.size.height)];
-		label.text = [[str componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
+		label.text = [[msg componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
 		label.textAlignment = NSTextAlignmentCenter;
 		label.textColor= [UIColor colorWithRed:(252/255.0) green:(2/255.0) blue:(7/255.0) alpha:1];
 		[status addSubview:label];
-		//[self updateCloneButton];
+		[self updateButton];
+		return;
 	}
+	
+	uvalid = YES;
+	UILabel *label = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, status.frame.size.width, status.frame.size.height)];
+	label.text = @"Valid Username!";
+	label.textAlignment = NSTextAlignmentCenter;
+	label.textColor= [UIColor colorWithRed:(11/255.0) green:(128/255.0) blue:(0/255.0) alpha:1];
+	[status addSubview:label];
+	[self updateButton];
 }
 
 @end

@@ -40,6 +40,7 @@
 		E622BD841842CC8000965F67 /* Connect-iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E622BD831842CC8000965F67 /* Connect-iphone.storyboard */; };
 		E622BD881842D4D600965F67 /* ConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BD871842D4D600965F67 /* ConnectViewController.m */; };
 		E622BD8B1842DB4100965F67 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BD8A1842DB4100965F67 /* WelcomeViewController.m */; };
+		E622BD911843013A00965F67 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BD901843013A00965F67 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E645CD15183F1DB70031D78D /* ProxyURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = E645CD14183F1DB70031D78D /* ProxyURLProtocol.m */; };
 		E645CD18183F1DBD0031D78D /* CKHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = E645CD17183F1DBD0031D78D /* CKHTTPConnection.m */; };
 		E645CD1B183F1DC70031D78D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E645CD19183F1DC70031D78D /* InfoPlist.strings */; };
@@ -104,6 +105,8 @@
 		E622BD871842D4D600965F67 /* ConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectViewController.m; sourceTree = SOURCE_ROOT; };
 		E622BD891842DB4100965F67 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = SOURCE_ROOT; };
 		E622BD8A1842DB4100965F67 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = SOURCE_ROOT; };
+		E622BD8F1843013A00965F67 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = JSONKit/JSONKit.h; sourceTree = "<group>"; };
+		E622BD901843013A00965F67 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = JSONKit/JSONKit.m; sourceTree = "<group>"; };
 		E645CD13183F1DB70031D78D /* ProxyURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxyURLProtocol.h; sourceTree = SOURCE_ROOT; };
 		E645CD14183F1DB70031D78D /* ProxyURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyURLProtocol.m; sourceTree = SOURCE_ROOT; };
 		E645CD16183F1DBD0031D78D /* CKHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKHTTPConnection.h; path = ConnectionKit/CKHTTPConnection.h; sourceTree = SOURCE_ROOT; };
@@ -283,6 +286,8 @@
 				691958D41536B8AC000423A4 /* Reachability.m */,
 				696F9EB214F8DD6D00BC5FDC /* ULINetSocket.h */,
 				696F9EB314F8DD6D00BC5FDC /* ULINetSocket.m */,
+				E622BD8F1843013A00965F67 /* JSONKit.h */,
+				E622BD901843013A00965F67 /* JSONKit.m */,
 				692B86AD153CD4CB000806A9 /* NSData+Conversion.h */,
 				692B86AE153CD4CB000806A9 /* NSData+Conversion.m */,
 				6954F8EB15FE985E00AE8658 /* NSData+CocoaDevUsersAdditions.h */,
@@ -463,6 +468,7 @@
 				E645CD18183F1DBD0031D78D /* CKHTTPConnection.m in Sources */,
 				E66AB6AB183F13A80023745A /* AppDelegate.m in Sources */,
 				E66AB6D4183F14510023745A /* BookmarkEditViewController.m in Sources */,
+				E622BD911843013A00965F67 /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

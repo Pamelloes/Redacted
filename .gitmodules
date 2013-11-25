@@ -1,0 +1,3 @@
+[submodule "Redacted/JSONKit"]
+	path = Redacted/JSONKit
+	url = https://github.com/johnezang/JSONKit

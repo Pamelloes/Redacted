@@ -177,6 +177,8 @@ Every device needs a different username. Usernames can be transferred.</string>
                     </view>
                     <navigationItem key="navigationItem" id="M9W-xL-suP"/>
                     <connections>
+                        <outlet property="continueButton" destination="FLT-mi-JPW" id="Jt1-9X-ubw"/>
+                        <outlet property="status" destination="e4X-eO-nYa" id="dKT-nm-E6Z"/>
                         <outlet property="username" destination="HqQ-np-yBc" id="ano-kO-1z1"/>
                     </connections>
                 </viewController>
