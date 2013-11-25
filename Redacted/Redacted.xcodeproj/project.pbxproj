@@ -40,7 +40,8 @@
 		E622BD841842CC8000965F67 /* Connect-iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E622BD831842CC8000965F67 /* Connect-iphone.storyboard */; };
 		E622BD881842D4D600965F67 /* ConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BD871842D4D600965F67 /* ConnectViewController.m */; };
 		E622BD8B1842DB4100965F67 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BD8A1842DB4100965F67 /* WelcomeViewController.m */; };
-		E622BD911843013A00965F67 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BD901843013A00965F67 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E622BD911843013A00965F67 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BD901843013A00965F67 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		E622BDA018430C5F00965F67 /* Redacted.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E622BD9E18430C5F00965F67 /* Redacted.xcdatamodeld */; };
 		E645CD15183F1DB70031D78D /* ProxyURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = E645CD14183F1DB70031D78D /* ProxyURLProtocol.m */; };
 		E645CD18183F1DBD0031D78D /* CKHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = E645CD17183F1DBD0031D78D /* CKHTTPConnection.m */; };
 		E645CD1B183F1DC70031D78D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E645CD19183F1DC70031D78D /* InfoPlist.strings */; };
@@ -50,7 +51,6 @@
 		E66AB6AB183F13A80023745A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6AA183F13A80023745A /* AppDelegate.m */; };
 		E66AB6B5183F13E10023745A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6B3183F13E10023745A /* main.m */; };
 		E66AB6B8183F13F10023745A /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6B7183F13F10023745A /* WebViewController.m */; };
-		E66AB6BB183F14010023745A /* Settings.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6B9183F14010023745A /* Settings.xcdatamodeld */; };
 		E66AB6C2183F142E0023745A /* Bridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6BD183F142E0023745A /* Bridge.m */; };
 		E66AB6C3183F142E0023745A /* BridgeEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6BF183F142E0023745A /* BridgeEditViewController.m */; };
 		E66AB6C4183F142E0023745A /* BridgeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6C1183F142E0023745A /* BridgeTableViewController.m */; };
@@ -107,10 +107,11 @@
 		E622BD8A1842DB4100965F67 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = SOURCE_ROOT; };
 		E622BD8F1843013A00965F67 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = JSONKit/JSONKit.h; sourceTree = "<group>"; };
 		E622BD901843013A00965F67 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = JSONKit/JSONKit.m; sourceTree = "<group>"; };
+		E622BD9F18430C5F00965F67 /* Redacted.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Redacted.xcdatamodel; sourceTree = "<group>"; };
 		E645CD13183F1DB70031D78D /* ProxyURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxyURLProtocol.h; sourceTree = SOURCE_ROOT; };
 		E645CD14183F1DB70031D78D /* ProxyURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyURLProtocol.m; sourceTree = SOURCE_ROOT; };
 		E645CD16183F1DBD0031D78D /* CKHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKHTTPConnection.h; path = ConnectionKit/CKHTTPConnection.h; sourceTree = SOURCE_ROOT; };
-		E645CD17183F1DBD0031D78D /* CKHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKHTTPConnection.m; path = ConnectionKit/CKHTTPConnection.m; sourceTree = SOURCE_ROOT; };
+		E645CD17183F1DBD0031D78D /* CKHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKHTTPConnection.m; path = ConnectionKit/CKHTTPConnection.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E645CD1A183F1DC70031D78D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Redacted/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		E645CD1C184010DD0031D78D /* Welcome-iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Welcome-iphone.storyboard"; sourceTree = SOURCE_ROOT; };
 		E645CD1F184026F80031D78D /* WelcomeUsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeUsernameViewController.h; sourceTree = SOURCE_ROOT; };
@@ -123,7 +124,6 @@
 		E66AB6B4183F13E10023745A /* Redacted-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Redacted-Prefix.pch"; path = "Redacted/Redacted-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		E66AB6B6183F13F10023745A /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = Redacted/WebViewController.h; sourceTree = SOURCE_ROOT; };
 		E66AB6B7183F13F10023745A /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = Redacted/WebViewController.m; sourceTree = SOURCE_ROOT; };
-		E66AB6BA183F14010023745A /* Settings.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Settings.xcdatamodel; sourceTree = "<group>"; };
 		E66AB6BC183F142E0023745A /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bridge.h; path = Redacted/Bridge.h; sourceTree = SOURCE_ROOT; };
 		E66AB6BD183F142E0023745A /* Bridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bridge.m; path = Redacted/Bridge.m; sourceTree = SOURCE_ROOT; };
 		E66AB6BE183F142E0023745A /* BridgeEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BridgeEditViewController.h; path = Redacted/BridgeEditViewController.h; sourceTree = SOURCE_ROOT; };
@@ -178,7 +178,6 @@
 		6924C27515525F3B004BE7F9 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				E66AB6B9183F14010023745A /* Settings.xcdatamodeld */,
 				6940BD3115F87FC100FE74CB /* SettingsView */,
 				69A82A7D15F97553009B31F1 /* Bookmarks */,
 			);
@@ -238,6 +237,7 @@
 		696EBD7D14F7877900B81BC9 /* Redacted */ = {
 			isa = PBXGroup;
 			children = (
+				E622BD9E18430C5F00965F67 /* Redacted.xcdatamodeld */,
 				E66AB6A9183F13A80023745A /* AppDelegate.h */,
 				E66AB6AA183F13A80023745A /* AppDelegate.m */,
 				696EBD7E14F7877900B81BC9 /* Supporting Files */,
@@ -452,11 +452,11 @@
 				E622BD8B1842DB4100965F67 /* WelcomeViewController.m in Sources */,
 				692B86AF153CD4CB000806A9 /* NSData+Conversion.m in Sources */,
 				E622BD881842D4D600965F67 /* ConnectViewController.m in Sources */,
-				E66AB6BB183F14010023745A /* Settings.xcdatamodeld in Sources */,
 				E66AB6CB183F14400023745A /* SettingsViewController.m in Sources */,
 				E645CD15183F1DB70031D78D /* ProxyURLProtocol.m in Sources */,
 				E66AB6C3183F142E0023745A /* BridgeEditViewController.m in Sources */,
 				6940BD1F15F84C0C00FE74CB /* TorController.m in Sources */,
+				E622BDA018430C5F00965F67 /* Redacted.xcdatamodeld in Sources */,
 				E66AB6B8183F13F10023745A /* WebViewController.m in Sources */,
 				E66AB6C4183F142E0023745A /* BridgeTableViewController.m in Sources */,
 				E645CD21184026F80031D78D /* WelcomeUsernameViewController.m in Sources */,
@@ -692,14 +692,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		E66AB6B9183F14010023745A /* Settings.xcdatamodeld */ = {
+		E622BD9E18430C5F00965F67 /* Redacted.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				E66AB6BA183F14010023745A /* Settings.xcdatamodel */,
+				E622BD9F18430C5F00965F67 /* Redacted.xcdatamodel */,
 			);
-			currentVersion = E66AB6BA183F14010023745A /* Settings.xcdatamodel */;
-			name = Settings.xcdatamodeld;
-			path = ../Redacted/Settings.xcdatamodeld;
+			currentVersion = E622BD9F18430C5F00965F67 /* Redacted.xcdatamodel */;
+			name = Redacted.xcdatamodeld;
+			path = ../Redacted.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
