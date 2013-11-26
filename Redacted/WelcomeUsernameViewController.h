@@ -14,6 +14,8 @@
 	UIView *status;
 	
 	UITextField *username;
+	UIView *accessory;
+	
 	UIButton *continueButton;
 }
 
@@ -26,6 +28,8 @@
 @property (nonatomic, strong) IBOutlet UIView *status;
 
 @property (nonatomic, strong) IBOutlet UITextField *username;
+@property (nonatomic, strong) IBOutlet UIView *accessory;
+
 @property (nonatomic, strong) IBOutlet UIButton *continueButton;
 
 @end

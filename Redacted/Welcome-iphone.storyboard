@@ -177,11 +177,21 @@ Every device needs a different username. Usernames can be transferred.</string>
                     </view>
                     <navigationItem key="navigationItem" id="M9W-xL-suP"/>
                     <connections>
+                        <outlet property="accessory" destination="1bb-8y-eG4" id="Mv5-zL-g5a"/>
                         <outlet property="continueButton" destination="FLT-mi-JPW" id="Jt1-9X-ubw"/>
                         <outlet property="status" destination="e4X-eO-nYa" id="dKT-nm-E6Z"/>
                         <outlet property="username" destination="HqQ-np-yBc" id="ano-kO-1z1"/>
                     </connections>
                 </viewController>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="1bb-8y-eG4">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="CkG-9S-ybW"/>
+                        <barButtonItem enabled="NO" title="Continue" id="Tja-OX-b1Q"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="2iP-vm-rlG"/>
+                    </items>
+                </toolbar>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KU2-6O-gr0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="0dK-lC-g4j">
                     <connections>

@@ -12,16 +12,26 @@
 #include <sys/sysctl.h>
 
 #import "ConnectViewController.h"
+#import "RedactedHTTPConnection.h"
+#import "HTTPServer.h"
+#import "DDLog.h"
+#import "DDTTYLogger.h"
+
+// Log levels: off, error, warn, info, verbose
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @interface AppDelegate () {
 	ConnectViewController *connectViewController;
 }
 
+-(void) startWebserver;
+-(void) showInitialWindow;
+
 @end
 
 @implementation AppDelegate
 
-@synthesize tor, window, rootNavigationController,
+@synthesize tor, httpServer, window, rootNavigationController,
     spoofUserAgent,
     dntHeader,
     usePipelining,
@@ -32,13 +42,13 @@
     doPrepopulateBookmarks;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Connect-iphone" bundle:nil];
-	rootNavigationController = (UINavigationController *) [storyboard instantiateInitialViewController];
-	connectViewController = (ConnectViewController *) rootNavigationController.topViewController;
+	// Configure our logging framework.
+	// To keep things simple and fast, we're just going to log to the Xcode console.
+	[DDLog addLogger:[DDTTYLogger sharedInstance]];
 	
-    window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	window.rootViewController = rootNavigationController;
-	[window makeKeyAndVisible];
+	[self showInitialWindow];
+	
+	[self startWebserver];
 	
    /* // Detect bookmarks file.
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Settings.sqlite"];
@@ -80,6 +90,32 @@
     return YES;
 }
 
+- (void) startWebserver {
+	httpServer = [[HTTPServer alloc] init];
+	
+	// Tell server to use our custom RedactedHTTPConnection class.
+	[httpServer setConnectionClass:[RedactedHTTPConnection class]];
+	
+	// Serve files from our embedded Web folder
+	NSString *webPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Web"];
+	DDLogInfo(@"Setting document root: %@", webPath);
+	[httpServer setDocumentRoot:webPath];
+	
+	// Start the server (and check for problems)
+	NSError *error;
+	if(![httpServer start:&error]) DDLogError(@"Error starting HTTP Server: %@", error);
+}
+
+-(void) showInitialWindow {
+	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Connect-iphone" bundle:nil];
+	rootNavigationController = (UINavigationController *) [storyboard instantiateInitialViewController];
+	connectViewController = (ConnectViewController *) rootNavigationController.topViewController;
+	
+    window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	window.rootViewController = rootNavigationController;
+	[window makeKeyAndVisible];
+}
+
 - (void)updateTorrc {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *destTorrc = [[[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"torrc"] relativePath];
@@ -91,13 +127,14 @@
     NSError *error = nil;
 	NSMutableString *torrc = [NSMutableString stringWithContentsOfFile:sourceTorrc encoding:NSUTF8StringEncoding error:&error];
     if (error != nil) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         if (![fileManager fileExistsAtPath:sourceTorrc]) {
-            NSLog(@"(Source torrc %@ doesnt exist)", sourceTorrc);
+            DDLogError(@"(Source torrc %@ doesnt exist)", sourceTorrc);
         }
     }
 	
 	[torrc replaceOccurrencesOfString:@"{dir}" withString:[self applicationDocumentsDirectory].path options:0 range:NSMakeRange(0, [torrc length])];
+	[torrc replaceOccurrencesOfString:@"{port}" withString:[NSString stringWithFormat:@"%d", httpServer.listeningPort] options:0 range:NSMakeRange(0, [torrc length])];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Bridge" inManagedObjectContext:self.managedObjectContext];
@@ -158,6 +195,12 @@
 }
 
 - (void) updateProgressComplete {
+    NSString *hnfile = [[[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"hostname"] relativePath];
+	NSError *error;
+	NSString *hostname = [NSString stringWithContentsOfFile:hnfile encoding:NSUTF8StringEncoding error:&error];
+	if (error) DDLogError(@"Unresolved error: %@", error);
+	else DDLogInfo(@"Hostname: %@", hostname);
+	
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Welcome-iphone" bundle:nil];
 	UINavigationController *ornc = rootNavigationController;
 	rootNavigationController = [storyboard instantiateInitialViewController];
@@ -216,7 +259,7 @@
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     
@@ -245,7 +288,7 @@
         // since this is also a good way to allow user to retry initial
         // connection if it fails.
         #ifdef DEBUG
-            NSLog(@"Went to BG before initial connection completed: exiting.");
+            DDLogError(@"Went to BG before initial connection completed: exiting.");
         #endif
         exit(0);
     } else {

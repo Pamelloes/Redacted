@@ -1,21 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Chat" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="config" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Configuration" inverseName="chats" inverseEntity="Configuration" syncable="YES"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="chats" inverseEntity="User" syncable="YES"/>
+    </entity>
     <entity name="Configuration" syncable="YES">
-        <relationship name="luser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" syncable="YES"/>
+        <relationship name="chats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Chat" inverseName="config" inverseEntity="Chat" syncable="YES"/>
+        <relationship name="luser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="luser" inverseEntity="User" syncable="YES"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="config" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Message" syncable="YES">
         <attribute name="payload" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="from" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" syncable="YES"/>
-        <relationship name="to" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" syncable="YES"/>
+        <relationship name="from" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="sent" inverseEntity="User" syncable="YES"/>
+        <relationship name="to" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="received" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="User" syncable="YES">
         <attribute name="addr" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pkey" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="chats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Chat" inverseName="users" inverseEntity="Chat" syncable="YES"/>
+        <relationship name="config" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Configuration" inverseName="users" inverseEntity="Configuration" syncable="YES"/>
+        <relationship name="luser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Configuration" inverseName="luser" inverseEntity="Configuration" syncable="YES"/>
+        <relationship name="received" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="to" inverseEntity="Message" syncable="YES"/>
+        <relationship name="sent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="from" inverseEntity="Message" syncable="YES"/>
     </entity>
     <elements>
-        <element name="User" positionX="-270" positionY="198" width="128" height="90"/>
-        <element name="Message" positionX="-92" positionY="200" width="128" height="88"/>
-        <element name="Configuration" positionX="-452" positionY="218" width="128" height="43"/>
+        <element name="Configuration" positionX="-783" positionY="227" width="128" height="88"/>
+        <element name="Message" positionX="-209" positionY="254" width="128" height="88"/>
+        <element name="User" positionX="-405" positionY="180" width="128" height="163"/>
+        <element name="Chat" positionX="-596" positionY="164" width="128" height="88"/>
     </elements>
 </model>

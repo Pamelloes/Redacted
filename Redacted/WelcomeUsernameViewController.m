@@ -33,7 +33,7 @@
 
 @implementation WelcomeUsernameViewController
 
-@synthesize scrollView, username, continueButton, status;
+@synthesize scrollView, username, accessory, continueButton, status;
 
 - (void) viewDidLoad {
 	uvalid = NO;
@@ -48,13 +48,7 @@
 	scrollView.scrollEnabled = NO;
 	[scrollView addSubview:view];
 	
-	UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-	UIBarButtonItem *s1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-	continueBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Continue" style:UIBarButtonItemStylePlain target:self action:@selector(registerUsername:)];
-	continueBarButton.enabled = NO;
-	UIBarButtonItem *s2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-	toolbar.items = [NSArray arrayWithObjects:s1,continueBarButton,s2,nil];
-	username.inputAccessoryView = toolbar;
+	username.inputAccessoryView = accessory;
 }
 
 - (UIView *) view {
@@ -91,18 +85,20 @@
 	CGRect aRect = self.view.frame;
 	aRect.size.height -= kbSize.height;
 	if (!CGRectContainsPoint(aRect, username.frame.origin) ) {
-		[UIView beginAnimations:@"Reset" context:nil];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-		[UIView setAnimationDuration:0.2];
+		[UIView beginAnimations:@"Expand" context:nil];
+		[UIView setAnimationCurve:((NSNumber *)info[UIKeyboardAnimationCurveUserInfoKey]).intValue];
+		[UIView setAnimationDuration:((NSNumber *)info[UIKeyboardAnimationDurationUserInfoKey]).doubleValue];
 		[self.scrollView scrollRectToVisible:username.frame animated:NO];
 		[UIView commitAnimations];
 	}
 }
 
 - (void) keyboardWillHide: (NSNotification *) notif {
+	NSDictionary* info = [notif userInfo];
+	
 	[UIView beginAnimations:@"Reset" context:nil];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-	[UIView setAnimationDuration:0.2];
+	[UIView setAnimationCurve:((NSNumber *)info[UIKeyboardAnimationCurveUserInfoKey]).intValue];
+	[UIView setAnimationDuration:((NSNumber *)info[UIKeyboardAnimationDurationUserInfoKey]).doubleValue];
 	UIEdgeInsets contentInsets = UIEdgeInsetsZero;
     scrollView.contentInset = contentInsets;
     scrollView.scrollIndicatorInsets = contentInsets;

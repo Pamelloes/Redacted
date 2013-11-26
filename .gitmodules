@@ -1,3 +1,6 @@
 [submodule "Redacted/JSONKit"]
 	path = Redacted/JSONKit
 	url = https://github.com/johnezang/JSONKit
+[submodule "CocoaHTTPServer"]
+	path = CocoaHTTPServer
+	url = https://github.com/robbiehanson/CocoaHTTPServer

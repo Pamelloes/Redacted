@@ -21,8 +21,11 @@
 #define X_DEVICE_IS_IPAD 1
 #define X_DEVICE_IS_SIM 2
 
+@class HTTPServer;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
 	TorController *tor;
+	HTTPServer *httpServer;
 	
 	UIWindow *window;
 	
@@ -40,6 +43,7 @@
 - (NSUInteger) deviceType;
 
 @property (strong, nonatomic) TorController *tor;
+@property (strong, nonatomic) HTTPServer *httpServer;
 
 @property (strong, nonatomic) UIWindow *window;
 
