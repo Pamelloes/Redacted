@@ -6,11 +6,12 @@
 //
 
 #import "AppDelegate.h"
-#include <Openssl/sha.h>
+#include <openssl/sha.h>
 #import "Bridge.h"
 #include <sys/types.h>
 #include <sys/sysctl.h>
 
+#import "RedactedCrypto.h"
 #import "ConnectViewController.h"
 #import "RedactedHTTPConnection.h"
 #import "HTTPServer.h"
@@ -31,7 +32,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AppDelegate
 
-@synthesize tor, httpServer, window, rootNavigationController,
+@synthesize tor, httpServer, crypto, window, rootNavigationController,
     spoofUserAgent,
     dntHeader,
     usePipelining,
@@ -47,6 +48,21 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
 	
 	[self showInitialWindow];
+	
+	crypto = [[RedactedCrypto alloc] initWithDelegate:self];
+	[crypto deleteLocalKeys];
+	[crypto loadLocalKeys];
+	
+	//A quick lil' sanity check to ensure that a) encryption and decryption works and b) that getPublicKeyBits works correctly.
+	NSData *data = [crypto publicKeyBits];
+	[[crypto publicKeyString] writeToURL:[NSURL URLWithString:@"key" relativeToURL:[self applicationDocumentsDirectory]] atomically:NO encoding:NSUTF8StringEncoding error:nil];
+	SecKeyRef key = [crypto addPeerPublicKey:@"self" keyBits:data];
+	NSString *str = @"testing... 1... 2... 3...";
+	NSData *encrypted = [crypto encryptData:[str dataUsingEncoding:NSUTF8StringEncoding] key:key];
+	NSData *decrypted = [crypto decryptData:encrypted key:crypto.privateKeyRef];
+	[crypto removePeerPublicKey:@"self"];
+	CFRelease(key);
+	NSLog(@"%@", [[NSString alloc] initWithData:decrypted encoding:NSUTF8StringEncoding]);
 	
 	[self startWebserver];
 	
@@ -136,7 +152,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	[torrc replaceOccurrencesOfString:@"{dir}" withString:[self applicationDocumentsDirectory].path options:0 range:NSMakeRange(0, [torrc length])];
 	[torrc replaceOccurrencesOfString:@"{port}" withString:[NSString stringWithFormat:@"%d", httpServer.listeningPort] options:0 range:NSMakeRange(0, [torrc length])];
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    /*NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Bridge" inManagedObjectContext:self.managedObjectContext];
     [request setEntity:entity];
     
@@ -146,8 +162,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 		[torrc appendString:@"UserBridges 1\n"];
         for (Bridge *bridge in mutableFetchResults)
             if (![bridge.conf isEqualToString:@"Tap Here To Edit"] && ![bridge.conf isEqualToString:@""]) [torrc appendFormat:@"bridge %@\n", bridge.conf];
-    }
+    }*/
 	
+	error = nil;
 	[torrc writeToFile:destTorrc atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error != nil) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -195,11 +212,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 - (void) updateProgressComplete {
-    NSString *hnfile = [[[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"hostname"] relativePath];
-	NSError *error;
-	NSString *hostname = [NSString stringWithContentsOfFile:hnfile encoding:NSUTF8StringEncoding error:&error];
-	if (error) DDLogError(@"Unresolved error: %@", error);
-	else DDLogInfo(@"Hostname: %@", hostname);
+	//DDLogInfo(@"Information:\nHost: %@\nPublic Key:\n%@\nPrivate Key:\n%@", crypto.host, crypto.pubkey, crypto.privkey);
+	//NSString *enc = [crypto encryptString:@"12345"];
+	//DDLogInfo(@"Test Encrypted String (12345): %@", enc);
+	//DDLogInfo(@"Test Decrypted String: %@", [crypto decryptString:enc]);
 	
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Welcome-iphone" bundle:nil];
 	UINavigationController *ornc = rootNavigationController;
@@ -237,7 +253,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     if (__managedObjectModel != nil) {
         return __managedObjectModel;
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Settings" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Redacted" withExtension:@"momd"];
     __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return __managedObjectModel;
 }
@@ -250,7 +266,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         return __persistentStoreCoordinator;
     }
     
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Settings.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Redacted.sqlite"];
     
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                              [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,

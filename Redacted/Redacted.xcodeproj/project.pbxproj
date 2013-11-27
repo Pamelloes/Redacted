@@ -92,6 +92,11 @@
 		E66AB6D3183F14510023745A /* Bookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6CE183F14510023745A /* Bookmark.m */; };
 		E66AB6D4183F14510023745A /* BookmarkEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6D0183F14510023745A /* BookmarkEditViewController.m */; };
 		E66AB6D5183F14510023745A /* BookmarkTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6D2183F14510023745A /* BookmarkTableViewController.m */; };
+		E68D341B184434B50078CD1F /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D341A184434B50078CD1F /* Configuration.m */; };
+		E68D341E184434B60078CD1F /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D341D184434B60078CD1F /* Message.m */; };
+		E68D3421184434B60078CD1F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D3420184434B60078CD1F /* User.m */; };
+		E68D3424184434B60078CD1F /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D3423184434B60078CD1F /* Chat.m */; };
+		E68D342718444F990078CD1F /* RedactedCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D342618444F990078CD1F /* RedactedCrypto.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -234,6 +239,16 @@
 		E66AB6D0183F14510023745A /* BookmarkEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BookmarkEditViewController.m; path = Redacted/BookmarkEditViewController.m; sourceTree = SOURCE_ROOT; };
 		E66AB6D1183F14510023745A /* BookmarkTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarkTableViewController.h; path = Redacted/BookmarkTableViewController.h; sourceTree = SOURCE_ROOT; };
 		E66AB6D2183F14510023745A /* BookmarkTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BookmarkTableViewController.m; path = Redacted/BookmarkTableViewController.m; sourceTree = SOURCE_ROOT; };
+		E68D3419184434B50078CD1F /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
+		E68D341A184434B50078CD1F /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
+		E68D341C184434B60078CD1F /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		E68D341D184434B60078CD1F /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		E68D341F184434B60078CD1F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		E68D3420184434B60078CD1F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		E68D3422184434B60078CD1F /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.h; sourceTree = "<group>"; };
+		E68D3423184434B60078CD1F /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.m; sourceTree = "<group>"; };
+		E68D342518444F990078CD1F /* RedactedCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedactedCrypto.h; sourceTree = "<group>"; };
+		E68D342618444F990078CD1F /* RedactedCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedactedCrypto.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +291,7 @@
 				69A82A7D15F97553009B31F1 /* Bookmarks */,
 			);
 			name = Settings;
+			path = OnionBrowser;
 			sourceTree = "<group>";
 		};
 		6940BD3115F87FC100FE74CB /* SettingsView */ = {
@@ -294,13 +310,12 @@
 		696EBD6814F7877900B81BC9 = {
 			isa = PBXGroup;
 			children = (
-				E622BD9E18430C5F00965F67 /* Redacted.xcdatamodeld */,
 				E622BE191844185400965F67 /* CocoaAsyncSocket */,
 				E622BDFE184417AA00965F67 /* CocoaLumberJack */,
 				E622BE211844196200965F67 /* CocoaHTTPServer */,
 				696F9EB114F8DD5300BC5FDC /* ThirdParty */,
 				69BB0A4C14F8D31800E7E909 /* Tor */,
-				696EBD7D14F7877900B81BC9 /* Redacted */,
+				E68D3416184433920078CD1F /* Redacted */,
 				E66AB6A6183F132A0023745A /* Resources */,
 				696EBD7614F7877900B81BC9 /* Frameworks */,
 				696EBD7414F7877900B81BC9 /* Products */,
@@ -333,39 +348,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		696EBD7D14F7877900B81BC9 /* Redacted */ = {
-			isa = PBXGroup;
-			children = (
-				E66AB6A9183F13A80023745A /* AppDelegate.h */,
-				E66AB6AA183F13A80023745A /* AppDelegate.m */,
-				E622BE5F184422A700965F67 /* RedactedHTTPConnection.h */,
-				E622BE60184422A700965F67 /* RedactedHTTPConnection.m */,
-				E622BE651844233400965F67 /* RedactedWebSocket.h */,
-				E622BE661844233400965F67 /* RedactedWebSocket.m */,
-				696EBD7E14F7877900B81BC9 /* Supporting Files */,
-				E66AB6B6183F13F10023745A /* WebViewController.h */,
-				E66AB6B7183F13F10023745A /* WebViewController.m */,
-				E645CD14183F1DB70031D78D /* ProxyURLProtocol.m */,
-				E645CD13183F1DB70031D78D /* ProxyURLProtocol.h */,
-				E645CD16183F1DBD0031D78D /* CKHTTPConnection.h */,
-				E645CD17183F1DBD0031D78D /* CKHTTPConnection.m */,
-				6924C27515525F3B004BE7F9 /* Settings */,
-				E622BD851842D4C200965F67 /* Connect */,
-				E645CD1E184025EA0031D78D /* Welcome */,
-			);
-			name = Redacted;
-			path = OnionBrowser;
-			sourceTree = "<group>";
-		};
 		696EBD7E14F7877900B81BC9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				E66AB6B1183F13D40023745A /* Redacted-Info.plist */,
+				E66AB6B4183F13E10023745A /* Redacted-Prefix.pch */,
 				E645CD19183F1DC70031D78D /* InfoPlist.strings */,
 				E66AB6B3183F13E10023745A /* main.m */,
-				E66AB6B4183F13E10023745A /* Redacted-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = OnionBrowser;
 			sourceTree = "<group>";
 		};
 		696ECDE315FD4A6700F17494 /* Bridges */ = {
@@ -451,6 +443,7 @@
 				E622BD871842D4D600965F67 /* ConnectViewController.m */,
 			);
 			name = Connect;
+			path = OnionBrowser;
 			sourceTree = "<group>";
 		};
 		E622BDFE184417AA00965F67 /* CocoaLumberJack */ = {
@@ -570,6 +563,7 @@
 				E645CD20184026F80031D78D /* WelcomeUsernameViewController.m */,
 			);
 			name = Welcome;
+			path = OnionBrowser;
 			sourceTree = "<group>";
 		};
 		E66AB6A6183F132A0023745A /* Resources */ = {
@@ -581,6 +575,56 @@
 				E645CD1C184010DD0031D78D /* Welcome-iphone.storyboard */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		E68D3416184433920078CD1F /* Redacted */ = {
+			isa = PBXGroup;
+			children = (
+				E66AB6A9183F13A80023745A /* AppDelegate.h */,
+				E66AB6AA183F13A80023745A /* AppDelegate.m */,
+				E68D342518444F990078CD1F /* RedactedCrypto.h */,
+				E68D342618444F990078CD1F /* RedactedCrypto.m */,
+				E68D3417184434520078CD1F /* CoreData */,
+				E68D3418184434750078CD1F /* WebServer */,
+				696EBD7E14F7877900B81BC9 /* Supporting Files */,
+				E66AB6B6183F13F10023745A /* WebViewController.h */,
+				E66AB6B7183F13F10023745A /* WebViewController.m */,
+				E645CD13183F1DB70031D78D /* ProxyURLProtocol.h */,
+				E645CD14183F1DB70031D78D /* ProxyURLProtocol.m */,
+				E645CD16183F1DBD0031D78D /* CKHTTPConnection.h */,
+				E645CD17183F1DBD0031D78D /* CKHTTPConnection.m */,
+				6924C27515525F3B004BE7F9 /* Settings */,
+				E622BD851842D4C200965F67 /* Connect */,
+				E645CD1E184025EA0031D78D /* Welcome */,
+			);
+			name = Redacted;
+			sourceTree = "<group>";
+		};
+		E68D3417184434520078CD1F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E622BD9E18430C5F00965F67 /* Redacted.xcdatamodeld */,
+				E68D3422184434B60078CD1F /* Chat.h */,
+				E68D3423184434B60078CD1F /* Chat.m */,
+				E68D341F184434B60078CD1F /* User.h */,
+				E68D3420184434B60078CD1F /* User.m */,
+				E68D341C184434B60078CD1F /* Message.h */,
+				E68D341D184434B60078CD1F /* Message.m */,
+				E68D3419184434B50078CD1F /* Configuration.h */,
+				E68D341A184434B50078CD1F /* Configuration.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		E68D3418184434750078CD1F /* WebServer */ = {
+			isa = PBXGroup;
+			children = (
+				E622BE5F184422A700965F67 /* RedactedHTTPConnection.h */,
+				E622BE60184422A700965F67 /* RedactedHTTPConnection.m */,
+				E622BE651844233400965F67 /* RedactedWebSocket.h */,
+				E622BE661844233400965F67 /* RedactedWebSocket.m */,
+			);
+			name = WebServer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -693,6 +737,7 @@
 				E622BE571844196200965F67 /* HTTPFileResponse.m in Sources */,
 				E622BE4C1844196200965F67 /* HTTPAuthenticationRequest.m in Sources */,
 				E622BE4E1844196200965F67 /* HTTPMessage.m in Sources */,
+				E68D342718444F990078CD1F /* RedactedCrypto.m in Sources */,
 				E622BE511844196200965F67 /* MultipartMessageHeader.m in Sources */,
 				E622BE14184417AA00965F67 /* DDLog.m in Sources */,
 				E622BE491844196200965F67 /* DDData.m in Sources */,
@@ -700,13 +745,17 @@
 				6954F8ED15FE985E00AE8658 /* NSData+CocoaDevUsersAdditions.m in Sources */,
 				E622BE15184417AA00965F67 /* DDTTYLogger.m in Sources */,
 				E622BE4D1844196200965F67 /* HTTPConnection.m in Sources */,
+				E68D3424184434B60078CD1F /* Chat.m in Sources */,
 				E66AB6B5183F13E10023745A /* main.m in Sources */,
+				E68D341B184434B50078CD1F /* Configuration.m in Sources */,
+				E68D341E184434B60078CD1F /* Message.m in Sources */,
 				E66AB6CA183F14400023745A /* SettingsTableViewController.m in Sources */,
 				E66AB6D5183F14510023745A /* BookmarkTableViewController.m in Sources */,
 				E645CD18183F1DBD0031D78D /* CKHTTPConnection.m in Sources */,
 				E622BE541844196200965F67 /* HTTPDataResponse.m in Sources */,
 				E622BE11184417AA00965F67 /* DDAbstractDatabaseLogger.m in Sources */,
 				E622BE531844196200965F67 /* HTTPAsyncFileResponse.m in Sources */,
+				E68D3421184434B60078CD1F /* User.m in Sources */,
 				E66AB6AB183F13A80023745A /* AppDelegate.m in Sources */,
 				E66AB6D4183F14510023745A /* BookmarkEditViewController.m in Sources */,
 				E622BE501844196200965F67 /* MultipartFormDataParser.m in Sources */,

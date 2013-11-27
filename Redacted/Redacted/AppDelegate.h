@@ -21,11 +21,13 @@
 #define X_DEVICE_IS_IPAD 1
 #define X_DEVICE_IS_SIM 2
 
-@class HTTPServer;
+@class HTTPServer, RedactedCrypto;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
 	TorController *tor;
 	HTTPServer *httpServer;
+	
+	RedactedCrypto *crypto;
 	
 	UIWindow *window;
 	
@@ -42,8 +44,10 @@
 - (void)wipeAppData;
 - (NSUInteger) deviceType;
 
-@property (strong, nonatomic) TorController *tor;
-@property (strong, nonatomic) HTTPServer *httpServer;
+@property (nonatomic, strong, readonly) TorController *tor;
+@property (nonatomic, strong, readonly) HTTPServer *httpServer;
+
+@property (nonatomic, strong, readonly) RedactedCrypto *crypto;
 
 @property (strong, nonatomic) UIWindow *window;
 
