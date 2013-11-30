@@ -2,7 +2,7 @@
 //  Chat.m
 //  Redacted
 //
-//  Created by Joshua Brot on 11/25/13.
+//  Created by Joshua Brot on 11/28/13.
 //
 //
 
@@ -14,7 +14,7 @@
 @implementation Chat
 
 @dynamic name;
-@dynamic users;
 @dynamic config;
+@dynamic users;
 
 @end

@@ -7,32 +7,39 @@
 
 #import "AppDelegate.h"
 #include <openssl/sha.h>
-#import "Bridge.h"
 #include <sys/types.h>
 #include <sys/sysctl.h>
 
 #import "RedactedCrypto.h"
 #import "ConnectViewController.h"
+#import "UsernameRegistrationViewController.h"
 #import "RedactedHTTPConnection.h"
 #import "HTTPServer.h"
 #import "DDLog.h"
 #import "DDTTYLogger.h"
+#import "Configuration.h"
+#import "User.h"
 
 // Log levels: off, error, warn, info, verbose
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
-@interface AppDelegate () {
-	ConnectViewController *connectViewController;
-}
+@interface AppDelegate ()
 
 -(void) startWebserver;
+
+-(void) loadPersistantData;
+-(void) loadConfiguration;
+-(void) loadRootUser;
+
+- (void) updateUserData;
+
 -(void) showInitialWindow;
 
 @end
 
 @implementation AppDelegate
 
-@synthesize tor, httpServer, crypto, window, rootNavigationController,
+@synthesize tor, httpServer, crypto, config, root, window, rootNavigationController,
     spoofUserAgent,
     dntHeader,
     usePipelining,
@@ -50,19 +57,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	[self showInitialWindow];
 	
 	crypto = [[RedactedCrypto alloc] initWithDelegate:self];
-	[crypto deleteLocalKeys];
+	//[crypto deleteLocalKeys];
 	[crypto loadLocalKeys];
 	
-	//A quick lil' sanity check to ensure that a) encryption and decryption works and b) that getPublicKeyBits works correctly.
-	NSData *data = [crypto publicKeyBits];
-	[[crypto publicKeyString] writeToURL:[NSURL URLWithString:@"key" relativeToURL:[self applicationDocumentsDirectory]] atomically:NO encoding:NSUTF8StringEncoding error:nil];
-	SecKeyRef key = [crypto addPeerPublicKey:@"self" keyBits:data];
-	NSString *str = @"testing... 1... 2... 3...";
-	NSData *encrypted = [crypto encryptData:[str dataUsingEncoding:NSUTF8StringEncoding] key:key];
-	NSData *decrypted = [crypto decryptData:encrypted key:crypto.privateKeyRef];
-	[crypto removePeerPublicKey:@"self"];
-	CFRelease(key);
-	NSLog(@"%@", [[NSString alloc] initWithData:decrypted encoding:NSUTF8StringEncoding]);
+	[self loadPersistantData];
 	
 	[self startWebserver];
 	
@@ -102,7 +100,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     for (cookie in [storage cookies]) {
         [storage deleteCookie:cookie];
     }*/
-    
+	
     return YES;
 }
 
@@ -125,7 +123,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(void) showInitialWindow {
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Connect-iphone" bundle:nil];
 	rootNavigationController = (UINavigationController *) [storyboard instantiateInitialViewController];
-	connectViewController = (ConnectViewController *) rootNavigationController.topViewController;
 	
     window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	window.rootViewController = rootNavigationController;
@@ -166,9 +163,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	
 	error = nil;
 	[torrc writeToFile:destTorrc atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    if (error != nil) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	}
+    if (error != nil) DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
 }
 
 - (void)wipeAppData {
@@ -207,25 +202,120 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     } // TODO: otherwise, WTF
 }
 
+- (void) loadPersistantData {
+	[self loadConfiguration];
+	[self loadRootUser];
+}
+
+- (void) loadConfiguration {
+	NSError *error;
+	NSFetchRequest *fr = [[NSFetchRequest alloc] initWithEntityName:@"Configuration"];
+	NSArray *configs = [self.managedObjectContext executeFetchRequest:fr error:&error];
+	
+	if (error) {
+		DDLogError(@"Error retrieving configuration: %@", error);
+		error = nil;
+	} else if ([configs count] <= 0){
+		DDLogInfo(@"Could not find existing configuration...");
+	} else {
+		if ([configs count] > 1) DDLogWarn(@"Found multiple configurations. Using the first one. This may lead to an inconsistant state.");
+		config = (Configuration *) [configs objectAtIndex:0];
+		return;
+	}
+	
+	DDLogInfo(@"Generating new configuration...");
+	config = (Configuration *) [NSEntityDescription insertNewObjectForEntityForName:@"Configuration" inManagedObjectContext:self.managedObjectContext];
+	config.registered = [NSNumber numberWithBool:NO];
+	
+	[self.managedObjectContext save:&error];
+	if (error) DDLogError(@"Error saving database: %@", error);
+}
+
+- (void) loadRootUser {
+	root = (User *) config.luser;
+	if (root) return;
+	
+	DDLogInfo(@"Could not find root user...");
+	DDLogInfo(@"Generating new root user...");
+	
+	root = (User *) [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+	root.pkey = crypto.publicKeyString;
+	root.luser = config;
+	root.config = config;
+	
+	config.luser = root;
+	[[config mutableSetValueForKey:@"users"] addObject:root];
+	
+	NSError *error;
+	[self.managedObjectContext save:&error];
+	if (error) DDLogError(@"Error saving database: %@", error);
+}
+
 - (void) updateProgress:(NSString *)statusLine {
-	if (connectViewController) [connectViewController updateProgress:statusLine];
+	ConnectViewController *cvc = (ConnectViewController *) rootNavigationController.topViewController;
+	if (cvc && [cvc isKindOfClass:[ConnectViewController class]]) [cvc updateProgress:statusLine];
 }
 
 - (void) updateProgressComplete {
-	//DDLogInfo(@"Information:\nHost: %@\nPublic Key:\n%@\nPrivate Key:\n%@", crypto.host, crypto.pubkey, crypto.privkey);
-	//NSString *enc = [crypto encryptString:@"12345"];
-	//DDLogInfo(@"Test Encrypted String (12345): %@", enc);
-	//DDLogInfo(@"Test Decrypted String: %@", [crypto decryptString:enc]);
-	
-	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Welcome-iphone" bundle:nil];
-	UINavigationController *ornc = rootNavigationController;
-	rootNavigationController = [storyboard instantiateInitialViewController];
-	[ornc pushViewController:rootNavigationController.topViewController animated:YES];
+	NSError *error;
+	NSString *hostname = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"hostname" relativeToURL:[self applicationDocumentsDirectory]] encoding:NSUTF8StringEncoding error:&error];
+	if (error) DDLogError(@"Unable to retrieve hostname: %@", error);
+	root.addr = [[hostname componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
+	if (config.registered.boolValue) {
+		[self updateUserData];
+		[self showChatWindow];
+	} else {
+		[self showWelcomeWindow];
+	}
+}
+
+- (void) updateUserData {
+	//TODO sync with server.
 }
 
 - (void) storyboardTransitionComplete: (UIViewController *) controller {
 	[rootNavigationController setViewControllers:[NSArray arrayWithObject:controller] animated:NO];
 	window.rootViewController = rootNavigationController;
+}
+
+- (void) recievedRegistrationKey:(NSString *)key {
+	UsernameRegistrationViewController *urc = (UsernameRegistrationViewController *) rootNavigationController.topViewController;
+	if (urc && [urc isKindOfClass:[UsernameRegistrationViewController class]]) [urc recievedKey:key];
+}
+
+- (void) registrationComplete {
+	config.registered = [NSNumber numberWithBool:YES];
+	
+	NSError *error;
+	[self.managedObjectContext save:&error];
+	if (error) DDLogError(@"Error saving database: %@", error);
+	
+	[self showChatWindow];
+}
+
+- (void) failureWithString:(NSString *)error {
+	UsernameRegistrationViewController *urc = (UsernameRegistrationViewController *) rootNavigationController.topViewController;
+	if (urc && [urc isKindOfClass:[UsernameRegistrationViewController class]]) [urc failureWithString:error];
+}
+
+- (void) failureWithError:(NSError *)error {
+	UsernameRegistrationViewController *urc = (UsernameRegistrationViewController *) rootNavigationController.topViewController;
+	if (urc && [urc isKindOfClass:[UsernameRegistrationViewController class]]) [urc failureWithError:error];
+}
+
+- (void) showChatWindow {
+	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chat-iphone" bundle:nil];
+	UINavigationController *ornc = rootNavigationController;
+	rootNavigationController = [storyboard instantiateInitialViewController];
+	[ornc pushViewController:rootNavigationController.topViewController animated:YES];
+	rootNavigationController = [storyboard instantiateInitialViewController]; //Basically, because we have a navigation bar this needs to happen for control to transfer correctly.
+}
+
+- (void) showWelcomeWindow {
+	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Welcome-iphone" bundle:nil];
+	UINavigationController *ornc = rootNavigationController;
+	rootNavigationController = [storyboard instantiateInitialViewController];
+	[ornc pushViewController:rootNavigationController.topViewController animated:YES];
 }
 
 #pragma mark - Core Data stack

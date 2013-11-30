@@ -265,24 +265,22 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     size_t dataLength = [data length];
 	
 	size_t cipherBufferSize = SecKeyGetBlockSize(key);
-	uint8_t *cipherBuffer = malloc(cipherBufferSize);
+	uint8_t *cipherBuffer = malloc( ceil(dataLength/(double)cipherBufferSize) * cipherBufferSize);
 	
-	//  Error handling
+	size_t pos = 0;
+	size_t epos = 0;
+	size_t enpos = cipherBufferSize;
+	while (pos < dataLength) {
+		//NSLog(@"Encrypt: %lu %lu %lu", pos, epos, enpos);
+		sanityCheck = SecKeyEncrypt(key, kPaddingType, dataToEncrypt + pos * sizeof(uint8_t), MIN(cipherBufferSize - 11, dataLength - pos),  cipherBuffer + epos * sizeof(uint8_t), &enpos);
+		[self validate:sanityCheck == noErr Error: [NSString stringWithFormat:@"Could not encrypt data! OSStatus == %d.", (int) sanityCheck]];
+		
+		pos += cipherBufferSize - 11;
+		epos += enpos;
+		enpos = cipherBufferSize;
+	}
 	
-    if (cipherBufferSize < dataLength) {
-        // Ordinarily, you would split the data up into blocks
-        // equal to cipherBufferSize, with the last block being
-        // shorter. For simplicity, this example assumes that
-        // the data is short enough to fit.
-        printf("Could not decrypt.  Packet too large.\n");
-        return NULL;
-    }
-	
-    // Encrypt using the public.
-    sanityCheck = SecKeyEncrypt(key, kPaddingType, dataToEncrypt, (size_t) dataLength,  cipherBuffer, &cipherBufferSize);
-	[self validate:sanityCheck == noErr Error: [NSString stringWithFormat:@"Could not encrypt data! OSStatus == %d.", (int) sanityCheck]];
-	
-    NSData *encryptedData = [NSData dataWithBytes:cipherBuffer length:cipherBufferSize];
+    NSData *encryptedData = [NSData dataWithBytes:cipherBuffer length:epos];
 	
     free(cipherBuffer);
 	
@@ -303,23 +301,23 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	
     //  Allocate the buffer
     plainBufferSize = SecKeyGetBlockSize(key);
-    plainBuffer = malloc(plainBufferSize);
+    plainBuffer = malloc(ceil(cipherBufferSize/(double)plainBufferSize) * plainBufferSize);
 	
-    if (plainBufferSize < cipherBufferSize) {
-        // Ordinarily, you would split the data up into blocks
-        // equal to plainBufferSize, with the last block being
-        // shorter. For simplicity, this example assumes that
-        // the data is short enough to fit.
-        printf("Could not decrypt.  Packet too large.\n");
-        return NULL;
-    }
+	size_t pos = 0;
+	size_t epos = 0;
+	size_t enpos = plainBufferSize;
+	while (pos < cipherBufferSize) {
+		//NSLog(@"Decrypt: %lu %lu %lu", pos, epos, enpos);
+		sanityCheck = SecKeyDecrypt(key, kPaddingType, cipherBuffer + pos * sizeof(uint8_t), MIN(plainBufferSize, cipherBufferSize - pos), plainBuffer + epos * sizeof(uint8_t), &enpos);
+		[self validate:sanityCheck == noErr Error: [NSString stringWithFormat:@"Could not decrypt data! OSStatus == %d.", (int) sanityCheck]];
+		
+		pos += plainBufferSize;
+		epos += enpos;
+		enpos = plainBufferSize;
+	}
 	
-	//  Error handling
 	
-    sanityCheck = SecKeyDecrypt(key, kPaddingType, cipherBuffer, cipherBufferSize, plainBuffer,  &plainBufferSize );
-	[self validate:sanityCheck == noErr Error: [NSString stringWithFormat:@"Could not decrypt data! OSStatus == %d.", (int) sanityCheck]];
-	
-	NSData *decryptedData = [NSData dataWithBytes:plainBuffer length:plainBufferSize];
+	NSData *decryptedData = [NSData dataWithBytes:plainBuffer length:epos];
 	
 	free (plainBuffer);
 	

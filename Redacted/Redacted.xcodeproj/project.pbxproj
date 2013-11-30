@@ -82,21 +82,14 @@
 		E66AB6A8183F138B0023745A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E66AB6A7183F138B0023745A /* Images.xcassets */; };
 		E66AB6AB183F13A80023745A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6AA183F13A80023745A /* AppDelegate.m */; };
 		E66AB6B5183F13E10023745A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6B3183F13E10023745A /* main.m */; };
-		E66AB6B8183F13F10023745A /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6B7183F13F10023745A /* WebViewController.m */; };
-		E66AB6C2183F142E0023745A /* Bridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6BD183F142E0023745A /* Bridge.m */; };
-		E66AB6C3183F142E0023745A /* BridgeEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6BF183F142E0023745A /* BridgeEditViewController.m */; };
-		E66AB6C4183F142E0023745A /* BridgeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6C1183F142E0023745A /* BridgeTableViewController.m */; };
-		E66AB6CA183F14400023745A /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6C6183F14400023745A /* SettingsTableViewController.m */; };
-		E66AB6CB183F14400023745A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6C8183F14400023745A /* SettingsViewController.m */; };
-		E66AB6CC183F14400023745A /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E66AB6C9183F14400023745A /* SettingsViewController.xib */; };
-		E66AB6D3183F14510023745A /* Bookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6CE183F14510023745A /* Bookmark.m */; };
-		E66AB6D4183F14510023745A /* BookmarkEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6D0183F14510023745A /* BookmarkEditViewController.m */; };
-		E66AB6D5183F14510023745A /* BookmarkTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6D2183F14510023745A /* BookmarkTableViewController.m */; };
-		E68D341B184434B50078CD1F /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D341A184434B50078CD1F /* Configuration.m */; };
-		E68D341E184434B60078CD1F /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D341D184434B60078CD1F /* Message.m */; };
-		E68D3421184434B60078CD1F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D3420184434B60078CD1F /* User.m */; };
-		E68D3424184434B60078CD1F /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D3423184434B60078CD1F /* Chat.m */; };
 		E68D342718444F990078CD1F /* RedactedCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D342618444F990078CD1F /* RedactedCrypto.m */; };
+		E68D3430184839B10078CD1F /* UsernameRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D342F184839B10078CD1F /* UsernameRegistrationViewController.m */; };
+		E69A26FC18484C8500161827 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A26FB18484C8500161827 /* Message.m */; };
+		E69A26FF18484C8500161827 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A26FE18484C8500161827 /* User.m */; };
+		E69A270218484C8500161827 /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A270118484C8500161827 /* Chat.m */; };
+		E69A270518484C8600161827 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A270418484C8600161827 /* Configuration.m */; };
+		E69A270718493AD000161827 /* Chat-iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E69A270618493AD000161827 /* Chat-iphone.storyboard */; };
+		E69A270E1849489200161827 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A270D1849489200161827 /* ChatViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -220,35 +213,22 @@
 		E66AB6B1183F13D40023745A /* Redacted-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Redacted-Info.plist"; path = "Redacted/Redacted-Info.plist"; sourceTree = SOURCE_ROOT; };
 		E66AB6B3183F13E10023745A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Redacted/main.m; sourceTree = SOURCE_ROOT; };
 		E66AB6B4183F13E10023745A /* Redacted-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Redacted-Prefix.pch"; path = "Redacted/Redacted-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		E66AB6B6183F13F10023745A /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = Redacted/WebViewController.h; sourceTree = SOURCE_ROOT; };
-		E66AB6B7183F13F10023745A /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = Redacted/WebViewController.m; sourceTree = SOURCE_ROOT; };
-		E66AB6BC183F142E0023745A /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bridge.h; path = Redacted/Bridge.h; sourceTree = SOURCE_ROOT; };
-		E66AB6BD183F142E0023745A /* Bridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bridge.m; path = Redacted/Bridge.m; sourceTree = SOURCE_ROOT; };
-		E66AB6BE183F142E0023745A /* BridgeEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BridgeEditViewController.h; path = Redacted/BridgeEditViewController.h; sourceTree = SOURCE_ROOT; };
-		E66AB6BF183F142E0023745A /* BridgeEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BridgeEditViewController.m; path = Redacted/BridgeEditViewController.m; sourceTree = SOURCE_ROOT; };
-		E66AB6C0183F142E0023745A /* BridgeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BridgeTableViewController.h; path = Redacted/BridgeTableViewController.h; sourceTree = SOURCE_ROOT; };
-		E66AB6C1183F142E0023745A /* BridgeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BridgeTableViewController.m; path = Redacted/BridgeTableViewController.m; sourceTree = SOURCE_ROOT; };
-		E66AB6C5183F14400023745A /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsTableViewController.h; path = Redacted/SettingsTableViewController.h; sourceTree = SOURCE_ROOT; };
-		E66AB6C6183F14400023745A /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsTableViewController.m; path = Redacted/SettingsTableViewController.m; sourceTree = SOURCE_ROOT; };
-		E66AB6C7183F14400023745A /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = Redacted/SettingsViewController.h; sourceTree = SOURCE_ROOT; };
-		E66AB6C8183F14400023745A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = Redacted/SettingsViewController.m; sourceTree = SOURCE_ROOT; };
-		E66AB6C9183F14400023745A /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = Redacted/SettingsViewController.xib; sourceTree = SOURCE_ROOT; };
-		E66AB6CD183F14510023745A /* Bookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bookmark.h; path = Redacted/Bookmark.h; sourceTree = SOURCE_ROOT; };
-		E66AB6CE183F14510023745A /* Bookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bookmark.m; path = Redacted/Bookmark.m; sourceTree = SOURCE_ROOT; };
-		E66AB6CF183F14510023745A /* BookmarkEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarkEditViewController.h; path = Redacted/BookmarkEditViewController.h; sourceTree = SOURCE_ROOT; };
-		E66AB6D0183F14510023745A /* BookmarkEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BookmarkEditViewController.m; path = Redacted/BookmarkEditViewController.m; sourceTree = SOURCE_ROOT; };
-		E66AB6D1183F14510023745A /* BookmarkTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarkTableViewController.h; path = Redacted/BookmarkTableViewController.h; sourceTree = SOURCE_ROOT; };
-		E66AB6D2183F14510023745A /* BookmarkTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BookmarkTableViewController.m; path = Redacted/BookmarkTableViewController.m; sourceTree = SOURCE_ROOT; };
-		E68D3419184434B50078CD1F /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
-		E68D341A184434B50078CD1F /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
-		E68D341C184434B60078CD1F /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		E68D341D184434B60078CD1F /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
-		E68D341F184434B60078CD1F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		E68D3420184434B60078CD1F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		E68D3422184434B60078CD1F /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.h; sourceTree = "<group>"; };
-		E68D3423184434B60078CD1F /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.m; sourceTree = "<group>"; };
 		E68D342518444F990078CD1F /* RedactedCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedactedCrypto.h; sourceTree = "<group>"; };
 		E68D342618444F990078CD1F /* RedactedCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedactedCrypto.m; sourceTree = "<group>"; };
+		E68D342E184839B10078CD1F /* UsernameRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsernameRegistrationViewController.h; path = Redacted/UsernameRegistrationViewController.h; sourceTree = SOURCE_ROOT; };
+		E68D342F184839B10078CD1F /* UsernameRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsernameRegistrationViewController.m; path = Redacted/UsernameRegistrationViewController.m; sourceTree = SOURCE_ROOT; };
+		E69A26FA18484C8500161827 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Message.h; path = Redacted/Message.h; sourceTree = "<group>"; };
+		E69A26FB18484C8500161827 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Message.m; path = Redacted/Message.m; sourceTree = "<group>"; };
+		E69A26FD18484C8500161827 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Redacted/User.h; sourceTree = "<group>"; };
+		E69A26FE18484C8500161827 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Redacted/User.m; sourceTree = "<group>"; };
+		E69A270018484C8500161827 /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Chat.h; path = Redacted/Chat.h; sourceTree = "<group>"; };
+		E69A270118484C8500161827 /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Chat.m; path = Redacted/Chat.m; sourceTree = "<group>"; };
+		E69A270318484C8600161827 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Configuration.h; path = Redacted/Configuration.h; sourceTree = "<group>"; };
+		E69A270418484C8600161827 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Configuration.m; path = Redacted/Configuration.m; sourceTree = "<group>"; };
+		E69A270618493AD000161827 /* Chat-iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Chat-iphone.storyboard"; sourceTree = "<group>"; };
+		E69A270C1849489200161827 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatViewController.h; path = Redacted/ChatViewController.h; sourceTree = "<group>"; };
+		E69A270D1849489200161827 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatViewController.m; path = Redacted/ChatViewController.m; sourceTree = "<group>"; };
+		E6C62CCB1849C5B400F3424B /* Redacted2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = Redacted2.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,29 +264,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6924C27515525F3B004BE7F9 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				6940BD3115F87FC100FE74CB /* SettingsView */,
-				69A82A7D15F97553009B31F1 /* Bookmarks */,
-			);
-			name = Settings;
-			path = OnionBrowser;
-			sourceTree = "<group>";
-		};
-		6940BD3115F87FC100FE74CB /* SettingsView */ = {
-			isa = PBXGroup;
-			children = (
-				696ECDE315FD4A6700F17494 /* Bridges */,
-				E66AB6C5183F14400023745A /* SettingsTableViewController.h */,
-				E66AB6C6183F14400023745A /* SettingsTableViewController.m */,
-				E66AB6C7183F14400023745A /* SettingsViewController.h */,
-				E66AB6C8183F14400023745A /* SettingsViewController.m */,
-				E66AB6C9183F14400023745A /* SettingsViewController.xib */,
-			);
-			name = SettingsView;
-			sourceTree = "<group>";
-		};
 		696EBD6814F7877900B81BC9 = {
 			isa = PBXGroup;
 			children = (
@@ -360,19 +317,6 @@
 			path = OnionBrowser;
 			sourceTree = "<group>";
 		};
-		696ECDE315FD4A6700F17494 /* Bridges */ = {
-			isa = PBXGroup;
-			children = (
-				E66AB6BC183F142E0023745A /* Bridge.h */,
-				E66AB6BD183F142E0023745A /* Bridge.m */,
-				E66AB6BE183F142E0023745A /* BridgeEditViewController.h */,
-				E66AB6BF183F142E0023745A /* BridgeEditViewController.m */,
-				E66AB6C0183F142E0023745A /* BridgeTableViewController.h */,
-				E66AB6C1183F142E0023745A /* BridgeTableViewController.m */,
-			);
-			name = Bridges;
-			sourceTree = "<group>";
-		};
 		696F9EB114F8DD5300BC5FDC /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
@@ -407,19 +351,6 @@
 				69847C4614F788E100288277 /* libtor.a */,
 			);
 			name = External;
-			sourceTree = "<group>";
-		};
-		69A82A7D15F97553009B31F1 /* Bookmarks */ = {
-			isa = PBXGroup;
-			children = (
-				E66AB6CD183F14510023745A /* Bookmark.h */,
-				E66AB6CE183F14510023745A /* Bookmark.m */,
-				E66AB6CF183F14510023745A /* BookmarkEditViewController.h */,
-				E66AB6D0183F14510023745A /* BookmarkEditViewController.m */,
-				E66AB6D1183F14510023745A /* BookmarkTableViewController.h */,
-				E66AB6D2183F14510023745A /* BookmarkTableViewController.m */,
-			);
-			name = Bookmarks;
 			sourceTree = "<group>";
 		};
 		69BB0A4C14F8D31800E7E909 /* Tor */ = {
@@ -561,6 +492,8 @@
 				E622BD8A1842DB4100965F67 /* WelcomeViewController.m */,
 				E645CD1F184026F80031D78D /* WelcomeUsernameViewController.h */,
 				E645CD20184026F80031D78D /* WelcomeUsernameViewController.m */,
+				E68D342E184839B10078CD1F /* UsernameRegistrationViewController.h */,
+				E68D342F184839B10078CD1F /* UsernameRegistrationViewController.m */,
 			);
 			name = Welcome;
 			path = OnionBrowser;
@@ -573,6 +506,7 @@
 				E66AB6A7183F138B0023745A /* Images.xcassets */,
 				E622BD831842CC8000965F67 /* Connect-iphone.storyboard */,
 				E645CD1C184010DD0031D78D /* Welcome-iphone.storyboard */,
+				E69A270618493AD000161827 /* Chat-iphone.storyboard */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -587,15 +521,13 @@
 				E68D3417184434520078CD1F /* CoreData */,
 				E68D3418184434750078CD1F /* WebServer */,
 				696EBD7E14F7877900B81BC9 /* Supporting Files */,
-				E66AB6B6183F13F10023745A /* WebViewController.h */,
-				E66AB6B7183F13F10023745A /* WebViewController.m */,
 				E645CD13183F1DB70031D78D /* ProxyURLProtocol.h */,
 				E645CD14183F1DB70031D78D /* ProxyURLProtocol.m */,
 				E645CD16183F1DBD0031D78D /* CKHTTPConnection.h */,
 				E645CD17183F1DBD0031D78D /* CKHTTPConnection.m */,
-				6924C27515525F3B004BE7F9 /* Settings */,
 				E622BD851842D4C200965F67 /* Connect */,
 				E645CD1E184025EA0031D78D /* Welcome */,
+				E69A270B1849486A00161827 /* Chat */,
 			);
 			name = Redacted;
 			sourceTree = "<group>";
@@ -604,14 +536,14 @@
 			isa = PBXGroup;
 			children = (
 				E622BD9E18430C5F00965F67 /* Redacted.xcdatamodeld */,
-				E68D3422184434B60078CD1F /* Chat.h */,
-				E68D3423184434B60078CD1F /* Chat.m */,
-				E68D341F184434B60078CD1F /* User.h */,
-				E68D3420184434B60078CD1F /* User.m */,
-				E68D341C184434B60078CD1F /* Message.h */,
-				E68D341D184434B60078CD1F /* Message.m */,
-				E68D3419184434B50078CD1F /* Configuration.h */,
-				E68D341A184434B50078CD1F /* Configuration.m */,
+				E69A270318484C8600161827 /* Configuration.h */,
+				E69A270418484C8600161827 /* Configuration.m */,
+				E69A270018484C8500161827 /* Chat.h */,
+				E69A270118484C8500161827 /* Chat.m */,
+				E69A26FD18484C8500161827 /* User.h */,
+				E69A26FE18484C8500161827 /* User.m */,
+				E69A26FA18484C8500161827 /* Message.h */,
+				E69A26FB18484C8500161827 /* Message.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -625,6 +557,15 @@
 				E622BE661844233400965F67 /* RedactedWebSocket.m */,
 			);
 			name = WebServer;
+			sourceTree = "<group>";
+		};
+		E69A270B1849486A00161827 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				E69A270C1849489200161827 /* ChatViewController.h */,
+				E69A270D1849489200161827 /* ChatViewController.m */,
+			);
+			name = Chat;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -687,12 +628,12 @@
 				E66AB6A8183F138B0023745A /* Images.xcassets in Resources */,
 				E622BE10184417AA00965F67 /* About.txt in Resources */,
 				E622BE1D1844185400965F67 /* About.txt in Resources */,
+				E69A270718493AD000161827 /* Chat-iphone.storyboard in Resources */,
 				696F9EB014F8DA6900BC5FDC /* torrc in Resources */,
 				E645CD1D184010DD0031D78D /* Welcome-iphone.storyboard in Resources */,
 				E622BD841842CC8000965F67 /* Connect-iphone.storyboard in Resources */,
 				E622BE5B18441F6900965F67 /* Web in Resources */,
 				69F88FCC1500A9D900C7BE98 /* geoip in Resources */,
-				E66AB6CC183F14400023745A /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,29 +652,25 @@
 				E622BE551844196200965F67 /* HTTPDynamicFileResponse.m in Sources */,
 				E622BE581844196200965F67 /* HTTPRedirectResponse.m in Sources */,
 				696F9EAE14F8D6ED00BC5FDC /* tor_main.c in Sources */,
+				E69A26FF18484C8500161827 /* User.m in Sources */,
 				696F9EB414F8DD6D00BC5FDC /* ULINetSocket.m in Sources */,
-				E66AB6C2183F142E0023745A /* Bridge.m in Sources */,
 				E622BD8B1842DB4100965F67 /* WelcomeViewController.m in Sources */,
 				692B86AF153CD4CB000806A9 /* NSData+Conversion.m in Sources */,
 				E622BD881842D4D600965F67 /* ConnectViewController.m in Sources */,
 				E622BE1E1844185400965F67 /* GCDAsyncSocket.m in Sources */,
+				E69A270E1849489200161827 /* ChatViewController.m in Sources */,
 				E622BE61184422A700965F67 /* RedactedHTTPConnection.m in Sources */,
-				E66AB6CB183F14400023745A /* SettingsViewController.m in Sources */,
 				E622BE16184417AA00965F67 /* ContextFilterLogFormatter.m in Sources */,
 				E622BE521844196200965F67 /* MultipartMessageHeaderField.m in Sources */,
 				E645CD15183F1DB70031D78D /* ProxyURLProtocol.m in Sources */,
 				E622BE4F1844196200965F67 /* HTTPServer.m in Sources */,
-				E66AB6C3183F142E0023745A /* BridgeEditViewController.m in Sources */,
 				6940BD1F15F84C0C00FE74CB /* TorController.m in Sources */,
 				E622BDA018430C5F00965F67 /* Redacted.xcdatamodeld in Sources */,
 				E622BE561844196200965F67 /* HTTPErrorResponse.m in Sources */,
-				E66AB6B8183F13F10023745A /* WebViewController.m in Sources */,
 				E622BE12184417AA00965F67 /* DDASLLogger.m in Sources */,
-				E66AB6C4183F142E0023745A /* BridgeTableViewController.m in Sources */,
 				E645CD21184026F80031D78D /* WelcomeUsernameViewController.m in Sources */,
 				E622BE4B1844196200965F67 /* DDRange.m in Sources */,
 				E622BE13184417AA00965F67 /* DDFileLogger.m in Sources */,
-				E66AB6D3183F14510023745A /* Bookmark.m in Sources */,
 				E622BE571844196200965F67 /* HTTPFileResponse.m in Sources */,
 				E622BE4C1844196200965F67 /* HTTPAuthenticationRequest.m in Sources */,
 				E622BE4E1844196200965F67 /* HTTPMessage.m in Sources */,
@@ -745,19 +682,16 @@
 				6954F8ED15FE985E00AE8658 /* NSData+CocoaDevUsersAdditions.m in Sources */,
 				E622BE15184417AA00965F67 /* DDTTYLogger.m in Sources */,
 				E622BE4D1844196200965F67 /* HTTPConnection.m in Sources */,
-				E68D3424184434B60078CD1F /* Chat.m in Sources */,
+				E69A270218484C8500161827 /* Chat.m in Sources */,
+				E69A26FC18484C8500161827 /* Message.m in Sources */,
 				E66AB6B5183F13E10023745A /* main.m in Sources */,
-				E68D341B184434B50078CD1F /* Configuration.m in Sources */,
-				E68D341E184434B60078CD1F /* Message.m in Sources */,
-				E66AB6CA183F14400023745A /* SettingsTableViewController.m in Sources */,
-				E66AB6D5183F14510023745A /* BookmarkTableViewController.m in Sources */,
+				E69A270518484C8600161827 /* Configuration.m in Sources */,
 				E645CD18183F1DBD0031D78D /* CKHTTPConnection.m in Sources */,
 				E622BE541844196200965F67 /* HTTPDataResponse.m in Sources */,
 				E622BE11184417AA00965F67 /* DDAbstractDatabaseLogger.m in Sources */,
 				E622BE531844196200965F67 /* HTTPAsyncFileResponse.m in Sources */,
-				E68D3421184434B60078CD1F /* User.m in Sources */,
+				E68D3430184839B10078CD1F /* UsernameRegistrationViewController.m in Sources */,
 				E66AB6AB183F13A80023745A /* AppDelegate.m in Sources */,
-				E66AB6D4183F14510023745A /* BookmarkEditViewController.m in Sources */,
 				E622BE501844196200965F67 /* MultipartFormDataParser.m in Sources */,
 				E622BD911843013A00965F67 /* JSONKit.m in Sources */,
 			);
@@ -986,9 +920,10 @@
 		E622BD9E18430C5F00965F67 /* Redacted.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				E6C62CCB1849C5B400F3424B /* Redacted2.xcdatamodel */,
 				E622BD9F18430C5F00965F67 /* Redacted.xcdatamodel */,
 			);
-			currentVersion = E622BD9F18430C5F00965F67 /* Redacted.xcdatamodel */;
+			currentVersion = E6C62CCB1849C5B400F3424B /* Redacted2.xcdatamodel */;
 			path = Redacted.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

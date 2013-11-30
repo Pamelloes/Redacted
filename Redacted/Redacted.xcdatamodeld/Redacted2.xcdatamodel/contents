@@ -3,6 +3,7 @@
     <entity name="Chat" representedClassName="Chat" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="config" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Configuration" inverseName="chats" inverseEntity="Configuration" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="chat" inverseEntity="Message" syncable="YES"/>
         <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="chats" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Configuration" representedClassName="Configuration" syncable="YES">
@@ -13,6 +14,7 @@
     </entity>
     <entity name="Message" representedClassName="Message" syncable="YES">
         <attribute name="payload" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="chat" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chat" inverseName="messages" inverseEntity="Chat" syncable="YES"/>
         <relationship name="from" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="sent" inverseEntity="User" syncable="YES"/>
         <relationship name="to" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="received" inverseEntity="User" syncable="YES"/>
     </entity>
@@ -27,9 +29,9 @@
         <relationship name="sent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="from" inverseEntity="Message" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Chat" positionX="90" positionY="-144" width="128" height="90"/>
-        <element name="Configuration" positionX="-290" positionY="-6" width="128" height="105"/>
-        <element name="Message" positionX="403" positionY="-9" width="128" height="88"/>
-        <element name="User" positionX="52" positionY="24" width="128" height="165"/>
+        <element name="Chat" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Configuration" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Message" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

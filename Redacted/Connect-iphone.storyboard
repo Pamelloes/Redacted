@@ -35,41 +35,32 @@
                                 <rect key="frame" x="20" y="28" width="280" height="94"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hqB-TT-ZPe">
-                                <rect key="frame" x="20" y="225" width="280" height="31"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hqB-TT-ZPe">
+                                <rect key="frame" x="20" y="223" width="280" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UZK-4N-gan">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="2"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </progressView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading key pairs..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkE-jb-Gm2">
-                                        <rect key="frame" x="0.0" y="10" width="280" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="KkE-jb-Gm2" firstAttribute="top" secondItem="UZK-4N-gan" secondAttribute="bottom" constant="8" symbolic="YES" id="1RN-f3-Oxm"/>
                                     <constraint firstItem="UZK-4N-gan" firstAttribute="leading" secondItem="hqB-TT-ZPe" secondAttribute="leading" id="5T5-Ej-Pyg"/>
                                     <constraint firstItem="UZK-4N-gan" firstAttribute="top" secondItem="hqB-TT-ZPe" secondAttribute="top" id="6w8-4P-2hn"/>
-                                    <constraint firstAttribute="trailing" secondItem="KkE-jb-Gm2" secondAttribute="trailing" id="QxE-Cg-VWi"/>
-                                    <constraint firstAttribute="bottom" secondItem="KkE-jb-Gm2" secondAttribute="bottom" id="UVJ-I2-9am"/>
-                                    <constraint firstItem="KkE-jb-Gm2" firstAttribute="leading" secondItem="hqB-TT-ZPe" secondAttribute="leading" id="cmI-31-fHg"/>
                                     <constraint firstAttribute="trailing" secondItem="UZK-4N-gan" secondAttribute="trailing" id="lRT-Ky-f7w"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© Joshua Brot 2013. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="p1U-In-ylx">
-                                <rect key="frame" x="0.0" y="421" width="320" height="21"/>
+                                <rect key="frame" x="0.0" y="388" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Rt-V4-YGa">
-                                <rect key="frame" x="93" y="450" width="135" height="30"/>
+                                <rect key="frame" x="74" y="444" width="174" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Acknowledgements">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -78,12 +69,20 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="v7y-Y2-pjE">
-                                <rect key="frame" x="20" y="130" width="280" height="61"/>
+                                <rect key="frame" x="20" y="122" width="280" height="96"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">Establishing a secure connection...
 
 Please be patient.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading key pairs..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkE-jb-Gm2">
+                                <rect key="frame" x="21" y="233" width="280" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -91,17 +90,17 @@ Please be patient.</string>
                         <constraints>
                             <constraint firstItem="Ft4-tQ-J0C" firstAttribute="leading" secondItem="rh5-s1-RXt" secondAttribute="leading" constant="20" symbolic="YES" id="0Ru-fB-wNT"/>
                             <constraint firstAttribute="trailing" secondItem="Ft4-tQ-J0C" secondAttribute="trailing" constant="20" symbolic="YES" id="32C-f4-ggj"/>
-                            <constraint firstItem="Ft4-tQ-J0C" firstAttribute="top" secondItem="5gn-pp-Txo" secondAttribute="bottom" constant="20" symbolic="YES" id="5oc-o7-IyQ"/>
                             <constraint firstItem="p1U-In-ylx" firstAttribute="leading" secondItem="rh5-s1-RXt" secondAttribute="leading" id="6H9-4U-Zg2"/>
                             <constraint firstItem="hqB-TT-ZPe" firstAttribute="leading" secondItem="rh5-s1-RXt" secondAttribute="leading" constant="20" symbolic="YES" id="94X-TR-2xk"/>
                             <constraint firstItem="v7y-Y2-pjE" firstAttribute="leading" secondItem="rh5-s1-RXt" secondAttribute="leading" constant="20" symbolic="YES" id="EdJ-vg-GYp"/>
                             <constraint firstAttribute="trailing" secondItem="hqB-TT-ZPe" secondAttribute="trailing" constant="20" symbolic="YES" id="Hr5-L2-iMv"/>
-                            <constraint firstItem="v7y-Y2-pjE" firstAttribute="top" secondItem="Ft4-tQ-J0C" secondAttribute="bottom" constant="8" symbolic="YES" id="PqG-x4-q3x"/>
+                            <constraint firstItem="v7y-Y2-pjE" firstAttribute="top" secondItem="Ft4-tQ-J0C" secondAttribute="bottom" id="PqG-x4-q3x"/>
                             <constraint firstAttribute="centerX" secondItem="8Rt-V4-YGa" secondAttribute="centerX" constant="-0.5" id="Rk6-L0-aq4"/>
                             <constraint firstAttribute="trailing" secondItem="p1U-In-ylx" secondAttribute="trailing" id="V6l-LO-p7x"/>
+                            <constraint firstItem="uI1-Gz-Ot2" firstAttribute="top" secondItem="8Rt-V4-YGa" secondAttribute="bottom" id="XBi-cO-zaC"/>
                             <constraint firstItem="8Rt-V4-YGa" firstAttribute="top" secondItem="p1U-In-ylx" secondAttribute="bottom" constant="8" symbolic="YES" id="cT6-Vy-8pH"/>
-                            <constraint firstItem="uI1-Gz-Ot2" firstAttribute="top" secondItem="8Rt-V4-YGa" secondAttribute="bottom" id="jh4-SD-NGy"/>
                             <constraint firstAttribute="centerY" secondItem="hqB-TT-ZPe" secondAttribute="centerY" id="kkY-ON-FdK"/>
+                            <constraint firstItem="Ft4-tQ-J0C" firstAttribute="top" secondItem="5gn-pp-Txo" secondAttribute="bottom" constant="20" symbolic="YES" id="qXH-ms-UDx"/>
                             <constraint firstAttribute="trailing" secondItem="v7y-Y2-pjE" secondAttribute="trailing" constant="20" symbolic="YES" id="vfL-em-61I"/>
                         </constraints>
                     </view>
@@ -113,7 +112,7 @@ Please be patient.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k9b-sd-ySi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="568" y="135"/>
+            <point key="canvasLocation" x="572" y="135"/>
         </scene>
     </scenes>
     <resources>

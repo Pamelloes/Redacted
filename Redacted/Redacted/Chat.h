@@ -2,7 +2,7 @@
 //  Chat.h
 //  Redacted
 //
-//  Created by Joshua Brot on 11/25/13.
+//  Created by Joshua Brot on 11/28/13.
 //
 //
 
@@ -14,8 +14,8 @@
 @interface Chat : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSSet *users;
 @property (nonatomic, retain) Configuration *config;
+@property (nonatomic, retain) NSSet *users;
 @end
 
 @interface Chat (CoreDataGeneratedAccessors)

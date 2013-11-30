@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WebViewController.h"
 #import "TorController.h"
 
 #define DNT_HEADER_UNSET 0
@@ -21,7 +20,7 @@
 #define X_DEVICE_IS_IPAD 1
 #define X_DEVICE_IS_SIM 2
 
-@class HTTPServer, RedactedCrypto;
+@class HTTPServer, RedactedCrypto, Configuration, User;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
 	TorController *tor;
@@ -29,13 +28,25 @@
 	
 	RedactedCrypto *crypto;
 	
+	Configuration *config;
+	User *root;
+	
 	UIWindow *window;
 	
 	UINavigationController *rootNavigationController;
 }
 
+- (void) showChatWindow;
+- (void) showWelcomeWindow;
+
 - (void) updateProgress: (NSString *) statusLine;
 - (void) updateProgressComplete;
+
+- (void) recievedRegistrationKey: (NSString *) key;
+- (void) registrationComplete;
+
+- (void) failureWithError: (NSError *) error;
+- (void) failureWithString: (NSString *) error;
 
 - (void) storyboardTransitionComplete: (UIViewController *) controller;
 
@@ -48,6 +59,9 @@
 @property (nonatomic, strong, readonly) HTTPServer *httpServer;
 
 @property (nonatomic, strong, readonly) RedactedCrypto *crypto;
+
+@property (nonatomic, strong, readonly) Configuration *config;
+@property (nonatomic, strong, readonly) User *root;
 
 @property (strong, nonatomic) UIWindow *window;
 

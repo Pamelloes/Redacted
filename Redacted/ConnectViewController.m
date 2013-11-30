@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"marble"]];
+	//self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"marble"]];
 }
 
 - (void) updateProgress:(NSString *)statusLine {

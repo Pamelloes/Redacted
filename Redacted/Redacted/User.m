@@ -2,11 +2,12 @@
 //  User.m
 //  Redacted
 //
-//  Created by Joshua Brot on 11/25/13.
+//  Created by Joshua Brot on 11/28/13.
 //
 //
 
 #import "User.h"
+#import "Chat.h"
 #import "Configuration.h"
 #import "Message.h"
 
@@ -16,10 +17,10 @@
 @dynamic addr;
 @dynamic name;
 @dynamic pkey;
+@dynamic chats;
 @dynamic config;
 @dynamic luser;
 @dynamic received;
 @dynamic sent;
-@dynamic chats;
 
 @end

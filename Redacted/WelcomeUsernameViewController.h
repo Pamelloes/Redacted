@@ -17,11 +17,10 @@
 	UIView *accessory;
 	
 	UIButton *continueButton;
+	UIBarButtonItem *continueBarButton;
 }
 
 - (IBAction) bgTap:(id)sender;
-
-- (IBAction) registerUsername:(id)sender;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -31,5 +30,6 @@
 @property (nonatomic, strong) IBOutlet UIView *accessory;
 
 @property (nonatomic, strong) IBOutlet UIButton *continueButton;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *continueBarButton;
 
 @end

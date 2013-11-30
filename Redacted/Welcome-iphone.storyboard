@@ -71,6 +71,82 @@
             </objects>
             <point key="canvasLocation" x="75" y="-43"/>
         </scene>
+        <!--Username Registration View Controller-->
+        <scene sceneID="lFU-IC-jgl">
+            <objects>
+                <viewController id="gv4-Zy-2j8" customClass="UsernameRegistrationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FRC-Ay-3f1"/>
+                        <viewControllerLayoutGuide type="bottom" id="LkI-uF-8RE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Uje-dU-I8d">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Redacted" translatesAutoresizingMaskIntoConstraints="NO" id="eef-FV-iHV">
+                                <rect key="frame" x="20" y="28" width="280" height="94"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NDO-tp-Ysz">
+                                <rect key="frame" x="20" y="223" width="280" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qe1-Sr-5IM">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </progressView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requesting registration..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grZ-yG-rj0">
+                                        <rect key="frame" x="0.0" y="10" width="280" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Qe1-Sr-5IM" firstAttribute="top" secondItem="NDO-tp-Ysz" secondAttribute="top" id="DbY-hR-VB0"/>
+                                    <constraint firstItem="Qe1-Sr-5IM" firstAttribute="leading" secondItem="NDO-tp-Ysz" secondAttribute="leading" id="Lj2-he-CXb"/>
+                                    <constraint firstAttribute="bottom" secondItem="grZ-yG-rj0" secondAttribute="bottom" id="apy-cE-TqZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qe1-Sr-5IM" secondAttribute="trailing" id="jHU-4X-gQw"/>
+                                    <constraint firstItem="grZ-yG-rj0" firstAttribute="top" secondItem="Qe1-Sr-5IM" secondAttribute="bottom" constant="8" symbolic="YES" id="kMi-8i-RbI"/>
+                                    <constraint firstAttribute="trailing" secondItem="grZ-yG-rj0" secondAttribute="trailing" id="pUu-5V-wdR"/>
+                                    <constraint firstItem="grZ-yG-rj0" firstAttribute="leading" secondItem="NDO-tp-Ysz" secondAttribute="leading" id="wNm-bZ-UmP"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="2PJ-BB-8Tz">
+                                <rect key="frame" x="20" y="130" width="280" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Registering your username...
+
+Please be patient.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="NDO-tp-Ysz" secondAttribute="centerY" id="5dw-80-1yk"/>
+                            <constraint firstItem="2PJ-BB-8Tz" firstAttribute="leading" secondItem="Uje-dU-I8d" secondAttribute="leading" constant="20" symbolic="YES" id="B0P-RM-qQu"/>
+                            <constraint firstAttribute="trailing" secondItem="2PJ-BB-8Tz" secondAttribute="trailing" constant="20" symbolic="YES" id="NIC-V2-OBL"/>
+                            <constraint firstAttribute="trailing" secondItem="eef-FV-iHV" secondAttribute="trailing" constant="20" symbolic="YES" id="lQG-ZP-syP"/>
+                            <constraint firstItem="eef-FV-iHV" firstAttribute="top" secondItem="FRC-Ay-3f1" secondAttribute="bottom" constant="20" symbolic="YES" id="mx1-4e-K8h"/>
+                            <constraint firstItem="NDO-tp-Ysz" firstAttribute="leading" secondItem="Uje-dU-I8d" secondAttribute="leading" constant="20" symbolic="YES" id="oEY-Br-XpW"/>
+                            <constraint firstItem="eef-FV-iHV" firstAttribute="leading" secondItem="Uje-dU-I8d" secondAttribute="leading" constant="20" symbolic="YES" id="p3M-kA-Gfs"/>
+                            <constraint firstAttribute="trailing" secondItem="NDO-tp-Ysz" secondAttribute="trailing" constant="20" symbolic="YES" id="pK0-ib-0Z6"/>
+                            <constraint firstItem="2PJ-BB-8Tz" firstAttribute="top" secondItem="eef-FV-iHV" secondAttribute="bottom" constant="8" symbolic="YES" id="ros-c5-Y40"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hy9-bO-u7E"/>
+                    <connections>
+                        <outlet property="label" destination="grZ-yG-rj0" id="6TL-BZ-mH8"/>
+                        <outlet property="progress" destination="Qe1-Sr-5IM" id="xD1-k0-9yS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yIg-al-NkG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1006" y="-43"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="HfP-zk-Z8c">
             <objects>
@@ -127,6 +203,9 @@ Every device needs a different username. Usernames can be transferred.</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Continue"/>
+                                <connections>
+                                    <segue destination="gv4-Zy-2j8" kind="push" identifier="" id="CfI-5N-y0r"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HqQ-np-yBc">
                                 <rect key="frame" x="20" y="370" width="280" height="35"/>
@@ -178,6 +257,7 @@ Every device needs a different username. Usernames can be transferred.</string>
                     <navigationItem key="navigationItem" id="M9W-xL-suP"/>
                     <connections>
                         <outlet property="accessory" destination="1bb-8y-eG4" id="Mv5-zL-g5a"/>
+                        <outlet property="continueBarButton" destination="Tja-OX-b1Q" id="dPD-r7-HO7"/>
                         <outlet property="continueButton" destination="FLT-mi-JPW" id="Jt1-9X-ubw"/>
                         <outlet property="status" destination="e4X-eO-nYa" id="dKT-nm-E6Z"/>
                         <outlet property="username" destination="HqQ-np-yBc" id="ano-kO-1z1"/>
@@ -188,7 +268,11 @@ Every device needs a different username. Usernames can be transferred.</string>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <items>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="CkG-9S-ybW"/>
-                        <barButtonItem enabled="NO" title="Continue" id="Tja-OX-b1Q"/>
+                        <barButtonItem enabled="NO" title="Continue" id="Tja-OX-b1Q">
+                            <connections>
+                                <segue destination="gv4-Zy-2j8" kind="push" id="yAW-2t-Fhh"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="2iP-vm-rlG"/>
                     </items>
                 </toolbar>
@@ -210,4 +294,7 @@ Every device needs a different username. Usernames can be transferred.</string>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="yAW-2t-Fhh"/>
+    </inferredMetricsTieBreakers>
 </document>

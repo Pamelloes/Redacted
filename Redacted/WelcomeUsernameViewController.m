@@ -9,10 +9,11 @@
 #import "WelcomeUsernameViewController.h"
 
 #import "JSONKit.h"
+#import "AppDelegate.h"
+#import "User.h"
+#import "UsernameRegistrationViewController.h"
 
 @interface WelcomeUsernameViewController () {
-	UIBarButtonItem *continueBarButton;
-	
 	NSTimer *timer;
 	
 	NSMutableData *data;
@@ -33,7 +34,7 @@
 
 @implementation WelcomeUsernameViewController
 
-@synthesize scrollView, username, accessory, continueButton, status;
+@synthesize scrollView, username, accessory, continueButton, continueBarButton, status;
 
 - (void) viewDidLoad {
 	uvalid = NO;
@@ -44,7 +45,7 @@
 	scrollView = [[UIScrollView alloc] init];
 	scrollView.frame = view.frame;
 	scrollView.contentSize = view.frame.size;
-	scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"marble"]];
+	scrollView.backgroundColor = [UIColor whiteColor];//[UIColor colorWithPatternImage:[UIImage imageNamed:@"marble"]];
 	scrollView.scrollEnabled = NO;
 	[scrollView addSubview:view];
 	
@@ -63,6 +64,10 @@
 - (void) viewDidDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([[segue destinationViewController] isKindOfClass:[UsernameRegistrationViewController class]]) ((AppDelegate *)[UIApplication sharedApplication].delegate).root.name = username.text;
 }
 
 - (void) updateButton {
@@ -106,10 +111,6 @@
 }
 
 #pragma mark - IBActions
-
-- (IBAction) registerUsername:(id)sender {
-	
-}
 
 - (IBAction) bgTap:(id)sender {
 	[username resignFirstResponder];
