@@ -4,3 +4,6 @@
 [submodule "CocoaHTTPServer"]
 	path = CocoaHTTPServer
 	url = https://github.com/robbiehanson/CocoaHTTPServer
+[submodule "TITokenField"]
+	path = TITokenField
+	url = https://github.com/thermogl/TITokenField
