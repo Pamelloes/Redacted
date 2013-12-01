@@ -10,17 +10,35 @@
 
 #import "AppDelegate.h"
 
-@interface ChatViewController ()
+@interface ChatViewController () {
+	BOOL barvis;
+	BOOL animating;
+}
 
 @end
 
 @implementation ChatViewController
 
-@synthesize settings, newchat;
+@synthesize tableView, edit, newchat, tabbar, tabpos, settings, messages, contacts;
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+	
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[table]" options:0 metrics:nil views:@{@"table":tableView}]];
+	tableView.contentInset = UIEdgeInsetsMake(tableView.contentInset.top + 49, tableView.contentInset.left, tableView.contentInset.bottom, tableView.contentInset.right);
+	
+	barvis = YES;
+	animating = NO;
+	tabbar.selectedItem = messages;
+	
+	CALayer *layer = tabbar.layer;
+	layer.masksToBounds = NO;
+	layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+	layer.shadowColor = [[UIColor blackColor] CGColor];
+	layer.shadowRadius = 1.0f;
+	layer.shadowOpacity = 0.8;
+	layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectMake(tabbar.bounds.origin.x, tabbar.bounds.origin.y + tabbar.bounds.size.height - 1, tabbar.bounds.size.width, 1)].CGPath;
+	layer.shouldRasterize = YES;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -41,6 +59,16 @@
 	image.frame = CGRectMake(0, 0, 100, 44);
 	image.contentMode = UIViewContentModeScaleAspectFit;
 	self.navigationItem.titleView = image;
+	
+	/*UIView *view = self.view.superview;
+	if (!view) return;
+	NSLog(@"%@ %@", view, overlay);
+	[overlay removeFromSuperview];
+	[view addSubview:overlay];
+	[view bringSubviewToFront:overlay];
+	[view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[toolbar]|" options:0 metrics:nil views:@{@"toolbar":overlay}]];
+	[view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[toolbar(==44)]" options:0 metrics:nil views:@{@"toolbar":overlay}]];
+	overlay.backgroundColor = [UIColor blackColor];*/
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -66,26 +94,36 @@
 	//});*/
 }
 
+- (IBAction) navigationBarTapped:(id)sender {
+	if (animating) return;
+	barvis = !barvis;
+	animating = YES;
+	tabpos.constant = barvis ? 0 : -49;
+	[tabbar setNeedsUpdateConstraints];
+	[UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+		tableView.contentInset = UIEdgeInsetsMake(tableView.contentInset.top + (barvis ? 49 : -49), tableView.contentInset.left, tableView.contentInset.bottom, tableView.contentInset.right);
+		[tabbar layoutIfNeeded];
+		tabbar.alpha = barvis ? 1.0 : 0.0;
+	} completion: ^(BOOL finished){
+		animating = NO;
+	}];
+}
+
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 5;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Chat" forIndexPath:indexPath];
     
     // Configure the cell...
     

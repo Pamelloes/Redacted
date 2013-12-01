@@ -35,7 +35,7 @@
                                 <rect key="frame" x="20" y="28" width="280" height="94"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hqB-TT-ZPe">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hqB-TT-ZPe">
                                 <rect key="frame" x="20" y="223" width="280" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -43,10 +43,21 @@
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="2"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </progressView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading key pairs..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkE-jb-Gm2">
+                                        <rect key="frame" x="0.0" y="2" width="280" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="UZK-4N-gan" firstAttribute="leading" secondItem="hqB-TT-ZPe" secondAttribute="leading" id="5T5-Ej-Pyg"/>
                                     <constraint firstItem="UZK-4N-gan" firstAttribute="top" secondItem="hqB-TT-ZPe" secondAttribute="top" id="6w8-4P-2hn"/>
+                                    <constraint firstItem="KkE-jb-Gm2" firstAttribute="top" secondItem="UZK-4N-gan" secondAttribute="bottom" id="8j7-pQ-zbT"/>
+                                    <constraint firstItem="KkE-jb-Gm2" firstAttribute="leading" secondItem="hqB-TT-ZPe" secondAttribute="leading" id="E2b-k4-CVU"/>
+                                    <constraint firstAttribute="bottom" secondItem="KkE-jb-Gm2" secondAttribute="bottom" id="KSh-Ot-Du4"/>
+                                    <constraint firstAttribute="trailing" secondItem="KkE-jb-Gm2" secondAttribute="trailing" id="e6a-Vz-ezO"/>
                                     <constraint firstAttribute="trailing" secondItem="UZK-4N-gan" secondAttribute="trailing" id="lRT-Ky-f7w"/>
                                 </constraints>
                             </view>
@@ -74,13 +85,6 @@
                                 <string key="text">Establishing a secure connection...
 
 Please be patient.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading key pairs..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkE-jb-Gm2">
-                                <rect key="frame" x="21" y="233" width="280" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>

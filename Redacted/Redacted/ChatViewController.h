@@ -8,12 +8,30 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChatViewController : UITableViewController {
-	UIBarButtonItem *settings;
+@interface ChatViewController : UIViewController {
+	UITableView *tableView;
+	
+	UIBarButtonItem *edit;
 	UIBarButtonItem *newchat;
+	
+	UITabBar *tabbar;
+	NSLayoutConstraint *tabpos;
+	UITabBarItem *settings;
+	UITabBarItem *messages;
+	UITabBarItem *contacts;
 }
 
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *settings;
+- (IBAction) navigationBarTapped:(id)sender;
+
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *edit;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *newchat;
+
+@property (nonatomic, strong) IBOutlet UITabBar *tabbar;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *tabpos;
+@property (nonatomic, strong) IBOutlet UITabBarItem *settings;
+@property (nonatomic, strong) IBOutlet UITabBarItem *messages;
+@property (nonatomic, strong) IBOutlet UITabBarItem *contacts;
 
 @end

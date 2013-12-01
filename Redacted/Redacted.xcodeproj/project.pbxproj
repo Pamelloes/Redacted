@@ -90,6 +90,10 @@
 		E69A270518484C8600161827 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A270418484C8600161827 /* Configuration.m */; };
 		E69A270718493AD000161827 /* Chat-iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E69A270618493AD000161827 /* Chat-iphone.storyboard */; };
 		E69A270E1849489200161827 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A270D1849489200161827 /* ChatViewController.m */; };
+		E6C62D62184A93D400F3424B /* ChatNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D61184A93D400F3424B /* ChatNavigationBar.m */; };
+		E6C62D65184ADD4A00F3424B /* NewChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D64184ADD4A00F3424B /* NewChatViewController.m */; };
+		E6C62D68184AE1EC00F3424B /* FlexibleTextFieldToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D67184AE1EC00F3424B /* FlexibleTextFieldToolbar.m */; };
+		E6C62D6B184AE2D600F3424B /* ChatToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D6A184AE2D600F3424B /* ChatToolbar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -229,6 +233,14 @@
 		E69A270C1849489200161827 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatViewController.h; path = Redacted/ChatViewController.h; sourceTree = "<group>"; };
 		E69A270D1849489200161827 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatViewController.m; path = Redacted/ChatViewController.m; sourceTree = "<group>"; };
 		E6C62CCB1849C5B400F3424B /* Redacted2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = Redacted2.xcdatamodel; sourceTree = "<group>"; };
+		E6C62D60184A93D400F3424B /* ChatNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatNavigationBar.h; sourceTree = "<group>"; };
+		E6C62D61184A93D400F3424B /* ChatNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatNavigationBar.m; sourceTree = "<group>"; };
+		E6C62D63184ADD4A00F3424B /* NewChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewChatViewController.h; path = Redacted/NewChatViewController.h; sourceTree = "<group>"; };
+		E6C62D64184ADD4A00F3424B /* NewChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewChatViewController.m; path = Redacted/NewChatViewController.m; sourceTree = "<group>"; };
+		E6C62D66184AE1EC00F3424B /* FlexibleTextFieldToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlexibleTextFieldToolbar.h; path = Redacted/FlexibleTextFieldToolbar.h; sourceTree = "<group>"; };
+		E6C62D67184AE1EC00F3424B /* FlexibleTextFieldToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlexibleTextFieldToolbar.m; path = Redacted/FlexibleTextFieldToolbar.m; sourceTree = "<group>"; };
+		E6C62D69184AE2D600F3424B /* ChatToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToolbar.h; sourceTree = "<group>"; };
+		E6C62D6A184AE2D600F3424B /* ChatToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolbar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -564,6 +576,14 @@
 			children = (
 				E69A270C1849489200161827 /* ChatViewController.h */,
 				E69A270D1849489200161827 /* ChatViewController.m */,
+				E6C62D60184A93D400F3424B /* ChatNavigationBar.h */,
+				E6C62D61184A93D400F3424B /* ChatNavigationBar.m */,
+				E6C62D63184ADD4A00F3424B /* NewChatViewController.h */,
+				E6C62D64184ADD4A00F3424B /* NewChatViewController.m */,
+				E6C62D66184AE1EC00F3424B /* FlexibleTextFieldToolbar.h */,
+				E6C62D67184AE1EC00F3424B /* FlexibleTextFieldToolbar.m */,
+				E6C62D69184AE2D600F3424B /* ChatToolbar.h */,
+				E6C62D6A184AE2D600F3424B /* ChatToolbar.m */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -671,14 +691,17 @@
 				E645CD21184026F80031D78D /* WelcomeUsernameViewController.m in Sources */,
 				E622BE4B1844196200965F67 /* DDRange.m in Sources */,
 				E622BE13184417AA00965F67 /* DDFileLogger.m in Sources */,
+				E6C62D62184A93D400F3424B /* ChatNavigationBar.m in Sources */,
 				E622BE571844196200965F67 /* HTTPFileResponse.m in Sources */,
 				E622BE4C1844196200965F67 /* HTTPAuthenticationRequest.m in Sources */,
 				E622BE4E1844196200965F67 /* HTTPMessage.m in Sources */,
+				E6C62D65184ADD4A00F3424B /* NewChatViewController.m in Sources */,
 				E68D342718444F990078CD1F /* RedactedCrypto.m in Sources */,
 				E622BE511844196200965F67 /* MultipartMessageHeader.m in Sources */,
 				E622BE14184417AA00965F67 /* DDLog.m in Sources */,
 				E622BE491844196200965F67 /* DDData.m in Sources */,
 				E622BE671844233400965F67 /* RedactedWebSocket.m in Sources */,
+				E6C62D68184AE1EC00F3424B /* FlexibleTextFieldToolbar.m in Sources */,
 				6954F8ED15FE985E00AE8658 /* NSData+CocoaDevUsersAdditions.m in Sources */,
 				E622BE15184417AA00965F67 /* DDTTYLogger.m in Sources */,
 				E622BE4D1844196200965F67 /* HTTPConnection.m in Sources */,
@@ -692,6 +715,7 @@
 				E622BE531844196200965F67 /* HTTPAsyncFileResponse.m in Sources */,
 				E68D3430184839B10078CD1F /* UsernameRegistrationViewController.m in Sources */,
 				E66AB6AB183F13A80023745A /* AppDelegate.m in Sources */,
+				E6C62D6B184AE2D600F3424B /* ChatToolbar.m in Sources */,
 				E622BE501844196200965F67 /* MultipartFormDataParser.m in Sources */,
 				E622BD911843013A00965F67 /* JSONKit.m in Sources */,
 			);
