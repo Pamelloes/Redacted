@@ -95,6 +95,8 @@
 		E6C62D68184AE1EC00F3424B /* FlexibleTextFieldToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D67184AE1EC00F3424B /* FlexibleTextFieldToolbar.m */; };
 		E6C62D6B184AE2D600F3424B /* ChatToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D6A184AE2D600F3424B /* ChatToolbar.m */; };
 		E6C62D6E184AEEF500F3424B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D6D184AEEF500F3424B /* TITokenField.m */; };
+		E6C62D71184AF6FF00F3424B /* URLUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D70184AF6FF00F3424B /* URLUtil.m */; };
+		E6C62D74184AFAC200F3424B /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D73184AFAC200F3424B /* UserManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -244,6 +246,10 @@
 		E6C62D6A184AE2D600F3424B /* ChatToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolbar.m; sourceTree = "<group>"; };
 		E6C62D6C184AEEF500F3424B /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
 		E6C62D6D184AEEF500F3424B /* TITokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TITokenField.m; sourceTree = "<group>"; };
+		E6C62D6F184AF6FF00F3424B /* URLUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLUtil.h; sourceTree = "<group>"; };
+		E6C62D70184AF6FF00F3424B /* URLUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLUtil.m; sourceTree = "<group>"; };
+		E6C62D72184AFAC200F3424B /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		E6C62D73184AFAC200F3424B /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -535,6 +541,10 @@
 				E66AB6AA183F13A80023745A /* AppDelegate.m */,
 				E68D342518444F990078CD1F /* RedactedCrypto.h */,
 				E68D342618444F990078CD1F /* RedactedCrypto.m */,
+				E6C62D6F184AF6FF00F3424B /* URLUtil.h */,
+				E6C62D70184AF6FF00F3424B /* URLUtil.m */,
+				E6C62D72184AFAC200F3424B /* UserManager.h */,
+				E6C62D73184AFAC200F3424B /* UserManager.m */,
 				E68D3417184434520078CD1F /* CoreData */,
 				E68D3418184434750078CD1F /* WebServer */,
 				696EBD7E14F7877900B81BC9 /* Supporting Files */,
@@ -685,11 +695,13 @@
 				E622BE1E1844185400965F67 /* GCDAsyncSocket.m in Sources */,
 				E69A270E1849489200161827 /* ChatViewController.m in Sources */,
 				E622BE61184422A700965F67 /* RedactedHTTPConnection.m in Sources */,
+				E6C62D74184AFAC200F3424B /* UserManager.m in Sources */,
 				E622BE16184417AA00965F67 /* ContextFilterLogFormatter.m in Sources */,
 				E622BE521844196200965F67 /* MultipartMessageHeaderField.m in Sources */,
 				E645CD15183F1DB70031D78D /* ProxyURLProtocol.m in Sources */,
 				E622BE4F1844196200965F67 /* HTTPServer.m in Sources */,
 				6940BD1F15F84C0C00FE74CB /* TorController.m in Sources */,
+				E6C62D71184AF6FF00F3424B /* URLUtil.m in Sources */,
 				E622BDA018430C5F00965F67 /* Redacted.xcdatamodeld in Sources */,
 				E6C62D6E184AEEF500F3424B /* TITokenField.m in Sources */,
 				E622BE561844196200965F67 /* HTTPErrorResponse.m in Sources */,

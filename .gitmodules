@@ -7,3 +7,6 @@
 [submodule "TITokenField"]
 	path = TITokenField
 	url = https://github.com/thermogl/TITokenField
+[submodule "Redacted/MAFuture"]
+	path = Redacted/MAFuture
+	url = https://github.com/mikeash/MAFuture

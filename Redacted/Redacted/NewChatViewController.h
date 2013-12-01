@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewChatViewController : UIViewController {
+#import "TITokenField.h"
+
+@interface NewChatViewController : UIViewController <TITokenFieldDelegate> {
 	UIToolbar *toolbar;
 }
 

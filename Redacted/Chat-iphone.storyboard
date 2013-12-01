@@ -174,7 +174,9 @@
         <scene sceneID="g4b-E3-NHu">
             <objects>
                 <navigationController definesPresentationContext="YES" id="sF5-NS-sxo" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fba-wW-VjC">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="fba-wW-VjC">
+                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -193,33 +195,18 @@
                         <viewControllerLayoutGuide type="top" id="Uaz-Tt-jok"/>
                         <viewControllerLayoutGuide type="bottom" id="nXN-kW-XrZ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ek5-0C-M5i">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <view key="view" contentMode="scaleToFill" id="ek5-0C-M5i" customClass="TITokenFieldView">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.98999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="StU-YP-HmF" customClass="FlexibleTextFieldToolbar">
-                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="gsZ-cf-IS8"/>
-                                </constraints>
-                                <items/>
-                            </toolbar>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="StU-YP-HmF" secondAttribute="trailing" id="1Wg-1o-doN"/>
-                            <constraint firstItem="StU-YP-HmF" firstAttribute="leading" secondItem="ek5-0C-M5i" secondAttribute="leading" id="5G2-Dz-zCQ"/>
-                            <constraint firstItem="StU-YP-HmF" firstAttribute="top" secondItem="Uaz-Tt-jok" secondAttribute="bottom" id="g9e-KC-TNO"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Chat Title" id="fa1-Q0-EYc">
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="mPX-LC-hUr"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="mPX-LC-hUr">
+                            <connections>
+                                <action selector="close:" destination="D0A-DX-soP" id="gNG-dB-WxT"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="toolbar" destination="StU-YP-HmF" id="UUR-hN-aye"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2q8-xy-BBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
