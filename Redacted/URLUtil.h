@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class Result;
+
 @interface URLUtil : NSObject <NSURLConnectionDataDelegate>
 
 + (NSString *) serverURLString;
@@ -15,13 +17,13 @@
 
 + (NSString *) urlencode: (NSString *) encode;
 
-+ (NSURLConnection *) retrieveURLString: (NSString *) string Completed: (void (^)(NSData *)) completed;
-+ (NSURLConnection *) retrieveURLString: (NSString *) string Completed: (void (^)(NSData *)) completed Failure: (void (^)(NSError *)) failure;
++ (Result *) retrieveURLString: (NSString *) string;
++ (Result *) retrieveURLString: (NSString *) string Cancel: (BOOL *) cancelled;
 
-+ (NSURLConnection *) retrieveURL: (NSURL *) url Completed: (void (^)(NSData *)) completed;
-+ (NSURLConnection *) retrieveURL: (NSURL *) url Completed: (void (^)(NSData *)) completed Failure: (void (^)(NSError *)) failure;
++ (Result *) retrieveURL: (NSURL *) url;
++ (Result *) retrieveURL: (NSURL *) url Cancel: (BOOL *) cancelled;
 
-+ (NSURLConnection *) retrieveRequest: (NSURLRequest *) request Completed: (void (^)(NSData *)) completed;
-+ (NSURLConnection *) retrieveRequest: (NSURLRequest *) request Completed: (void (^)(NSData *)) completed Failure: (void (^)(NSError *)) failure;
++ (Result *) retrieveRequest: (NSURLRequest *) request;
++ (Result *) retrieveRequest: (NSURLRequest *) request Cancel: (BOOL *) cancelled;
 
 @end

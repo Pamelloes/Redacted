@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UsernameRegistrationViewController : UIViewController <NSURLConnectionDataDelegate> {
+@interface UsernameRegistrationViewController : UIViewController {
 	UIProgressView *progress;
 	UILabel *label;
 }

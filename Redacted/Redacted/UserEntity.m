@@ -2,7 +2,7 @@
 //  User.m
 //  Redacted
 //
-//  Created by Joshua Brot on 11/28/13.
+//  Created by Joshua Brot on 12/1/13.
 //
 //
 
@@ -12,7 +12,7 @@
 #import "Message.h"
 
 
-@implementation User
+@implementation UserEntity
 
 @dynamic addr;
 @dynamic name;

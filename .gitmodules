@@ -10,3 +10,6 @@
 [submodule "Redacted/MAFuture"]
 	path = Redacted/MAFuture
 	url = https://github.com/mikeash/MAFuture
+[submodule "Redacted/RHManagedObject"]
+	path = Redacted/RHManagedObject
+	url = https://github.com/chriscdn/RHManagedObject

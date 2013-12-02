@@ -20,7 +20,7 @@
 #define X_DEVICE_IS_IPAD 1
 #define X_DEVICE_IS_SIM 2
 
-@class HTTPServer, RedactedCrypto, Configuration, User;
+@class HTTPServer, RedactedCrypto, Configuration, User, UserManager;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
 	TorController *tor;
@@ -30,6 +30,8 @@
 	
 	Configuration *config;
 	User *root;
+	
+	UserManager *usermanager;
 	
 	UIWindow *window;
 	
@@ -63,13 +65,11 @@
 @property (nonatomic, strong, readonly) Configuration *config;
 @property (nonatomic, strong, readonly) User *root;
 
+@property (nonatomic, strong, readonly) UserManager *usermanager;
+
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) UINavigationController *rootNavigationController;
-
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (nonatomic) Byte spoofUserAgent;
 @property (nonatomic) Byte dntHeader;

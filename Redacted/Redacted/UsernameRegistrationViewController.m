@@ -12,6 +12,8 @@
 #import "AppDelegate.h"
 #import "User.h"
 #import "DDLog.h"
+#import "URLUtil.h"
+#import "Result.h"
 
 static const int ddLogLevel = LOG_LEVEL_INFO;
 
@@ -23,13 +25,15 @@ typedef enum {
 } rstate;
 
 @interface UsernameRegistrationViewController () {
-	NSMutableData *data;
-	NSURLConnection *conn;
-	BOOL active;
+	NSTimer *loop;
+	
+	Result *res;
+	BOOL cancelled;
+	
 	rstate state;
 }
 
-- (NSString *) urlencode: (NSString *) str;
+- (void) checkStatus: (NSTimer *) timer;
 
 @end
 
@@ -45,7 +49,7 @@ typedef enum {
 	
 	AppDelegate *ad = (AppDelegate *) [UIApplication sharedApplication].delegate;
 	
-	NSData *body = [[NSString stringWithFormat:@"name=%@&pkey=%@&addr=%@", [self urlencode:ad.root.name], [self urlencode:ad.root.pkey], [self urlencode:ad.root.addr]] dataUsingEncoding:NSUTF8StringEncoding];
+	NSData *body = [[NSString stringWithFormat:@"name=%@&pkey=%@&addr=%@", [URLUtil urlencode:ad.root.name], [URLUtil urlencode:ad.root.pkey], [URLUtil urlencode:ad.root.addr]] dataUsingEncoding:NSUTF8StringEncoding];
 
 	NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://rqs5owaukvnh37b4.onion/register.php"]];
 	[req setHTTPMethod:@"POST"];
@@ -53,11 +57,10 @@ typedef enum {
 	[req setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
 	[req setHTTPBody:body];
 	
-	data = [[NSMutableData alloc] init];
-	conn = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
+	cancelled = NO;
+	res = [URLUtil retrieveRequest:req Cancel:&cancelled];
 	
-	active = YES;
-	
+	loop = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(checkStatus:) userInfo:nil repeats:YES];
 }
 
 - (void) recievedKey: (NSString *) key {
@@ -73,11 +76,9 @@ typedef enum {
 		label.text = @"Completing registration...";
 		
 		AppDelegate *ad = (AppDelegate *) [UIApplication sharedApplication].delegate;
-		NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://rqs5owaukvnh37b4.onion/confirm.php?name=%@&key=%@",
-																			   [self urlencode:ad.root.name], [self urlencode:key]]]];
-		data = [[NSMutableData alloc] init];
-		conn = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
-		active = YES;
+		cancelled = NO;
+		res = [URLUtil retrieveURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://rqs5owaukvnh37b4.onion/confirm.php?name=%@&key=%@",
+																			   [URLUtil urlencode:ad.root.name], [URLUtil urlencode:key]]] Cancel:&cancelled];
 	});
 }
 
@@ -89,28 +90,23 @@ typedef enum {
 	DDLogError(@"Error: %@", error);
 }
 
-- (NSString *) urlencode:(NSString *)str {
-	return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef) str, NULL, CFSTR("!*'();:@&=+$,/?%#[]\" "), kCFStringEncodingUTF8));
-}
-
 #pragma mark - NSURLConnectionDelegate Methods
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)dat {
-	[data appendData:dat];
-}
-
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	active = NO;
-	[self failureWithError:error];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	active = NO;
+- (void) checkStatus:(NSTimer *)timer {
+	if (!res || ![Result isResolved:res]) return;
+	
+	Result *result = res;
+	res = nil;
+	
+	if (result.result != SUCCESS) {
+		[self failureWithError:result.error];
+		return;
+	}
 	
 	NSError *error;
-	NSDictionary *json = [(NSData *)data objectFromJSONDataWithParseOptions:JKParseOptionNone error:&error];
+	NSDictionary *json = [result.data objectFromJSONDataWithParseOptions:JKParseOptionNone error:&error];
 	if (error != nil) {
-		[self connection:connection didFailWithError:error];
+		[self failureWithError:error];
 		return;
 	}
 	
@@ -140,10 +136,8 @@ typedef enum {
 			label.text = @"Validating...";
 			
 			AppDelegate *ad = (AppDelegate *) [UIApplication sharedApplication].delegate;
-			NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://rqs5owaukvnh37b4.onion/exists.php?name=%@", [self urlencode:ad.root.name]]]];
-			data = [[NSMutableData alloc] init];
-			conn = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
-			active = YES;
+			cancelled = NO;
+			res = [URLUtil retrieveURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://rqs5owaukvnh37b4.onion/exists.php?name=%@", [URLUtil urlencode:ad.root.name]]] Cancel:&cancelled];
 		});
 	} else if (state == VALIDATING) {
 		dispatch_async(dispatch_get_main_queue(), ^{

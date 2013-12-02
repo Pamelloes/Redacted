@@ -19,6 +19,7 @@
 #import "DDTTYLogger.h"
 #import "Configuration.h"
 #import "User.h"
+#import "UserManager.h"
 
 // Log levels: off, error, warn, info, verbose
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -39,14 +40,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AppDelegate
 
-@synthesize tor, httpServer, crypto, config, root, window, rootNavigationController,
+@synthesize tor, httpServer, crypto, config, root, usermanager, window, rootNavigationController,
     spoofUserAgent,
     dntHeader,
     usePipelining,
     sslWhitelistedDomains,
-    managedObjectContext = __managedObjectContext,
-    managedObjectModel = __managedObjectModel,
-    persistentStoreCoordinator = __persistentStoreCoordinator,
     doPrepopulateBookmarks;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -205,12 +203,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void) loadPersistantData {
 	[self loadConfiguration];
 	[self loadRootUser];
+	
+	usermanager = [[UserManager alloc] initWithConfiguration:config];
 }
 
 - (void) loadConfiguration {
 	NSError *error;
-	NSFetchRequest *fr = [[NSFetchRequest alloc] initWithEntityName:@"Configuration"];
-	NSArray *configs = [self.managedObjectContext executeFetchRequest:fr error:&error];
+	NSArray *configs = [Configuration fetchAllWithError:&error];
 	
 	if (error) {
 		DDLogError(@"Error retrieving configuration: %@", error);
@@ -224,30 +223,33 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	}
 	
 	DDLogInfo(@"Generating new configuration...");
-	config = (Configuration *) [NSEntityDescription insertNewObjectForEntityForName:@"Configuration" inManagedObjectContext:self.managedObjectContext];
+	error = nil;
+	config = [Configuration newEntityWithError:&error];
+	if (error) DDLogError(@"Error creating configuration: %@", error);
 	config.registered = [NSNumber numberWithBool:NO];
 	
-	[self.managedObjectContext save:&error];
+	error = [Configuration commit];
 	if (error) DDLogError(@"Error saving database: %@", error);
 }
 
 - (void) loadRootUser {
-	root = (User *) config.luser;
+	root = config.luser;
 	if (root) return;
 	
 	DDLogInfo(@"Could not find root user...");
 	DDLogInfo(@"Generating new root user...");
 	
-	root = (User *) [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+	NSError *error;
+	root = [User newEntityWithError:&error];
+	if (error) DDLogError(@"Error creating user: %@", error);
 	root.pkey = crypto.publicKeyString;
 	root.luser = config;
 	root.config = config;
 	
 	config.luser = root;
-	[[config mutableSetValueForKey:@"users"] addObject:root];
+	[config addUsersObject:root];
 	
-	NSError *error;
-	[self.managedObjectContext save:&error];
+	error = [Configuration commit];
 	if (error) DDLogError(@"Error saving database: %@", error);
 }
 
@@ -286,8 +288,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void) registrationComplete {
 	config.registered = [NSNumber numberWithBool:YES];
 	
-	NSError *error;
-	[self.managedObjectContext save:&error];
+	NSError *error = [Configuration commit];
 	if (error) DDLogError(@"Error saving database: %@", error);
 	
 	[self showChatWindow];
@@ -318,65 +319,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	[ornc pushViewController:rootNavigationController.topViewController animated:YES];
 }
 
-#pragma mark - Core Data stack
-
-// Returns the managed object context for the application.
-// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-- (NSManagedObjectContext *)managedObjectContext
-{
-    if (__managedObjectContext != nil) {
-        return __managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        __managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [__managedObjectContext setPersistentStoreCoordinator:coordinator];
-    }
-    return __managedObjectContext;
-}
-
-// Returns the managed object model for the application.
-// If the model doesn't already exist, it is created from the application's model.
-- (NSManagedObjectModel *)managedObjectModel
-{
-    if (__managedObjectModel != nil) {
-        return __managedObjectModel;
-    }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Redacted" withExtension:@"momd"];
-    __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return __managedObjectModel;
-}
-
-// Returns the persistent store coordinator for the application.
-// If the coordinator doesn't already exist, it is created and the application's store added to it.
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
-    if (__persistentStoreCoordinator != nil) {
-        return __persistentStoreCoordinator;
-    }
-    
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Redacted.sqlite"];
-    
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
-    
-    NSError *error = nil;
-    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
-        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    
-    return __persistentStoreCoordinator;
-}
-
 - (NSURL *)applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
-
-
 
 #pragma mark -
 #pragma mark App lifecycle

@@ -52,7 +52,7 @@
 		E622BE17184417AA00965F67 /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BE0E184417AA00965F67 /* DispatchQueueLogFormatter.m */; };
 		E622BE18184417AA00965F67 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = E622BE0F184417AA00965F67 /* README.txt */; };
 		E622BE1D1844185400965F67 /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = E622BE1A1844185400965F67 /* About.txt */; };
-		E622BE1E1844185400965F67 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BE1C1844185400965F67 /* GCDAsyncSocket.m */; };
+		E622BE1E1844185400965F67 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BE1C1844185400965F67 /* GCDAsyncSocket.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		E622BE201844190700965F67 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E622BE1F1844190700965F67 /* Security.framework */; };
 		E622BE491844196200965F67 /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BE241844196200965F67 /* DDData.m */; };
 		E622BE4A1844196200965F67 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = E622BE261844196200965F67 /* DDNumber.m */; };
@@ -84,10 +84,6 @@
 		E66AB6B5183F13E10023745A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6B3183F13E10023745A /* main.m */; };
 		E68D342718444F990078CD1F /* RedactedCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D342618444F990078CD1F /* RedactedCrypto.m */; };
 		E68D3430184839B10078CD1F /* UsernameRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D342F184839B10078CD1F /* UsernameRegistrationViewController.m */; };
-		E69A26FC18484C8500161827 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A26FB18484C8500161827 /* Message.m */; };
-		E69A26FF18484C8500161827 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A26FE18484C8500161827 /* User.m */; };
-		E69A270218484C8500161827 /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A270118484C8500161827 /* Chat.m */; };
-		E69A270518484C8600161827 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A270418484C8600161827 /* Configuration.m */; };
 		E69A270718493AD000161827 /* Chat-iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E69A270618493AD000161827 /* Chat-iphone.storyboard */; };
 		E69A270E1849489200161827 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69A270D1849489200161827 /* ChatViewController.m */; };
 		E6C62D62184A93D400F3424B /* ChatNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D61184A93D400F3424B /* ChatNavigationBar.m */; };
@@ -97,6 +93,26 @@
 		E6C62D6E184AEEF500F3424B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D6D184AEEF500F3424B /* TITokenField.m */; };
 		E6C62D71184AF6FF00F3424B /* URLUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D70184AF6FF00F3424B /* URLUtil.m */; };
 		E6C62D74184AFAC200F3424B /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D73184AFAC200F3424B /* UserManager.m */; };
+		E6C62D81184BC89600F3424B /* MABaseFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D77184BC89600F3424B /* MABaseFuture.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		E6C62D82184BC89600F3424B /* MACompoundFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D79184BC89600F3424B /* MACompoundFuture.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E6C62D83184BC89600F3424B /* MAFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D7B184BC89600F3424B /* MAFuture.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E6C62D84184BC89600F3424B /* MAMethodSignatureCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D7E184BC89600F3424B /* MAMethodSignatureCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E6C62D85184BC89600F3424B /* MAProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D80184BC89600F3424B /* MAProxy.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		E6C62D88184BCD6900F3424B /* Result.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D87184BCD6900F3424B /* Result.m */; };
+		E6C62D96184C2E8E00F3424B /* RHCoreDataCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D8B184C2E8E00F3424B /* RHCoreDataCollectionViewController.m */; };
+		E6C62D97184C2E8E00F3424B /* RHCoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D8D184C2E8E00F3424B /* RHCoreDataTableViewController.m */; };
+		E6C62D98184C2E8E00F3424B /* RHFetchedResultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D8F184C2E8E00F3424B /* RHFetchedResultsManager.m */; };
+		E6C62D99184C2E8E00F3424B /* RHManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D91184C2E8E00F3424B /* RHManagedObject.m */; };
+		E6C62D9A184C2E8E00F3424B /* RHManagedObject+legacy.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D93184C2E8E00F3424B /* RHManagedObject+legacy.m */; };
+		E6C62D9B184C2E8E00F3424B /* RHManagedObjectContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D95184C2E8E00F3424B /* RHManagedObjectContextManager.m */; };
+		E6C62D9E184C2F8F00F3424B /* ChatEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62D9D184C2F8F00F3424B /* ChatEntity.m */; };
+		E6C62DA1184C2F8F00F3424B /* UserEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62DA0184C2F8F00F3424B /* UserEntity.m */; };
+		E6C62DA4184C2F9000F3424B /* ConfigurationEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62DA3184C2F9000F3424B /* ConfigurationEntity.m */; };
+		E6C62DA7184C2F9000F3424B /* MessageEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62DA6184C2F9000F3424B /* MessageEntity.m */; };
+		E6C62DAA184C30F400F3424B /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62DA9184C30F400F3424B /* Message.m */; };
+		E6C62DAD184C312100F3424B /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62DAC184C312100F3424B /* Configuration.m */; };
+		E6C62DB0184C313D00F3424B /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62DAF184C313D00F3424B /* User.m */; };
+		E6C62DB3184C314F00F3424B /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62DB2184C314F00F3424B /* Chat.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -224,14 +240,6 @@
 		E68D342618444F990078CD1F /* RedactedCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedactedCrypto.m; sourceTree = "<group>"; };
 		E68D342E184839B10078CD1F /* UsernameRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsernameRegistrationViewController.h; path = Redacted/UsernameRegistrationViewController.h; sourceTree = SOURCE_ROOT; };
 		E68D342F184839B10078CD1F /* UsernameRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsernameRegistrationViewController.m; path = Redacted/UsernameRegistrationViewController.m; sourceTree = SOURCE_ROOT; };
-		E69A26FA18484C8500161827 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Message.h; path = Redacted/Message.h; sourceTree = "<group>"; };
-		E69A26FB18484C8500161827 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Message.m; path = Redacted/Message.m; sourceTree = "<group>"; };
-		E69A26FD18484C8500161827 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Redacted/User.h; sourceTree = "<group>"; };
-		E69A26FE18484C8500161827 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Redacted/User.m; sourceTree = "<group>"; };
-		E69A270018484C8500161827 /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Chat.h; path = Redacted/Chat.h; sourceTree = "<group>"; };
-		E69A270118484C8500161827 /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Chat.m; path = Redacted/Chat.m; sourceTree = "<group>"; };
-		E69A270318484C8600161827 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Configuration.h; path = Redacted/Configuration.h; sourceTree = "<group>"; };
-		E69A270418484C8600161827 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Configuration.m; path = Redacted/Configuration.m; sourceTree = "<group>"; };
 		E69A270618493AD000161827 /* Chat-iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Chat-iphone.storyboard"; sourceTree = "<group>"; };
 		E69A270C1849489200161827 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatViewController.h; path = Redacted/ChatViewController.h; sourceTree = "<group>"; };
 		E69A270D1849489200161827 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatViewController.m; path = Redacted/ChatViewController.m; sourceTree = "<group>"; };
@@ -250,6 +258,47 @@
 		E6C62D70184AF6FF00F3424B /* URLUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLUtil.m; sourceTree = "<group>"; };
 		E6C62D72184AFAC200F3424B /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
 		E6C62D73184AFAC200F3424B /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+		E6C62D76184BC89600F3424B /* MABaseFuture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MABaseFuture.h; path = MAFuture/MABaseFuture.h; sourceTree = "<group>"; };
+		E6C62D77184BC89600F3424B /* MABaseFuture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MABaseFuture.m; path = MAFuture/MABaseFuture.m; sourceTree = "<group>"; };
+		E6C62D78184BC89600F3424B /* MACompoundFuture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MACompoundFuture.h; path = MAFuture/MACompoundFuture.h; sourceTree = "<group>"; };
+		E6C62D79184BC89600F3424B /* MACompoundFuture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MACompoundFuture.m; path = MAFuture/MACompoundFuture.m; sourceTree = "<group>"; };
+		E6C62D7A184BC89600F3424B /* MAFuture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAFuture.h; path = MAFuture/MAFuture.h; sourceTree = "<group>"; };
+		E6C62D7B184BC89600F3424B /* MAFuture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAFuture.m; path = MAFuture/MAFuture.m; sourceTree = "<group>"; };
+		E6C62D7C184BC89600F3424B /* MAFutureInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAFutureInternal.h; path = MAFuture/MAFutureInternal.h; sourceTree = "<group>"; };
+		E6C62D7D184BC89600F3424B /* MAMethodSignatureCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAMethodSignatureCache.h; path = MAFuture/MAMethodSignatureCache.h; sourceTree = "<group>"; };
+		E6C62D7E184BC89600F3424B /* MAMethodSignatureCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAMethodSignatureCache.m; path = MAFuture/MAMethodSignatureCache.m; sourceTree = "<group>"; };
+		E6C62D7F184BC89600F3424B /* MAProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAProxy.h; path = MAFuture/MAProxy.h; sourceTree = "<group>"; };
+		E6C62D80184BC89600F3424B /* MAProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAProxy.m; path = MAFuture/MAProxy.m; sourceTree = "<group>"; };
+		E6C62D86184BCD6900F3424B /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Result.h; sourceTree = "<group>"; };
+		E6C62D87184BCD6900F3424B /* Result.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Result.m; sourceTree = "<group>"; };
+		E6C62D8A184C2E8E00F3424B /* RHCoreDataCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RHCoreDataCollectionViewController.h; path = RHManagedObject/RHCoreDataCollectionViewController.h; sourceTree = "<group>"; };
+		E6C62D8B184C2E8E00F3424B /* RHCoreDataCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RHCoreDataCollectionViewController.m; path = RHManagedObject/RHCoreDataCollectionViewController.m; sourceTree = "<group>"; };
+		E6C62D8C184C2E8E00F3424B /* RHCoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RHCoreDataTableViewController.h; path = RHManagedObject/RHCoreDataTableViewController.h; sourceTree = "<group>"; };
+		E6C62D8D184C2E8E00F3424B /* RHCoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RHCoreDataTableViewController.m; path = RHManagedObject/RHCoreDataTableViewController.m; sourceTree = "<group>"; };
+		E6C62D8E184C2E8E00F3424B /* RHFetchedResultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RHFetchedResultsManager.h; path = RHManagedObject/RHFetchedResultsManager.h; sourceTree = "<group>"; };
+		E6C62D8F184C2E8E00F3424B /* RHFetchedResultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RHFetchedResultsManager.m; path = RHManagedObject/RHFetchedResultsManager.m; sourceTree = "<group>"; };
+		E6C62D90184C2E8E00F3424B /* RHManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RHManagedObject.h; path = RHManagedObject/RHManagedObject.h; sourceTree = "<group>"; };
+		E6C62D91184C2E8E00F3424B /* RHManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RHManagedObject.m; path = RHManagedObject/RHManagedObject.m; sourceTree = "<group>"; };
+		E6C62D92184C2E8E00F3424B /* RHManagedObject+legacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RHManagedObject+legacy.h"; path = "RHManagedObject/RHManagedObject+legacy.h"; sourceTree = "<group>"; };
+		E6C62D93184C2E8E00F3424B /* RHManagedObject+legacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RHManagedObject+legacy.m"; path = "RHManagedObject/RHManagedObject+legacy.m"; sourceTree = "<group>"; };
+		E6C62D94184C2E8E00F3424B /* RHManagedObjectContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RHManagedObjectContextManager.h; path = RHManagedObject/RHManagedObjectContextManager.h; sourceTree = "<group>"; };
+		E6C62D95184C2E8E00F3424B /* RHManagedObjectContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RHManagedObjectContextManager.m; path = RHManagedObject/RHManagedObjectContextManager.m; sourceTree = "<group>"; };
+		E6C62D9C184C2F8F00F3424B /* ChatEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatEntity.h; path = Redacted/ChatEntity.h; sourceTree = "<group>"; };
+		E6C62D9D184C2F8F00F3424B /* ChatEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatEntity.m; path = Redacted/ChatEntity.m; sourceTree = "<group>"; };
+		E6C62D9F184C2F8F00F3424B /* UserEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserEntity.h; path = Redacted/UserEntity.h; sourceTree = "<group>"; };
+		E6C62DA0184C2F8F00F3424B /* UserEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserEntity.m; path = Redacted/UserEntity.m; sourceTree = "<group>"; };
+		E6C62DA2184C2F9000F3424B /* ConfigurationEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigurationEntity.h; path = Redacted/ConfigurationEntity.h; sourceTree = "<group>"; };
+		E6C62DA3184C2F9000F3424B /* ConfigurationEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfigurationEntity.m; path = Redacted/ConfigurationEntity.m; sourceTree = "<group>"; };
+		E6C62DA5184C2F9000F3424B /* MessageEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageEntity.h; path = Redacted/MessageEntity.h; sourceTree = "<group>"; };
+		E6C62DA6184C2F9000F3424B /* MessageEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageEntity.m; path = Redacted/MessageEntity.m; sourceTree = "<group>"; };
+		E6C62DA8184C30F400F3424B /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		E6C62DA9184C30F400F3424B /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		E6C62DAB184C312100F3424B /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
+		E6C62DAC184C312100F3424B /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
+		E6C62DAE184C313D00F3424B /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		E6C62DAF184C313D00F3424B /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		E6C62DB1184C314F00F3424B /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.h; sourceTree = "<group>"; };
+		E6C62DB2184C314F00F3424B /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +337,8 @@
 		696EBD6814F7877900B81BC9 = {
 			isa = PBXGroup;
 			children = (
+				E6C62D89184C2E8300F3424B /* RHManagedObject */,
+				E6C62D75184BC87D00F3424B /* MAFuture */,
 				E622BE191844185400965F67 /* CocoaAsyncSocket */,
 				E622BDFE184417AA00965F67 /* CocoaLumberJack */,
 				E622BE211844196200965F67 /* CocoaHTTPServer */,
@@ -541,6 +592,8 @@
 				E66AB6AA183F13A80023745A /* AppDelegate.m */,
 				E68D342518444F990078CD1F /* RedactedCrypto.h */,
 				E68D342618444F990078CD1F /* RedactedCrypto.m */,
+				E6C62D86184BCD6900F3424B /* Result.h */,
+				E6C62D87184BCD6900F3424B /* Result.m */,
 				E6C62D6F184AF6FF00F3424B /* URLUtil.h */,
 				E6C62D70184AF6FF00F3424B /* URLUtil.m */,
 				E6C62D72184AFAC200F3424B /* UserManager.h */,
@@ -563,14 +616,22 @@
 			isa = PBXGroup;
 			children = (
 				E622BD9E18430C5F00965F67 /* Redacted.xcdatamodeld */,
-				E69A270318484C8600161827 /* Configuration.h */,
-				E69A270418484C8600161827 /* Configuration.m */,
-				E69A270018484C8500161827 /* Chat.h */,
-				E69A270118484C8500161827 /* Chat.m */,
-				E69A26FD18484C8500161827 /* User.h */,
-				E69A26FE18484C8500161827 /* User.m */,
-				E69A26FA18484C8500161827 /* Message.h */,
-				E69A26FB18484C8500161827 /* Message.m */,
+				E6C62DA5184C2F9000F3424B /* MessageEntity.h */,
+				E6C62DA6184C2F9000F3424B /* MessageEntity.m */,
+				E6C62DA8184C30F400F3424B /* Message.h */,
+				E6C62DA9184C30F400F3424B /* Message.m */,
+				E6C62DA2184C2F9000F3424B /* ConfigurationEntity.h */,
+				E6C62DA3184C2F9000F3424B /* ConfigurationEntity.m */,
+				E6C62DAB184C312100F3424B /* Configuration.h */,
+				E6C62DAC184C312100F3424B /* Configuration.m */,
+				E6C62D9F184C2F8F00F3424B /* UserEntity.h */,
+				E6C62DA0184C2F8F00F3424B /* UserEntity.m */,
+				E6C62DAE184C313D00F3424B /* User.h */,
+				E6C62DAF184C313D00F3424B /* User.m */,
+				E6C62D9C184C2F8F00F3424B /* ChatEntity.h */,
+				E6C62D9D184C2F8F00F3424B /* ChatEntity.m */,
+				E6C62DB1184C314F00F3424B /* Chat.h */,
+				E6C62DB2184C314F00F3424B /* Chat.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -601,6 +662,43 @@
 				E6C62D6A184AE2D600F3424B /* ChatToolbar.m */,
 			);
 			name = Chat;
+			sourceTree = "<group>";
+		};
+		E6C62D75184BC87D00F3424B /* MAFuture */ = {
+			isa = PBXGroup;
+			children = (
+				E6C62D76184BC89600F3424B /* MABaseFuture.h */,
+				E6C62D77184BC89600F3424B /* MABaseFuture.m */,
+				E6C62D78184BC89600F3424B /* MACompoundFuture.h */,
+				E6C62D79184BC89600F3424B /* MACompoundFuture.m */,
+				E6C62D7A184BC89600F3424B /* MAFuture.h */,
+				E6C62D7B184BC89600F3424B /* MAFuture.m */,
+				E6C62D7C184BC89600F3424B /* MAFutureInternal.h */,
+				E6C62D7D184BC89600F3424B /* MAMethodSignatureCache.h */,
+				E6C62D7E184BC89600F3424B /* MAMethodSignatureCache.m */,
+				E6C62D7F184BC89600F3424B /* MAProxy.h */,
+				E6C62D80184BC89600F3424B /* MAProxy.m */,
+			);
+			name = MAFuture;
+			sourceTree = "<group>";
+		};
+		E6C62D89184C2E8300F3424B /* RHManagedObject */ = {
+			isa = PBXGroup;
+			children = (
+				E6C62D8A184C2E8E00F3424B /* RHCoreDataCollectionViewController.h */,
+				E6C62D8B184C2E8E00F3424B /* RHCoreDataCollectionViewController.m */,
+				E6C62D8C184C2E8E00F3424B /* RHCoreDataTableViewController.h */,
+				E6C62D8D184C2E8E00F3424B /* RHCoreDataTableViewController.m */,
+				E6C62D8E184C2E8E00F3424B /* RHFetchedResultsManager.h */,
+				E6C62D8F184C2E8E00F3424B /* RHFetchedResultsManager.m */,
+				E6C62D90184C2E8E00F3424B /* RHManagedObject.h */,
+				E6C62D91184C2E8E00F3424B /* RHManagedObject.m */,
+				E6C62D92184C2E8E00F3424B /* RHManagedObject+legacy.h */,
+				E6C62D93184C2E8E00F3424B /* RHManagedObject+legacy.m */,
+				E6C62D94184C2E8E00F3424B /* RHManagedObjectContextManager.h */,
+				E6C62D95184C2E8E00F3424B /* RHManagedObjectContextManager.m */,
+			);
+			name = RHManagedObject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -687,34 +785,45 @@
 				E622BE551844196200965F67 /* HTTPDynamicFileResponse.m in Sources */,
 				E622BE581844196200965F67 /* HTTPRedirectResponse.m in Sources */,
 				696F9EAE14F8D6ED00BC5FDC /* tor_main.c in Sources */,
-				E69A26FF18484C8500161827 /* User.m in Sources */,
 				696F9EB414F8DD6D00BC5FDC /* ULINetSocket.m in Sources */,
+				E6C62D85184BC89600F3424B /* MAProxy.m in Sources */,
 				E622BD8B1842DB4100965F67 /* WelcomeViewController.m in Sources */,
+				E6C62D98184C2E8E00F3424B /* RHFetchedResultsManager.m in Sources */,
 				692B86AF153CD4CB000806A9 /* NSData+Conversion.m in Sources */,
 				E622BD881842D4D600965F67 /* ConnectViewController.m in Sources */,
 				E622BE1E1844185400965F67 /* GCDAsyncSocket.m in Sources */,
 				E69A270E1849489200161827 /* ChatViewController.m in Sources */,
 				E622BE61184422A700965F67 /* RedactedHTTPConnection.m in Sources */,
+				E6C62DAA184C30F400F3424B /* Message.m in Sources */,
 				E6C62D74184AFAC200F3424B /* UserManager.m in Sources */,
 				E622BE16184417AA00965F67 /* ContextFilterLogFormatter.m in Sources */,
 				E622BE521844196200965F67 /* MultipartMessageHeaderField.m in Sources */,
 				E645CD15183F1DB70031D78D /* ProxyURLProtocol.m in Sources */,
 				E622BE4F1844196200965F67 /* HTTPServer.m in Sources */,
+				E6C62DA1184C2F8F00F3424B /* UserEntity.m in Sources */,
 				6940BD1F15F84C0C00FE74CB /* TorController.m in Sources */,
+				E6C62D96184C2E8E00F3424B /* RHCoreDataCollectionViewController.m in Sources */,
+				E6C62D9A184C2E8E00F3424B /* RHManagedObject+legacy.m in Sources */,
 				E6C62D71184AF6FF00F3424B /* URLUtil.m in Sources */,
+				E6C62D88184BCD6900F3424B /* Result.m in Sources */,
 				E622BDA018430C5F00965F67 /* Redacted.xcdatamodeld in Sources */,
+				E6C62DB3184C314F00F3424B /* Chat.m in Sources */,
+				E6C62D99184C2E8E00F3424B /* RHManagedObject.m in Sources */,
 				E6C62D6E184AEEF500F3424B /* TITokenField.m in Sources */,
 				E622BE561844196200965F67 /* HTTPErrorResponse.m in Sources */,
 				E622BE12184417AA00965F67 /* DDASLLogger.m in Sources */,
 				E645CD21184026F80031D78D /* WelcomeUsernameViewController.m in Sources */,
 				E622BE4B1844196200965F67 /* DDRange.m in Sources */,
 				E622BE13184417AA00965F67 /* DDFileLogger.m in Sources */,
+				E6C62D83184BC89600F3424B /* MAFuture.m in Sources */,
 				E6C62D62184A93D400F3424B /* ChatNavigationBar.m in Sources */,
 				E622BE571844196200965F67 /* HTTPFileResponse.m in Sources */,
 				E622BE4C1844196200965F67 /* HTTPAuthenticationRequest.m in Sources */,
+				E6C62D82184BC89600F3424B /* MACompoundFuture.m in Sources */,
 				E622BE4E1844196200965F67 /* HTTPMessage.m in Sources */,
 				E6C62D65184ADD4A00F3424B /* NewChatViewController.m in Sources */,
 				E68D342718444F990078CD1F /* RedactedCrypto.m in Sources */,
+				E6C62D84184BC89600F3424B /* MAMethodSignatureCache.m in Sources */,
 				E622BE511844196200965F67 /* MultipartMessageHeader.m in Sources */,
 				E622BE14184417AA00965F67 /* DDLog.m in Sources */,
 				E622BE491844196200965F67 /* DDData.m in Sources */,
@@ -722,20 +831,25 @@
 				E6C62D68184AE1EC00F3424B /* FlexibleTextFieldToolbar.m in Sources */,
 				6954F8ED15FE985E00AE8658 /* NSData+CocoaDevUsersAdditions.m in Sources */,
 				E622BE15184417AA00965F67 /* DDTTYLogger.m in Sources */,
+				E6C62DA7184C2F9000F3424B /* MessageEntity.m in Sources */,
 				E622BE4D1844196200965F67 /* HTTPConnection.m in Sources */,
-				E69A270218484C8500161827 /* Chat.m in Sources */,
-				E69A26FC18484C8500161827 /* Message.m in Sources */,
+				E6C62D9B184C2E8E00F3424B /* RHManagedObjectContextManager.m in Sources */,
+				E6C62DB0184C313D00F3424B /* User.m in Sources */,
+				E6C62DA4184C2F9000F3424B /* ConfigurationEntity.m in Sources */,
 				E66AB6B5183F13E10023745A /* main.m in Sources */,
-				E69A270518484C8600161827 /* Configuration.m in Sources */,
+				E6C62D81184BC89600F3424B /* MABaseFuture.m in Sources */,
 				E645CD18183F1DBD0031D78D /* CKHTTPConnection.m in Sources */,
 				E622BE541844196200965F67 /* HTTPDataResponse.m in Sources */,
 				E622BE11184417AA00965F67 /* DDAbstractDatabaseLogger.m in Sources */,
 				E622BE531844196200965F67 /* HTTPAsyncFileResponse.m in Sources */,
 				E68D3430184839B10078CD1F /* UsernameRegistrationViewController.m in Sources */,
 				E66AB6AB183F13A80023745A /* AppDelegate.m in Sources */,
+				E6C62D9E184C2F8F00F3424B /* ChatEntity.m in Sources */,
 				E6C62D6B184AE2D600F3424B /* ChatToolbar.m in Sources */,
 				E622BE501844196200965F67 /* MultipartFormDataParser.m in Sources */,
+				E6C62D97184C2E8E00F3424B /* RHCoreDataTableViewController.m in Sources */,
 				E622BD911843013A00965F67 /* JSONKit.m in Sources */,
+				E6C62DAD184C312100F3424B /* Configuration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

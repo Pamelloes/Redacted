@@ -2,16 +2,17 @@
 //  Configuration.h
 //  Redacted
 //
-//  Created by Joshua Brot on 11/28/13.
+//  Created by Joshua Brot on 12/1/13.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "RHManagedObject.h"
 
 @class Chat, User;
 
-@interface Configuration : NSManagedObject
+@interface ConfigurationEntity : RHManagedObject
 
 @property (nonatomic, retain) NSNumber * registered;
 @property (nonatomic, retain) NSSet *chats;
@@ -19,7 +20,7 @@
 @property (nonatomic, retain) NSSet *users;
 @end
 
-@interface Configuration (CoreDataGeneratedAccessors)
+@interface ConfigurationEntity (CoreDataGeneratedAccessors)
 
 - (void)addChatsObject:(Chat *)value;
 - (void)removeChatsObject:(Chat *)value;

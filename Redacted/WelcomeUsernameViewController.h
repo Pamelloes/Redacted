@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WelcomeUsernameViewController : UIViewController <UITextFieldDelegate, NSURLConnectionDataDelegate> {
+@interface WelcomeUsernameViewController : UIViewController <UITextFieldDelegate> {
 	UIScrollView *scrollView;
 	
 	UIView *status;

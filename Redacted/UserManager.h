@@ -8,33 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-
-typedef enum {
-	VALIDATED,
-	INVALIDATED,
-	FAILURE
-} result;
-
-typedef void (^callback) (result);
-
-
-
-@class AppDelegate, User;
+@class Configuration, User, Result;
 
 @interface UserManager : NSObject {
-	AppDelegate *ad;
-	NSManagedObjectContext *context;
+	__weak Configuration *config;
 }
 
-- (instancetype) initWithAppDelegate: (AppDelegate *) ad Context: (NSManagedObjectContext *) context;
+- (instancetype) initWithConfiguration: (Configuration *) config;
 
-- (void) validateUserExists: (NSString *) user Callback: (callback) callback;
-- (void) retrieveUser: (NSString *) user Callback: (callback) callback;
-
+- (Result *) validateUserExists: (NSString *) user Cancel: (BOOL *) cancel;
+- (Result *) retrieveUser: (NSString *) user Cancel: (BOOL *) cancel;
 - (User *) userWithName: (NSString *) name;
-- (void) removeUser: (User *) user Callback: (callback) callback;
+- (User *) fetchOrRetrieveUser: (NSString *) user;
 
-@property (nonatomic, weak, readonly) AppDelegate *ad;
-@property (nonatomic, weak, readonly) NSManagedObjectContext *context;
+@property (nonatomic, weak, readonly) Configuration *config;
 
 @end
