@@ -1,8 +1,8 @@
 //
-//  Chat.h
+//  ChatEntity.h
 //  Redacted
 //
-//  Created by Joshua Brot on 12/1/13.
+//  Created by Joshua Brot on 12/9/13.
 //
 //
 
@@ -16,20 +16,20 @@
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) Configuration *config;
-@property (nonatomic, retain) NSSet *users;
 @property (nonatomic, retain) NSSet *messages;
+@property (nonatomic, retain) NSSet *users;
 @end
 
 @interface ChatEntity (CoreDataGeneratedAccessors)
-
-- (void)addUsersObject:(User *)value;
-- (void)removeUsersObject:(User *)value;
-- (void)addUsers:(NSSet *)values;
-- (void)removeUsers:(NSSet *)values;
 
 - (void)addMessagesObject:(Message *)value;
 - (void)removeMessagesObject:(Message *)value;
 - (void)addMessages:(NSSet *)values;
 - (void)removeMessages:(NSSet *)values;
+
+- (void)addUsersObject:(User *)value;
+- (void)removeUsersObject:(User *)value;
+- (void)addUsers:(NSSet *)values;
+- (void)removeUsers:(NSSet *)values;
 
 @end

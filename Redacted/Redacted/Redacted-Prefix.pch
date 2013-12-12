@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'OnionBrowser' target in the 'OnionBrowser' project
+// Prefix header for all source files of the 'Redacted' target in the 'Redacted' project
 //
 
 #import <Availability.h>
@@ -12,6 +12,10 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+	#import "DDLog.h"
+
+	// Log levels: off, error, warn, info, verbose
+	static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #endif
 
 /** String: Identifier **/

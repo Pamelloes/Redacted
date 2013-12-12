@@ -10,6 +10,7 @@
 
 #import "Configuration.h"
 #import "Chat.h"
+#import "Contact.h"
 
 @implementation User
 
@@ -22,10 +23,11 @@
 }
 
 - (void)prepareForDeletion {
-	// If we are the local user, then we take the whole object graph with us. And probably crash the program in a deletion loop :D
-	if (self.luser != nil) {
-		[self.luser delete];
-		return;
+	// If we are the local user, then shit hit the fan and we will abort.
+	if (self.primary != nil) {
+		DDLogError(@"Tried to delete local contact!");
+		DDLogError(@"Aborting!");
+		abort();
 	}
 	
 	for (Chat *chat in self.chats) {
@@ -38,7 +40,7 @@
 		if ([users count] == 0) [chat delete];
 		else if ([users count] == 1) {
 			User *user = users.anyObject; // Since there is only one object, this is gauranteed to return the correct object.
-			if (user.luser != nil) [chat delete]; // Only the local user remains.
+			if (user.primary != nil) [chat delete]; // Only the local user remains.
 		}
 	}
 }

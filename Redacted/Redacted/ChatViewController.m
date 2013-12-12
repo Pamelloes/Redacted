@@ -9,23 +9,40 @@
 #import "ChatViewController.h"
 
 #import "AppDelegate.h"
+#import "ContactsDataSource.h"
+
+@interface CenteredIV : UIImageView
+@end
+
+@implementation CenteredIV
+
+- (void) setFrame:(CGRect)frame {
+	CGFloat width = [UIScreen mainScreen].bounds.size.width;
+	[super setFrame:CGRectMake((width - frame.size.width) / 2.0f, frame.origin.y, frame.size.width, frame.size.height)];
+}
+
+@end
 
 @interface ChatViewController () {
 	BOOL barvis;
 	BOOL animating;
+	
+	ContactsDataSource *cds;
 }
 
 @end
 
 @implementation ChatViewController
 
-@synthesize tableView, edit, newchat, tabbar, tabpos, settings, messages, contacts;
+@synthesize tableView, edit, done, newchat, newcontact, tabbar, tabpos, settings, messages, contacts;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[table]" options:0 metrics:nil views:@{@"table":tableView}]];
 	tableView.contentInset = UIEdgeInsetsMake(tableView.contentInset.top + 49, tableView.contentInset.left, tableView.contentInset.bottom, tableView.contentInset.right);
+	
+	cds = [[ContactsDataSource alloc] initObject];
 	
 	barvis = YES;
 	animating = NO;
@@ -40,6 +57,8 @@
 	layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectMake(tabbar.bounds.origin.x, tabbar.bounds.origin.y + tabbar.bounds.size.height - 1, tabbar.bounds.size.width, 1)].CGPath;
 	layer.shouldRasterize = YES;
 
+	done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(edit:)];
+	
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -47,51 +66,24 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void) viewWillAppear:(BOOL)animated {
 	[self.navigationController setNavigationBarHidden:NO animated:YES];
-	UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Redacted"]];
-	image.frame = CGRectMake(0, 0, 100, 44);
+	CenteredIV *image = [[CenteredIV alloc] initWithImage:[UIImage imageNamed:@"Redacted"]];
+	image.frame = CGRectMake(0, 0, 80, 44);
 	image.contentMode = UIViewContentModeScaleAspectFit;
 	self.navigationItem.titleView = image;
 	
-	/*UIView *view = self.view.superview;
-	if (!view) return;
-	NSLog(@"%@ %@", view, overlay);
-	[overlay removeFromSuperview];
-	[view addSubview:overlay];
-	[view bringSubviewToFront:overlay];
-	[view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[toolbar]|" options:0 metrics:nil views:@{@"toolbar":overlay}]];
-	[view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[toolbar(==44)]" options:0 metrics:nil views:@{@"toolbar":overlay}]];
-	overlay.backgroundColor = [UIColor blackColor];*/
+	[cds reloadData];
+	[tableView reloadData];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
 	AppDelegate *ad = (AppDelegate *) [UIApplication sharedApplication].delegate;
 	[ad storyboardTransitionComplete: self];
-	
-	/*[self.navigationController setNavigationBarHidden:NO animated:NO];
-		
-		//self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
-		
-		//ad.rootNavigationController.navigationBar.barTintColor = [UIColor greenColor];
-		
-		//NSLog(@"%@ %@ %@", self.navigationItem, self.navigationController.navigationItem, self.navigationController.navigationBar.topItem);
-		
-		[self.navigationItem setTitle:@"TEST!"];
+}
 
-		//[self.navigationController.navigationBar setItems:[NSArray arrayWithObject: nav] animated:NO];
-		
-		UINavigationItem *item = self.navigationItem;
-		NSLog(@"%@ %@ %@ %@", item, ad.rootNavigationController.navigationItem, item.leftBarButtonItem, settings);
-		item.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"o3o" style:UIBarButtonItemStyleBordered target:nil action:nil];
-		item.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"o4o" style:UIBarButtonItemStyleBordered target:nil action:nil];
-	//});*/
+- (void) viewWillDisappear:(BOOL)animated {
+	if (tableView.editing) [self edit:nil];
 }
 
 - (IBAction) navigationBarTapped:(id)sender {
@@ -99,14 +91,56 @@
 	barvis = !barvis;
 	animating = YES;
 	tabpos.constant = barvis ? 0 : -49;
+	tabbar.alpha = 1.0;
 	[tabbar setNeedsUpdateConstraints];
 	[UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
 		tableView.contentInset = UIEdgeInsetsMake(tableView.contentInset.top + (barvis ? 49 : -49), tableView.contentInset.left, tableView.contentInset.bottom, tableView.contentInset.right);
 		[tabbar layoutIfNeeded];
+	} completion: ^(BOOL finished){
 		tabbar.alpha = barvis ? 1.0 : 0.0;
+		animating = NO;
+	}];
+}
+
+- (IBAction) edit:(id)sender {
+	if (tableView.isEditing) {
+		[self.navigationItem setLeftBarButtonItem:edit animated:YES];
+		[tableView setEditing:NO animated:YES];
+	} else {
+		[self.navigationItem setLeftBarButtonItem:done animated:YES];
+		[tableView setEditing:YES animated:YES];
+	}
+}
+
+- (void) showSettings:(id)sender {
+	
+}
+
+- (void) showMessages:(id)sender {
+	if (animating) return;
+	animating = YES;
+	tableView.dataSource = self;
+	tableView.delegate = self;
+	[UIView transitionWithView:tableView duration:0.2f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+		[tableView reloadData];
 	} completion: ^(BOOL finished){
 		animating = NO;
 	}];
+	[self.navigationItem setRightBarButtonItem:newchat animated:YES];
+}
+
+- (void) showContacts:(id)sender {
+	if (animating) return;
+	animating = YES;
+	tableView.dataSource = cds;
+	tableView.delegate = cds;
+	[cds reloadData];
+	[UIView transitionWithView:tableView duration:0.2f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+		[tableView reloadData];
+	} completion: ^(BOOL finished){
+		animating = NO;
+	}];
+	[self.navigationItem setRightBarButtonItem:newcontact animated:YES];
 }
 
 #pragma mark - Table view data source
@@ -132,12 +166,11 @@
 
 /*
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (BOOL)tableView:(UITableView *)tv canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+	return NO;
 }
 */
+
 
 /*
 // Override to support editing the table view.
@@ -180,5 +213,13 @@
 }
 
  */
+
+#pragma mark UITabBarDelegate
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+	if (item == settings) [self showSettings: nil];
+	else if (item == messages) [self showMessages: nil];
+	else if (item == contacts) [self showContacts: nil];
+}
 
 @end

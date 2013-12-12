@@ -20,9 +20,7 @@
 #import "Configuration.h"
 #import "User.h"
 #import "UserManager.h"
-
-// Log levels: off, error, warn, info, verbose
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#import "Contact.h"
 
 @interface AppDelegate ()
 
@@ -30,7 +28,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 -(void) loadPersistantData;
 -(void) loadConfiguration;
--(void) loadRootUser;
+-(void) loadRootContact;
 
 - (void) updateUserData;
 
@@ -40,7 +38,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AppDelegate
 
-@synthesize tor, httpServer, crypto, config, root, usermanager, window, rootNavigationController,
+@synthesize tor, httpServer, crypto, config, local, usermanager, window, rootNavigationController,
     spoofUserAgent,
     dntHeader,
     usePipelining,
@@ -59,6 +57,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	[crypto loadLocalKeys];
 	
 	[self loadPersistantData];
+	//[User deleteWithPredicate:[NSPredicate predicateWithFormat:@"name like \"test\""] error:nil];
 	
 	[self startWebserver];
 	
@@ -202,9 +201,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void) loadPersistantData {
 	[self loadConfiguration];
-	[self loadRootUser];
-	
-	usermanager = [[UserManager alloc] initWithConfiguration:config];
+	usermanager = [[UserManager alloc] initWithConfiguration:config Crypto:crypto];
+	[self loadRootContact];
 }
 
 - (void) loadConfiguration {
@@ -232,26 +230,27 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	if (error) DDLogError(@"Error saving database: %@", error);
 }
 
-- (void) loadRootUser {
-	root = config.luser;
-	if (root) return;
+- (void) loadRootContact {
+	local = config.lcontact;
+	if (local) return;
 	
-	DDLogInfo(@"Could not find root user...");
-	DDLogInfo(@"Generating new root user...");
+	DDLogInfo(@"Could not find root contact...");
+	DDLogInfo(@"Generating new root contact...");
 	
 	NSError *error;
-	root = [User newEntityWithError:&error];
-	if (error) DDLogError(@"Error creating user: %@", error);
-	root.pkey = crypto.publicKeyString;
-	root.luser = config;
-	root.config = config;
+	local = [Contact newEntityWithError:&error];
+	if (error) DDLogError(@"Error creating contact: %@", error);
+	//root.pkey = crypto.publicKeyString;
+	local.lcontact = config;
+	local.config = config;
 	
-	config.luser = root;
-	[config addUsersObject:root];
+	config.lcontact = local;
+	[config addContactsObject:local];
 	
 	error = [Configuration commit];
 	if (error) DDLogError(@"Error saving database: %@", error);
 }
+
 
 - (void) updateProgress:(NSString *)statusLine {
 	ConnectViewController *cvc = (ConnectViewController *) rootNavigationController.topViewController;
@@ -262,7 +261,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	NSError *error;
 	NSString *hostname = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"hostname" relativeToURL:[self applicationDocumentsDirectory]] encoding:NSUTF8StringEncoding error:&error];
 	if (error) DDLogError(@"Unable to retrieve hostname: %@", error);
-	root.addr = [[hostname componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
+	usermanager.local.addr = [[hostname componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
 	if (config.registered.boolValue) {
 		[self updateUserData];
 		[self showChatWindow];

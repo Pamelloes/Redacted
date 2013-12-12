@@ -20,9 +20,6 @@
 static const uint8_t publicKeyIdentifier[]      = kPublicKeyTag;
 static const uint8_t privateKeyIdentifier[]     = kPrivateKeyTag;
 
-// Log levels: off, error, warn, info, verbose
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-
 @interface RedactedCrypto () {
 	CFTypeRef pkeypref;
 }

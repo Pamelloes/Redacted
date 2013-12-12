@@ -14,8 +14,7 @@
 #import "DDLog.h"
 #import "URLUtil.h"
 #import "Result.h"
-
-static const int ddLogLevel = LOG_LEVEL_INFO;
+#import "UserManager.h"
 
 typedef enum {
 	SENDING_REQUEST,
@@ -49,7 +48,7 @@ typedef enum {
 	
 	AppDelegate *ad = (AppDelegate *) [UIApplication sharedApplication].delegate;
 	
-	NSData *body = [[NSString stringWithFormat:@"name=%@&pkey=%@&addr=%@", [URLUtil urlencode:ad.root.name], [URLUtil urlencode:ad.root.pkey], [URLUtil urlencode:ad.root.addr]] dataUsingEncoding:NSUTF8StringEncoding];
+	NSData *body = [[NSString stringWithFormat:@"name=%@&pkey=%@&addr=%@", [URLUtil urlencode:ad.usermanager.local.name], [URLUtil urlencode:ad.usermanager.local.pkey], [URLUtil urlencode:ad.usermanager.local.addr]] dataUsingEncoding:NSUTF8StringEncoding];
 
 	NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://rqs5owaukvnh37b4.onion/register.php"]];
 	[req setHTTPMethod:@"POST"];
@@ -78,7 +77,7 @@ typedef enum {
 		AppDelegate *ad = (AppDelegate *) [UIApplication sharedApplication].delegate;
 		cancelled = NO;
 		res = [URLUtil retrieveURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://rqs5owaukvnh37b4.onion/confirm.php?name=%@&key=%@",
-																			   [URLUtil urlencode:ad.root.name], [URLUtil urlencode:key]]] Cancel:&cancelled];
+																			   [URLUtil urlencode:ad.usermanager.local.name], [URLUtil urlencode:key]]] Cancel:&cancelled];
 	});
 }
 
@@ -137,7 +136,7 @@ typedef enum {
 			
 			AppDelegate *ad = (AppDelegate *) [UIApplication sharedApplication].delegate;
 			cancelled = NO;
-			res = [URLUtil retrieveURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://rqs5owaukvnh37b4.onion/exists.php?name=%@", [URLUtil urlencode:ad.root.name]]] Cancel:&cancelled];
+			res = [URLUtil retrieveURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://rqs5owaukvnh37b4.onion/exists.php?name=%@", [URLUtil urlencode:ad.usermanager.local.name]]] Cancel:&cancelled];
 		});
 	} else if (state == VALIDATING) {
 		dispatch_async(dispatch_get_main_queue(), ^{

@@ -73,7 +73,7 @@
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([[segue destinationViewController] isKindOfClass:[UsernameRegistrationViewController class]]) ((AppDelegate *)[UIApplication sharedApplication].delegate).root.name = username.text;
+	if ([[segue destinationViewController] isKindOfClass:[UsernameRegistrationViewController class]]) ((AppDelegate *)[UIApplication sharedApplication].delegate).usermanager.local.name = username.text;
 }
 
 - (void) updateButton {

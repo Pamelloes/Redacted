@@ -1,8 +1,8 @@
 //
-//  Message.h
+//  MessageEntity.h
 //  Redacted
 //
-//  Created by Joshua Brot on 12/1/13.
+//  Created by Joshua Brot on 12/9/13.
 //
 //
 
@@ -15,8 +15,8 @@
 @interface MessageEntity : RHManagedObject
 
 @property (nonatomic, retain) NSString * payload;
+@property (nonatomic, retain) Chat *chat;
 @property (nonatomic, retain) User *from;
 @property (nonatomic, retain) User *to;
-@property (nonatomic, retain) Chat *chat;
 
 @end

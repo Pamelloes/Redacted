@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Chat" representedClassName="Chat" syncable="YES">
+    <entity name="ChatEntity" representedClassName="Chat" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="config" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Configuration" inverseName="chats" inverseEntity="Configuration" syncable="YES"/>
-        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="chats" inverseEntity="User" syncable="YES"/>
+        <relationship name="config" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ConfigurationEntity" inverseName="chats" inverseEntity="ConfigurationEntity" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageEntity" inverseName="chat" inverseEntity="MessageEntity" syncable="YES"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="chats" inverseEntity="UserEntity" syncable="YES"/>
     </entity>
-    <entity name="Configuration" representedClassName="Configuration" syncable="YES">
+    <entity name="ConfigurationEntity" representedClassName="Configuration" syncable="YES">
         <attribute name="registered" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <relationship name="chats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Chat" inverseName="config" inverseEntity="Chat" syncable="YES"/>
-        <relationship name="luser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="luser" inverseEntity="User" syncable="YES"/>
-        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="config" inverseEntity="User" syncable="YES"/>
+        <relationship name="chats" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChatEntity" inverseName="config" inverseEntity="ChatEntity" syncable="YES"/>
+        <relationship name="contacts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ContactEntity" inverseName="config" inverseEntity="ContactEntity" syncable="YES"/>
+        <relationship name="lcontact" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ContactEntity" inverseName="lcontact" inverseEntity="ContactEntity" syncable="YES"/>
     </entity>
-    <entity name="Message" representedClassName="Message" syncable="YES">
+    <entity name="ContactEntity" representedClassName="Contact" syncable="YES">
+        <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="first" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="last" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="config" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ConfigurationEntity" inverseName="contacts" inverseEntity="ConfigurationEntity" syncable="YES"/>
+        <relationship name="image" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ImageEntity" inverseName="contact" inverseEntity="ImageEntity" syncable="YES"/>
+        <relationship name="lcontact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ConfigurationEntity" inverseName="lcontact" inverseEntity="ConfigurationEntity" syncable="YES"/>
+        <relationship name="primary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="primary" inverseEntity="UserEntity" syncable="YES"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="contact" inverseEntity="UserEntity" syncable="YES"/>
+    </entity>
+    <entity name="ImageEntity" representedClassName="Image" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTranformer" syncable="YES"/>
+        <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContactEntity" inverseName="image" inverseEntity="ContactEntity" syncable="YES"/>
+    </entity>
+    <entity name="MessageEntity" representedClassName="Message" syncable="YES">
         <attribute name="payload" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="from" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="sent" inverseEntity="User" syncable="YES"/>
-        <relationship name="to" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="received" inverseEntity="User" syncable="YES"/>
+        <relationship name="chat" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ChatEntity" inverseName="messages" inverseEntity="ChatEntity" syncable="YES"/>
+        <relationship name="from" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="sent" inverseEntity="UserEntity" syncable="YES"/>
+        <relationship name="to" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="received" inverseEntity="UserEntity" syncable="YES"/>
     </entity>
-    <entity name="User" representedClassName="User" syncable="YES">
+    <entity name="UserEntity" representedClassName="User" syncable="YES">
         <attribute name="addr" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pkey" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="chats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Chat" inverseName="users" inverseEntity="Chat" syncable="YES"/>
-        <relationship name="config" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Configuration" inverseName="users" inverseEntity="Configuration" syncable="YES"/>
-        <relationship name="luser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Configuration" inverseName="luser" inverseEntity="Configuration" syncable="YES"/>
-        <relationship name="received" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="to" inverseEntity="Message" syncable="YES"/>
-        <relationship name="sent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="from" inverseEntity="Message" syncable="YES"/>
+        <relationship name="chats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ChatEntity" inverseName="users" inverseEntity="ChatEntity" syncable="YES"/>
+        <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContactEntity" inverseName="users" inverseEntity="ContactEntity" syncable="YES"/>
+        <relationship name="primary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContactEntity" inverseName="primary" inverseEntity="ContactEntity" syncable="YES"/>
+        <relationship name="received" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageEntity" inverseName="to" inverseEntity="MessageEntity" syncable="YES"/>
+        <relationship name="sent" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageEntity" inverseName="from" inverseEntity="MessageEntity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Chat" positionX="90" positionY="-144" width="128" height="90"/>
-        <element name="Configuration" positionX="-290" positionY="-6" width="128" height="105"/>
-        <element name="Message" positionX="403" positionY="-9" width="128" height="88"/>
-        <element name="User" positionX="52" positionY="24" width="128" height="165"/>
+        <element name="ChatEntity" positionX="-612" positionY="210" width="128" height="103"/>
+        <element name="ConfigurationEntity" positionX="-1098" positionY="-54" width="128" height="103"/>
+        <element name="ContactEntity" positionX="-648" positionY="-76" width="128" height="163"/>
+        <element name="ImageEntity" positionX="-407" positionY="-217" width="128" height="73"/>
+        <element name="MessageEntity" positionX="-110" positionY="135" width="128" height="103"/>
+        <element name="UserEntity" positionX="-405" positionY="-99" width="128" height="163"/>
     </elements>
 </model>

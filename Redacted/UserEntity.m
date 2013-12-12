@@ -1,14 +1,14 @@
 //
-//  User.m
+//  UserEntity.m
 //  Redacted
 //
-//  Created by Joshua Brot on 12/1/13.
+//  Created by Joshua Brot on 12/9/13.
 //
 //
 
-#import "User.h"
+#import "UserEntity.h"
 #import "Chat.h"
-#import "Configuration.h"
+#import "Contact.h"
 #import "Message.h"
 
 
@@ -18,8 +18,8 @@
 @dynamic name;
 @dynamic pkey;
 @dynamic chats;
-@dynamic config;
-@dynamic luser;
+@dynamic contact;
+@dynamic primary;
 @dynamic received;
 @dynamic sent;
 

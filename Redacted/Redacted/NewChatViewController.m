@@ -9,6 +9,7 @@
 #import "NewChatViewController.h"
 
 #import "ChatToolbar.h"
+#import "Contact.h"
 
 @interface NewChatViewController () {
 	TITokenFieldView *field;
@@ -28,8 +29,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	NSError *error;
+	NSArray *ctcts = [Contact fetchAllWithError:&error];
+	if (error) DDLogError(@"Could not fetch contacts: %@", error);
+	NSMutableArray *contacts = [NSMutableArray arrayWithCapacity:[ctcts count]];
+	for (Contact *c in ctcts) {
+		if (c.primary) continue;
+		[contacts addObject:[c name]];
+	}
+	
 	field = (TITokenFieldView *) self.view;
-	field.sourceArray = [NSArray arrayWithObjects:@"test", @"test2", @"Pamelloes", @"test1", @"o3o", nil];
+	field.sourceArray = contacts;
 	placeholder = [[UIView alloc] initWithFrame:field.contentView.bounds];
 	[field.contentView addSubview:placeholder];
 	

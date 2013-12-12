@@ -1,12 +1,12 @@
 //
-//  Message.m
+//  MessageEntity.m
 //  Redacted
 //
-//  Created by Joshua Brot on 12/1/13.
+//  Created by Joshua Brot on 12/9/13.
 //
 //
 
-#import "Message.h"
+#import "MessageEntity.h"
 #import "Chat.h"
 #import "User.h"
 
@@ -14,8 +14,8 @@
 @implementation MessageEntity
 
 @dynamic payload;
+@dynamic chat;
 @dynamic from;
 @dynamic to;
-@dynamic chat;
 
 @end

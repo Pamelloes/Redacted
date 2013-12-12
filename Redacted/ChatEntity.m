@@ -1,12 +1,12 @@
 //
-//  Chat.m
+//  ChatEntity.m
 //  Redacted
 //
-//  Created by Joshua Brot on 12/1/13.
+//  Created by Joshua Brot on 12/9/13.
 //
 //
 
-#import "Chat.h"
+#import "ChatEntity.h"
 #import "Configuration.h"
 #import "Message.h"
 #import "User.h"
@@ -16,7 +16,7 @@
 
 @dynamic name;
 @dynamic config;
-@dynamic users;
 @dynamic messages;
+@dynamic users;
 
 @end

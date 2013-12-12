@@ -9,26 +9,49 @@
 #import "UserManager.h"
 
 #import "Configuration.h"
+#import "RedactedCrypto.h"
 #import "URLUtil.h"
 #import "MAFuture.h"
 #import "Result.h"
 #import "JSONKit.h"
 #import "User.h"
-#import "DDLog.h"
+#import "Contact.h"
 
 @interface UserManager ()
 
 @end
 
-const int ddLogLevel = LOG_LEVEL_INFO;
-
 @implementation UserManager
 
-@synthesize config;
+@synthesize config, local;
 
-- (instancetype) initWithConfiguration: (Configuration *) conf {
+- (instancetype) initWithConfiguration: (Configuration *) conf Crypto: (RedactedCrypto *) crypto {
 	if (self = [super init]) {
 		config = conf;
+		
+		if (!config.lcontact) {
+			DDLogError(@"No local contact defined - cannot instantiate UserManager!");
+			self = nil;
+			return self;
+		}
+		
+		local = config.lcontact.primary;
+		if (!local) {
+			DDLogInfo(@"Could not find root user...");
+			DDLogInfo(@"Generating new root user...");
+			
+			NSError *error;
+			local = [User newEntityWithError:&error];
+			if (error) DDLogError(@"Error creating user: %@", error);
+			local.pkey = crypto.publicKeyString;
+			local.primary = config.lcontact;
+			
+			config.lcontact.primary = local;
+			[config.lcontact addUsersObject:local];
+			
+			error = [Configuration commit];
+			if (error) DDLogError(@"Error saving database: %@", error);
+		}
 	}
 	return self;
 }
@@ -51,6 +74,9 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (Result *) retrieveUser: (NSString *) user Cancel: (BOOL *) cancel {
 	return MABackgroundFuture(^{
+		User *usr = [self userWithName:user];
+		if (usr) return [[Result alloc] initWithResult:SUCCESS Error:nil Data:usr];
+		
 		Result *exists = [self validateUserExists:user Cancel:cancel];
 		if (exists.result != SUCCESS || (cancel != NULL && *cancel)) return [[Result alloc] initWithResult:FAILURE Error:exists.error Data:nil];
 		
@@ -79,24 +105,22 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 		NSString *pubkey = [json objectForKey:@"pkey"];
 		
 		err = nil;
-		User *usr = [User newEntityWithError:&err];
+		usr = [User newEntityWithError:&err];
 		if (err || !usr || (cancel != NULL && *cancel)) return [[Result alloc] initWithResult:FAILURE Error:err Data:nil]; //Last chance to cancel
 		usr.name = user;
 		usr.addr = address;
 		usr.pkey = pubkey;
-		usr.config = config;
-		[config addUsersObject:usr];
 		
 		err = [User commit];
 		if (err) return [[Result alloc] initWithResult:FAILURE Error:err Data:nil];
 		
-		return [[Result alloc] initWithResult:SUCCESS Error:nil Data:nil];
+		return [[Result alloc] initWithResult:SUCCESS Error:nil Data:usr];
 	});
 }
 
 - (User *) userWithName: (NSString *) name {
 	NSError *error;
-	NSArray *result = [User fetchWithPredicate:[NSPredicate predicateWithFormat:@"name like \"%@\"", name] error:&error];
+	NSArray *result = [User fetchWithPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"name LIKE[c] \"%@\"",name]] error:&error];
 	if (error) {
 		DDLogError(@"Could not retrieve user from database: %@", error);
 		return nil;

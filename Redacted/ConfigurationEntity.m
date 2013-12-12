@@ -1,21 +1,21 @@
 //
-//  Configuration.m
+//  ConfigurationEntity.m
 //  Redacted
 //
-//  Created by Joshua Brot on 12/1/13.
+//  Created by Joshua Brot on 12/9/13.
 //
 //
 
 #import "ConfigurationEntity.h"
-#import "ChatEntity.h"
-#import "UserEntity.h"
+#import "Chat.h"
+#import "Contact.h"
 
 
 @implementation ConfigurationEntity
 
 @dynamic registered;
+@dynamic contacts;
+@dynamic lcontact;
 @dynamic chats;
-@dynamic luser;
-@dynamic users;
 
 @end
