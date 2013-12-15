@@ -36,6 +36,10 @@
 	return self;
 }
 
+- (Contact *) contactForIndexPath: (NSIndexPath *) indexPath {
+	return [[[data objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
+}
+
 - (void) reloadData {
 	NSError *error;
 	NSArray *contacts = [Contact fetchAllWithError:&error];
@@ -61,7 +65,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Contact" forIndexPath:indexPath];
-	Contact *c = [[[data objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
+	Contact *c = [self contactForIndexPath:indexPath];
 	cell.detailTextLabel.text = c.primary ? @"me" : @"";
 	cell.textLabel.attributedText = [c attributedNameWithSize:cell.textLabel.font.pointSize];
 	return cell;

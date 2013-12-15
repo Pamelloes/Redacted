@@ -6,15 +6,15 @@
 //
 //
 
-#import "SelectUserCell.h"
+#import "UserCell.h"
 
 #import "AppDelegate.h"
 #import "User.h"
 #import "UserManager.h"
 #import "Result.h"
-#import "NewContactViewController.h"
+#import "ContactViewController.h"
 
-@interface SelectUserCell () {
+@interface UserCell () {
 	NSTimer *timer;
 	NSTimer *loop;
 	
@@ -29,13 +29,23 @@
 
 @end
 
-@implementation SelectUserCell
+@implementation UserCell
 
-@synthesize controller, textField, status, user;
+@synthesize controller, textField, status, user, editmode;
 
-- (instancetype) initWithController:(NewContactViewController *)ctrlr {
-	if ((self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil])) {
+- (instancetype) initWithController:(ContactViewController *)ctrlr User: (User *) usr Editing: (BOOL) editing {
+	if ((self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil])) {
 		controller = ctrlr;
+		user = usr;
+		editmode = editing;
+		
+		self.editingAccessoryType = UITableViewCellAccessoryNone;
+		
+		self.textLabel.text = usr ? usr.name : @"[Invalid User]";
+		self.textLabel.textColor = usr ? [UIColor blackColor] : [UIColor grayColor];
+		self.textLabel.alpha = editmode ? 0.0f : 1.0f;
+		self.detailTextLabel.text = usr.primary ? @"me" : @"";
+		self.detailTextLabel.alpha = editmode ? 0.0f : 1.0f;
 		
 		textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
 		textField.placeholder = @"Username";
@@ -43,18 +53,18 @@
 		textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 		textField.delegate = self;
 		textField.translatesAutoresizingMaskIntoConstraints = NO;
+		textField.alpha = editmode ? 1.0f : 0.0f;
 		
 		status = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
 		status.translatesAutoresizingMaskIntoConstraints = NO;
+		status.alpha = editmode ? 1.0f : 0.0f;
 		
 		[self.contentView addSubview:textField];
 		[self.contentView addSubview:status];
 		
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textField]-[status(==100)]-|" options:0 metrics:nil views:@{@"textField":textField, @"status":status}]];
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[textField]|" options:0 metrics:nil views:@{@"textField":textField}]];
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(15)-[textField]-[status(==100)]-|" options:0 metrics:nil views:@{@"textField":textField, @"status":status}]];
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(2)-[textField]|" options:0 metrics:nil views:@{@"textField":textField}]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[status]|" options:0 metrics:nil views:@{@"status":status}]];
-		
-		self.editingAccessoryType = UITableViewCellAccessoryNone;
 	}
 	return self;
 }
@@ -63,6 +73,48 @@
 	[loop invalidate];
 	if (ns) loop = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(checkStatus:) userInfo:nil repeats:YES];
 	else cancel = YES;
+}
+
+- (void) setEditmode:(BOOL)edit Animated:(BOOL)animate {
+	if (animate) {
+		[UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+			[self setEditmode:edit];
+		} completion: nil];
+	} else {
+		[self setEditmode:edit];
+	}
+}
+
+- (void) setEditmode:(BOOL)edit {
+	editmode = edit;
+	
+	if (editmode) {
+		self.textLabel.alpha = 0.0f;
+		self.detailTextLabel.alpha = 0.0f;
+		
+		textField.alpha = 1.0f;
+		textField.text = user ? user.name : @"";
+		status.alpha = 1.0f;
+		[status.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+		if (user) {
+			UILabel *label = [self makeLabel];
+			label.text = @"User exists!";
+			label.textColor = [UIColor colorWithRed:(11/255.0) green:(128/255.0) blue:(0/255.0) alpha:1];
+			[status addSubview:label];
+		}
+	} else {
+		self.textLabel.text = user ? user.name : @"[Invalid User]";
+		self.textLabel.textColor = user ? [UIColor blackColor] : [UIColor grayColor];
+		self.textLabel.alpha = 1.0f;
+		self.detailTextLabel.text = user.primary ? @"me" : @"";
+		self.detailTextLabel.alpha = 1.0f;
+		
+		cancel = YES;
+		res = nil;
+		
+		textField.alpha = 0.0f;
+		status.alpha = 0.0f;
+	}
 }
 
 #pragma mark - UITextFieldDelegate Methods
@@ -113,7 +165,7 @@
 	} else {
 		res = nil;
 		UILabel *label = [self makeLabel];
-		if (user.contact) {
+		if (user.contact && user.contact != controller.contact) {
 			label.text = @"User is already a contact!";
 			label.textColor = [UIColor colorWithRed:(252/255.0) green:(2/255.0) blue:(7/255.0) alpha:1];
 			user = nil;

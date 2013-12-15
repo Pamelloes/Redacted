@@ -6,7 +6,7 @@
 //
 //
 
-#import "NewContactViewController.h"
+#import "ContactViewController.h"
 
 #import "User.h"
 #import "Contact.h"
@@ -14,15 +14,17 @@
 #import "Result.h"
 #import "AppDelegate.h"
 #import "UserManager.h"
-#import "SelectUserCell.h"
+#import "UserCell.h"
 
-@interface NewContactViewController () {
+@interface ContactViewController () {
 	UIView *content;
 	
 	NSMutableArray *cells;
 	
 	BOOL kb;
 	CGSize kbSize;
+	
+	BOOL newc;
 }
 
 - (void) keyboardWillShow: (NSNotification *) notif;
@@ -30,16 +32,43 @@
 
 - (UIView *) firstResponderForView: (UIView *) view;
 
+- (void) saveChanges;
+
 @end
 
-@implementation NewContactViewController
+@implementation ContactViewController
 
-@synthesize scrollView,cancel,done;
-@synthesize card,image,first,last,company;
+@synthesize editing,contact;
+@synthesize scrollView,cancel,done,editd;
+@synthesize card,image,imaged,first,firstd,last,lastd,company,companyd;
 @synthesize header,edit,add,users,ubottom;
 
 - (void) viewDidLoad {
 	kb = NO;
+	if (!contact) {
+		newc = YES;
+		editing = YES;
+		
+		self.navigationItem.title = @"New Contact";
+		
+		NSError *error;
+		contact = [Contact newEntityWithError:&error];
+		if (error) DDLogError(@"Could not create new contact: %@", contact);
+		
+		contact.first = @"";
+		contact.last = @"";
+		contact.company = @"";
+		
+		cells = [[NSMutableArray alloc] initWithCapacity: 3];
+		[cells addObject:[[UserCell alloc] initWithController:self User:nil Editing:YES]];
+	} else {
+		newc = NO;
+		
+		self.navigationItem.title = @"";
+		
+		cells = [[NSMutableArray alloc] initWithCapacity: [contact.users count]];
+		for (User * u in contact.users) [cells addObject:[[UserCell alloc] initWithController:self User:u Editing:YES]];
+	}
 	
 	content = self.view;
 	content.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
@@ -50,15 +79,22 @@
 	scrollView.scrollEnabled = NO;
 	[scrollView addSubview:content];
 	
-	cells = [[NSMutableArray alloc] initWithCapacity: 3];
-	[cells addObject:[[SelectUserCell alloc] initWithController:self]];
-	
 	const double rotate = 0.01;
 	
 	image.transform = CGAffineTransformMakeRotation(rotate);
+	imaged.transform = CGAffineTransformMakeRotation(rotate);
 	first.transform = CGAffineTransformMakeRotation(rotate);
+	first.text = contact.first;
+	firstd.transform = CGAffineTransformMakeRotation(rotate);
+	firstd.text = contact.first;
 	last.transform = CGAffineTransformMakeRotation(rotate);
+	last.text = contact.last;
+	lastd.transform = CGAffineTransformMakeRotation(rotate);
+	lastd.text = contact.last;
 	company.transform = CGAffineTransformMakeRotation(rotate);
+	company.text = contact.company;
+	companyd.transform = CGAffineTransformMakeRotation(rotate);
+	companyd.text = contact.company;
 	
 	card.transform = CGAffineTransformMakeRotation(-rotate);
 	
@@ -75,11 +111,13 @@
 	layer = header.layer;
 	layer.zPosition = 1;
 	layer.masksToBounds = NO;
-	layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+	layer.shadowOffset = CGSizeMake(0.0f, 0.5f);
 	layer.shadowColor = [[UIColor blackColor] CGColor];
 	layer.shadowRadius = 1.0f;
 	layer.shadowOpacity = 0.8f;
 	layer.shadowPath = [UIBezierPath bezierPathWithRect:header.bounds].CGPath;
+	
+	edit.enabled = [cells count] > 1;
 	
 	image.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 	image.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -93,6 +131,8 @@
 	users.separatorInset = UIEdgeInsetsZero;
 	users.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
 	users.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+	
+	[self setEditing:editing];
 }
 
 - (UIView *) view {
@@ -111,11 +151,123 @@
 
 - (void) checkStatus {
 	BOOL enabled = YES;
-	for (SelectUserCell *cell in cells) if (!cell.user) {
-		enabled = NO;
-		break;
-	}
+	for (UserCell *cell in cells) if (!cell.user) enabled = NO;
 	done.enabled = enabled;
+}
+
+- (void) setContact:(Contact *) ctc {
+	if (contact == ctc) return;
+	
+	if (!self.isViewLoaded) {
+		contact = ctc;
+		return;
+	}
+	
+	if (!ctc) {
+		newc = YES;
+		editing = YES;
+		
+		self.navigationItem.title = @"New Contact";
+		
+		NSError *error;
+		contact = [Contact newEntityWithError:&error];
+		if (error) DDLogError(@"Could not create new contact: %@", contact);
+		
+		contact.first = @"";
+		contact.last = @"";
+		contact.company = @"";
+		
+		cells = [[NSMutableArray alloc] initWithCapacity: 3];
+		[cells addObject:[[UserCell alloc] initWithController:self User:nil Editing:YES]];
+	} else {
+		newc = NO;
+		
+		self.navigationItem.title = @"";
+		
+		contact = ctc;
+		cells = [[NSMutableArray alloc] initWithCapacity: [contact.users count]];
+		for (User * u in contact.users) [cells addObject:[[UserCell alloc] initWithController:self User:u Editing:YES]];
+	}
+	
+	edit.enabled = [cells count] > 1;
+	
+	[users reloadData];
+	[self setEditing: editing];
+}
+
+- (void) setEditing:(BOOL)edt {
+	[self setEditing:edt Animated:NO];
+}
+
+- (void) setEditing:(BOOL)edt Animated:(BOOL)animate {
+	if (newc) return;
+	
+	void (^animation) () = ^void () {
+		if (edt) {
+			imaged.alpha = 0.0f;
+			firstd.alpha = 0.0f;
+			lastd.alpha = 0.0f;
+			companyd.alpha = 0.0f;
+			
+			image.alpha = 1.0f;
+			first.alpha = 1.0f;
+			first.text = contact.first;
+			last.alpha = 1.0f;
+			last.text = contact.last;
+			company.alpha = 1.0f;
+			company.text = company.text;
+			
+			edit.alpha = 1.0f;
+			add.alpha = 1.0f;
+			for (UserCell *c in cells) c.editmode = YES;
+			[self checkStatus];
+		} else {
+			[[self firstResponderForView: scrollView] resignFirstResponder];
+			
+			imaged.alpha = 1.0f;
+			firstd.alpha = 1.0f;
+			firstd.text = contact.first;
+			lastd.alpha = 1.0f;
+			lastd.text = contact.last;
+			companyd.alpha = 1.0f;
+			companyd.text = contact.company;
+			
+			image.alpha = 0.0f;
+			first.alpha = 0.0f;
+			last.alpha = 0.0f;
+			company.alpha = 0.0f;
+			
+			edit.alpha = 0.0f;
+			add.alpha = 0.0f;
+			for (UserCell *c in cells) c.editmode = NO;
+			[self checkStatus];
+		}
+	};
+	
+	if (animate) [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:animation completion: nil];
+	else animation();
+	
+	if (edt) {
+		[self.navigationItem setLeftBarButtonItem:cancel animated:animate];
+		[self.navigationItem setRightBarButtonItem:done animated:animate];
+	} else {
+		[self.navigationItem setLeftBarButtonItem:nil animated:animate];
+		[self.navigationItem setRightBarButtonItem:editd animated:animate];
+	}
+}
+
+- (void) saveChanges {
+	contact.first = first.text;
+	contact.last = last.text;
+	contact.company = company.text;
+	
+	for (User *u in [NSSet setWithSet:contact.users]) u.contact = nil;
+	NSMutableArray *usrs = [[NSMutableArray alloc] initWithCapacity:[cells count]];
+	for (UserCell *uc in cells) {
+		((User *)[uc.user objectInCurrentThreadContext]).contact = contact;
+		[usrs addObject:uc.user];
+	}
+	contact.users = [NSSet setWithArray:usrs];
 }
 
 #pragma mark - Keyboard Methods
@@ -189,27 +341,41 @@
 #pragma mark - IBActions
 
 - (IBAction) cancel:(id)sender {
-	[self dismissViewControllerAnimated:YES completion:nil];
+	if (newc) {
+		[contact delete];
+		
+		NSError *error = [Contact commit];
+		if (error) DDLogError(@"Could not save deletion!");
+		
+		[self dismissViewControllerAnimated:YES completion:nil];
+	} else {
+		[self setEditing:NO Animated:YES];
+	}
 }
 
 - (IBAction) done:(id)sender {
-	NSError *error;
-	Contact *c = [Contact newEntityWithError:&error];
-	if (error) DDLogError(@"Unable to create new contact: %@", error);
-	c.first = first.text;
-	c.last = last.text;
-	c.company = company.text;
-	for (SelectUserCell *cell in cells) {
-		[c addUsersObject:[cell.user objectInCurrentThreadContext]];
-		((User *)[cell.user objectInCurrentThreadContext]).contact = c;
+	if (newc) {
+		[self saveChanges];
+		
+		NSError *error;
+		AppDelegate *ad = (AppDelegate *) [UIApplication sharedApplication].delegate;
+		[ad.usermanager.config addContactsObject: contact];
+		error = [Contact commit];
+		if (error) DDLogError(@"Unable to commit new contact: %@", error);
+		
+		[self dismissViewControllerAnimated:YES completion:nil];
+	} else {
+		[self saveChanges];
+		
+		NSError *error = [Contact commit];
+		if (error) DDLogError(@"Unable to save changes: %@", error);
+		
+		[self setEditing:NO Animated:YES];
 	}
-	
-	AppDelegate *ad = (AppDelegate *) [UIApplication sharedApplication].delegate;
-	[ad.usermanager.config addContactsObject:c];
-	error = [Contact commit];
-	if (error) DDLogError(@"Unavle to commit new contact: %@", error);
-	
-	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction) navigationBarTapped:(id)sender {
+	[self bgTap:sender];
 }
 
 - (IBAction) bgTap:(id)sender {
@@ -217,7 +383,7 @@
 }
 
 - (IBAction) add:(id)sender {
-	[cells addObject:[[SelectUserCell alloc] initWithController:self]];
+	[cells addObject:[[UserCell alloc] initWithController:self User:nil Editing:YES]];
 	[users insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[cells count] - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
 	edit.enabled = YES;
 }
@@ -230,6 +396,10 @@
 		[edit setTitle:@"Done" forState:UIControlStateNormal];
 		[users setEditing:YES animated:YES];
 	}
+}
+
+- (IBAction) beginEditing:(id)sender {
+	[self setEditing:YES Animated:YES];
 }
 
 #pragma mark - UITextFieldDelegate Methods

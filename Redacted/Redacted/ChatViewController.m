@@ -10,6 +10,7 @@
 
 #import "AppDelegate.h"
 #import "ContactsDataSource.h"
+#import "ContactViewController.h"
 
 @interface CenteredIV : UIImageView
 @end
@@ -18,7 +19,7 @@
 
 - (void) setFrame:(CGRect)frame {
 	CGFloat width = [UIScreen mainScreen].bounds.size.width;
-	[super setFrame:CGRectMake((width - frame.size.width) / 2.0f, frame.origin.y, frame.size.width, frame.size.height)];
+	[super setFrame:CGRectMake((width - 225) / 2.0f, 0, 225, 45)];
 }
 
 @end
@@ -202,17 +203,16 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([[segue identifier] isEqualToString:@"Contact"]) {
+		ContactViewController *cvc = (ContactViewController *) [segue destinationViewController];
+		Contact *c = [cds contactForIndexPath:tableView.indexPathForSelectedRow];
+		cvc.contact = c;
+	}
 }
-
- */
 
 #pragma mark UITabBarDelegate
 

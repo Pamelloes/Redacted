@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChatViewController : UIViewController <UITabBarDelegate, UITableViewDataSource> {
+@interface ChatViewController : UIViewController <UITabBarDelegate, UITableViewDataSource, UITableViewDelegate> {
 	UITableView *tableView;
 	
 	UIBarButtonItem *edit;

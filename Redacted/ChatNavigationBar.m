@@ -27,13 +27,13 @@
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-	//CGPoint pt = [touch locationInView:self];
+	CGPoint pt = [touch locationInView:self];
 	//TODO make sure not over back button
+	if (pt.x < 100) return NO;
 	return YES;
 }
 
 - (void) navigationBarTapped:(id)sender {
-	NSLog(@"tapped");
 	UINavigationController *nav = (UINavigationController *) self.delegate;
 	UIViewController *vc = nav.topViewController;
 	if ([vc respondsToSelector:@selector(navigationBarTapped:)]) [vc performSelector:@selector(navigationBarTapped:) withObject:sender];

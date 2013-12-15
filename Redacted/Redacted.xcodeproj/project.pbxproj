@@ -86,7 +86,7 @@
 		E66AB6B5183F13E10023745A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6B3183F13E10023745A /* main.m */; };
 		E68CB8591853FD6F0088DFDF /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CB8581853FD6F0088DFDF /* Contact.m */; };
 		E68CB85C1853FDB60088DFDF /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CB85B1853FDB60088DFDF /* Image.m */; };
-		E68CB860185432730088DFDF /* SelectUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CB85F185432730088DFDF /* SelectUserCell.m */; };
+		E68CB860185432730088DFDF /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CB85F185432730088DFDF /* UserCell.m */; };
 		E68D342718444F990078CD1F /* RedactedCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D342618444F990078CD1F /* RedactedCrypto.m */; };
 		E68D3430184839B10078CD1F /* UsernameRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D342F184839B10078CD1F /* UsernameRegistrationViewController.m */; };
 		E69A270718493AD000161827 /* Chat-iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E69A270618493AD000161827 /* Chat-iphone.storyboard */; };
@@ -115,7 +115,7 @@
 		E6C62DB0184C313D00F3424B /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62DAF184C313D00F3424B /* User.m */; };
 		E6C62DB3184C314F00F3424B /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C62DB2184C314F00F3424B /* Chat.m */; };
 		E6D142461852A0ED0037CA13 /* ContactsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D142451852A0ED0037CA13 /* ContactsDataSource.m */; };
-		E6D142491852DE5E0037CA13 /* NewContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D142481852DE5E0037CA13 /* NewContactViewController.m */; };
+		E6D142491852DE5E0037CA13 /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D142481852DE5E0037CA13 /* ContactViewController.m */; };
 		E6D1424C1852ECF90037CA13 /* Redacted.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E6D1424A1852ECF90037CA13 /* Redacted.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -255,8 +255,8 @@
 		E68CB8581853FD6F0088DFDF /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		E68CB85A1853FDB60088DFDF /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		E68CB85B1853FDB60088DFDF /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
-		E68CB85E185432730088DFDF /* SelectUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectUserCell.h; sourceTree = "<group>"; };
-		E68CB85F185432730088DFDF /* SelectUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectUserCell.m; sourceTree = "<group>"; };
+		E68CB85E185432730088DFDF /* UserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
+		E68CB85F185432730088DFDF /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
 		E68D342518444F990078CD1F /* RedactedCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedactedCrypto.h; sourceTree = "<group>"; };
 		E68D342618444F990078CD1F /* RedactedCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedactedCrypto.m; sourceTree = "<group>"; };
 		E68D342E184839B10078CD1F /* UsernameRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsernameRegistrationViewController.h; path = Redacted/UsernameRegistrationViewController.h; sourceTree = SOURCE_ROOT; };
@@ -313,8 +313,8 @@
 		E6C62DB2184C314F00F3424B /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.m; sourceTree = "<group>"; };
 		E6D142441852A0ED0037CA13 /* ContactsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsDataSource.h; sourceTree = "<group>"; };
 		E6D142451852A0ED0037CA13 /* ContactsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsDataSource.m; sourceTree = "<group>"; };
-		E6D142471852DE5E0037CA13 /* NewContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewContactViewController.h; sourceTree = "<group>"; };
-		E6D142481852DE5E0037CA13 /* NewContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewContactViewController.m; sourceTree = "<group>"; };
+		E6D142471852DE5E0037CA13 /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
+		E6D142481852DE5E0037CA13 /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
 		E6D1424B1852ECF90037CA13 /* Redacted.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Redacted.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -607,10 +607,10 @@
 			children = (
 				E6D142441852A0ED0037CA13 /* ContactsDataSource.h */,
 				E6D142451852A0ED0037CA13 /* ContactsDataSource.m */,
-				E6D142471852DE5E0037CA13 /* NewContactViewController.h */,
-				E6D142481852DE5E0037CA13 /* NewContactViewController.m */,
-				E68CB85E185432730088DFDF /* SelectUserCell.h */,
-				E68CB85F185432730088DFDF /* SelectUserCell.m */,
+				E6D142471852DE5E0037CA13 /* ContactViewController.h */,
+				E6D142481852DE5E0037CA13 /* ContactViewController.m */,
+				E68CB85E185432730088DFDF /* UserCell.h */,
+				E68CB85F185432730088DFDF /* UserCell.m */,
 			);
 			name = Contacts;
 			sourceTree = "<group>";
@@ -828,7 +828,7 @@
 				E6C62D98184C2E8E00F3424B /* RHFetchedResultsManager.m in Sources */,
 				692B86AF153CD4CB000806A9 /* NSData+Conversion.m in Sources */,
 				E622BD881842D4D600965F67 /* ConnectViewController.m in Sources */,
-				E6D142491852DE5E0037CA13 /* NewContactViewController.m in Sources */,
+				E6D142491852DE5E0037CA13 /* ContactViewController.m in Sources */,
 				E622BE1E1844185400965F67 /* GCDAsyncSocket.m in Sources */,
 				E69A270E1849489200161827 /* ChatViewController.m in Sources */,
 				E622BE61184422A700965F67 /* RedactedHTTPConnection.m in Sources */,
@@ -887,7 +887,7 @@
 				E68D3430184839B10078CD1F /* UsernameRegistrationViewController.m in Sources */,
 				E68CB8591853FD6F0088DFDF /* Contact.m in Sources */,
 				E66AB6AB183F13A80023745A /* AppDelegate.m in Sources */,
-				E68CB860185432730088DFDF /* SelectUserCell.m in Sources */,
+				E68CB860185432730088DFDF /* UserCell.m in Sources */,
 				E6C62D6B184AE2D600F3424B /* ChatToolbar.m in Sources */,
 				E622BE501844196200965F67 /* MultipartFormDataParser.m in Sources */,
 				E6C62D97184C2E8E00F3424B /* RHCoreDataTableViewController.m in Sources */,
