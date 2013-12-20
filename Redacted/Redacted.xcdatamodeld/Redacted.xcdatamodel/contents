@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="ChatEntity" representedClassName="Chat" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="update" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="uuid" attributeType="String" syncable="YES"/>
         <relationship name="config" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ConfigurationEntity" inverseName="chats" inverseEntity="ConfigurationEntity" syncable="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageEntity" inverseName="chat" inverseEntity="MessageEntity" syncable="YES"/>
         <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="chats" inverseEntity="UserEntity" syncable="YES"/>
@@ -27,7 +29,7 @@
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContactEntity" inverseName="image" inverseEntity="ContactEntity" syncable="YES"/>
     </entity>
     <entity name="MessageEntity" representedClassName="Message" syncable="YES">
-        <attribute name="payload" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="payload" attributeType="String" syncable="YES"/>
         <relationship name="chat" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ChatEntity" inverseName="messages" inverseEntity="ChatEntity" syncable="YES"/>
         <relationship name="from" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="sent" inverseEntity="UserEntity" syncable="YES"/>
         <relationship name="to" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="received" inverseEntity="UserEntity" syncable="YES"/>
@@ -36,6 +38,7 @@
         <attribute name="addr" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pkey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pkeyref" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="chats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ChatEntity" inverseName="users" inverseEntity="ChatEntity" syncable="YES"/>
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContactEntity" inverseName="users" inverseEntity="ContactEntity" syncable="YES"/>
         <relationship name="primary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContactEntity" inverseName="primary" inverseEntity="ContactEntity" syncable="YES"/>
@@ -43,11 +46,11 @@
         <relationship name="sent" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageEntity" inverseName="from" inverseEntity="MessageEntity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ChatEntity" positionX="-612" positionY="210" width="128" height="103"/>
-        <element name="ConfigurationEntity" positionX="-1098" positionY="-54" width="128" height="103"/>
-        <element name="ContactEntity" positionX="-648" positionY="-76" width="128" height="163"/>
-        <element name="ImageEntity" positionX="-407" positionY="-217" width="128" height="73"/>
-        <element name="MessageEntity" positionX="-110" positionY="135" width="128" height="103"/>
-        <element name="UserEntity" positionX="-405" positionY="-99" width="128" height="163"/>
+        <element name="ChatEntity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ConfigurationEntity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ContactEntity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ImageEntity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MessageEntity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UserEntity" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

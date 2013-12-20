@@ -2,7 +2,7 @@
 //  UserEntity.m
 //  Redacted
 //
-//  Created by Joshua Brot on 12/9/13.
+//  Created by Joshua Brot on 12/15/13.
 //
 //
 
@@ -17,6 +17,7 @@
 @dynamic addr;
 @dynamic name;
 @dynamic pkey;
+@dynamic pkeyref;
 @dynamic chats;
 @dynamic contact;
 @dynamic primary;

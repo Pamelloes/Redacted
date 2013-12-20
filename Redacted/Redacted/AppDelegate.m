@@ -56,6 +56,9 @@
 	//[crypto deleteLocalKeys];
 	[crypto loadLocalKeys];
 	
+	NSLog(@"%@", [crypto hashSha256:[@"abc" dataUsingEncoding:NSASCIIStringEncoding]]);
+	abort();
+	
 	[self loadPersistantData];
 	//[User deleteWithPredicate:[NSPredicate predicateWithFormat:@"name like \"test\""] error:nil];
 	

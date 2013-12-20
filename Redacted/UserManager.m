@@ -23,11 +23,12 @@
 
 @implementation UserManager
 
-@synthesize config, local;
+@synthesize config, crypto, local;
 
-- (instancetype) initWithConfiguration: (Configuration *) conf Crypto: (RedactedCrypto *) crypto {
+- (instancetype) initWithConfiguration: (Configuration *) conf Crypto: (RedactedCrypto *) crypt {
 	if (self = [super init]) {
 		config = conf;
+		crypto = crypt;
 		
 		if (!config.lcontact) {
 			DDLogError(@"No local contact defined - cannot instantiate UserManager!");
@@ -135,6 +136,26 @@
 	if (res) return res;
 	[self retrieveUser:user Cancel:NULL];
 	return [self userWithName:user]; //This will still be nil if retrieval was unsuccessful.
+}
+
+- (SecKeyRef) keyForUser:(User *)u {
+	if (u.pkeyref) {
+		SecKeyRef skr = [crypto keyRefWithPersistentKeyRef: u.pkeyref.bytes];
+		if (skr) return skr;
+	}
+	
+	NSData *data = [crypto publicKeyForString:u.pkey];
+	if (!data) return nil;
+	SecKeyRef ref = [crypto addPeerPublicKey:u.name keyBits:data];
+	if (!ref) return nil;
+	
+	CFTypeRef pref = [crypto persistentKeyRefWithKeyRef:ref];
+	if (pref) {
+		u.pkeyref = (__bridge NSData *)(pref);
+		NSError *e = [User commit];
+		if (e) DDLogError(@"Unable to save key ref: %@", e);
+	}
+	return ref;
 }
 
 @end

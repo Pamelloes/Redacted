@@ -12,6 +12,7 @@
 
 @interface UserManager : NSObject {
 	__weak Configuration *config;
+	__weak RedactedCrypto *crypto;
 	
 	User *local;
 }
@@ -23,7 +24,10 @@
 - (User *) userWithName: (NSString *) name;
 - (User *) fetchOrRetrieveUser: (NSString *) user;
 
+- (SecKeyRef) keyForUser: (User *) u;
+
 @property (nonatomic, weak, readonly) Configuration *config;
+@property (nonatomic, weak, readonly) RedactedCrypto *crypto;
 
 @property (nonatomic, strong, readonly) User *local;
 

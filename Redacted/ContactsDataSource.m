@@ -49,7 +49,11 @@
 	}
 	for (NSDictionary *dict in data) [[dict objectForKey:@"content"] removeAllObjects];
 	NSComparator comparator = ^(id obj1, id obj2) {
-		return [obj1 caseInsensitiveCompare:obj2];
+		Contact *c1 = (Contact *) obj1;
+		Contact *c2 = (Contact *) obj2;
+		NSString *s1 = [c1.last length] > 0 ? c1.last : ([c1.first length] > 0 ? c1.first : ((User *)c1.users.anyObject).name);
+		NSString *s2 = [c2.last length] > 0 ? c2.last : ([c2.first length] > 0 ? c2.first : ((User *)c2.users.anyObject).name);
+		return [s1 caseInsensitiveCompare: s2];
 	};
 	
 	for (Contact *c in contacts) {
@@ -58,7 +62,7 @@
 		int index = [[name lowercaseString] characterAtIndex:0] - 97;
 		if (index < 0 || index > 26) index = 26;
 		NSMutableArray *content = [[data objectAtIndex:index] objectForKey:@"content"];
-		NSUInteger pos = [content indexOfObject:name inSortedRange: NSMakeRange(0, [content count]) options:NSBinarySearchingInsertionIndex usingComparator:comparator];
+		NSUInteger pos = [content indexOfObject:c inSortedRange: NSMakeRange(0, [content count]) options:NSBinarySearchingInsertionIndex usingComparator:comparator];
 		[content insertObject:c atIndex:pos];
 	}
 }

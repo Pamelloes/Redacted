@@ -2,12 +2,13 @@
 //  UserEntity.h
 //  Redacted
 //
-//  Created by Joshua Brot on 12/9/13.
+//  Created by Joshua Brot on 12/15/13.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+
 #import "RHManagedObject.h"
 
 @class Chat, Contact, Message;
@@ -17,6 +18,7 @@
 @property (nonatomic, retain) NSString * addr;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * pkey;
+@property (nonatomic, retain) NSData * pkeyref;
 @property (nonatomic, retain) NSSet *chats;
 @property (nonatomic, retain) Contact *contact;
 @property (nonatomic, retain) Contact *primary;

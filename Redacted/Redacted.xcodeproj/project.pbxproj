@@ -74,13 +74,14 @@
 		E64393E018569365005B67A8 /* ContactEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E64393DF18569365005B67A8 /* ContactEntity.m */; };
 		E64393E318569365005B67A8 /* ImageEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E64393E218569365005B67A8 /* ImageEntity.m */; };
 		E64393E618569366005B67A8 /* MessageEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E64393E518569366005B67A8 /* MessageEntity.m */; };
-		E64393E918569366005B67A8 /* UserEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E64393E818569366005B67A8 /* UserEntity.m */; };
-		E64393EC18569366005B67A8 /* ChatEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E64393EB18569366005B67A8 /* ChatEntity.m */; };
 		E645CD15183F1DB70031D78D /* ProxyURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = E645CD14183F1DB70031D78D /* ProxyURLProtocol.m */; };
 		E645CD18183F1DBD0031D78D /* CKHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = E645CD17183F1DBD0031D78D /* CKHTTPConnection.m */; };
 		E645CD1B183F1DC70031D78D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E645CD19183F1DC70031D78D /* InfoPlist.strings */; };
 		E645CD1D184010DD0031D78D /* Welcome-iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E645CD1C184010DD0031D78D /* Welcome-iphone.storyboard */; };
 		E645CD21184026F80031D78D /* WelcomeUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E645CD20184026F80031D78D /* WelcomeUsernameViewController.m */; };
+		E6582971185E5B5500F148F3 /* ChatUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E6582970185E5B5500F148F3 /* ChatUtil.m */; };
+		E6582974185E639500F148F3 /* ChatEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E6582973185E639500F148F3 /* ChatEntity.m */; };
+		E6582977185EBC5100F148F3 /* UserEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E6582976185EBC5100F148F3 /* UserEntity.m */; };
 		E66AB6A8183F138B0023745A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E66AB6A7183F138B0023745A /* Images.xcassets */; };
 		E66AB6AB183F13A80023745A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6AA183F13A80023745A /* AppDelegate.m */; };
 		E66AB6B5183F13E10023745A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E66AB6B3183F13E10023745A /* main.m */; };
@@ -233,10 +234,6 @@
 		E64393E218569365005B67A8 /* ImageEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageEntity.m; sourceTree = "<group>"; };
 		E64393E418569366005B67A8 /* MessageEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageEntity.h; sourceTree = "<group>"; };
 		E64393E518569366005B67A8 /* MessageEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEntity.m; sourceTree = "<group>"; };
-		E64393E718569366005B67A8 /* UserEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEntity.h; sourceTree = "<group>"; };
-		E64393E818569366005B67A8 /* UserEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEntity.m; sourceTree = "<group>"; };
-		E64393EA18569366005B67A8 /* ChatEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatEntity.h; sourceTree = "<group>"; };
-		E64393EB18569366005B67A8 /* ChatEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatEntity.m; sourceTree = "<group>"; };
 		E645CD13183F1DB70031D78D /* ProxyURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxyURLProtocol.h; sourceTree = SOURCE_ROOT; };
 		E645CD14183F1DB70031D78D /* ProxyURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyURLProtocol.m; sourceTree = SOURCE_ROOT; };
 		E645CD16183F1DBD0031D78D /* CKHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKHTTPConnection.h; path = ConnectionKit/CKHTTPConnection.h; sourceTree = SOURCE_ROOT; };
@@ -245,6 +242,12 @@
 		E645CD1C184010DD0031D78D /* Welcome-iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Welcome-iphone.storyboard"; sourceTree = SOURCE_ROOT; };
 		E645CD1F184026F80031D78D /* WelcomeUsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeUsernameViewController.h; sourceTree = SOURCE_ROOT; };
 		E645CD20184026F80031D78D /* WelcomeUsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeUsernameViewController.m; sourceTree = SOURCE_ROOT; };
+		E658296F185E5B5500F148F3 /* ChatUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatUtil.h; sourceTree = "<group>"; };
+		E6582970185E5B5500F148F3 /* ChatUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatUtil.m; sourceTree = "<group>"; };
+		E6582972185E639500F148F3 /* ChatEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatEntity.h; sourceTree = "<group>"; };
+		E6582973185E639500F148F3 /* ChatEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatEntity.m; sourceTree = "<group>"; };
+		E6582975185EBC5100F148F3 /* UserEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEntity.h; sourceTree = "<group>"; };
+		E6582976185EBC5100F148F3 /* UserEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEntity.m; sourceTree = "<group>"; };
 		E66AB6A7183F138B0023745A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Redacted/Images.xcassets; sourceTree = "<group>"; };
 		E66AB6A9183F13A80023745A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Redacted/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		E66AB6AA183F13A80023745A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Redacted/AppDelegate.m; sourceTree = SOURCE_ROOT; };
@@ -590,6 +593,15 @@
 			path = OnionBrowser;
 			sourceTree = "<group>";
 		};
+		E658296E185E5B2E00F148F3 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				E658296F185E5B5500F148F3 /* ChatUtil.h */,
+				E6582970185E5B5500F148F3 /* ChatUtil.m */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
 		E66AB6A6183F132A0023745A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -628,6 +640,7 @@
 				E6C62D70184AF6FF00F3424B /* URLUtil.m */,
 				E6C62D72184AFAC200F3424B /* UserManager.h */,
 				E6C62D73184AFAC200F3424B /* UserManager.m */,
+				E658296E185E5B2E00F148F3 /* Chat */,
 				E68D3417184434520078CD1F /* CoreData */,
 				E68D3418184434750078CD1F /* WebServer */,
 				696EBD7E14F7877900B81BC9 /* Supporting Files */,
@@ -637,7 +650,7 @@
 				E645CD17183F1DBD0031D78D /* CKHTTPConnection.m */,
 				E622BD851842D4C200965F67 /* Connect */,
 				E645CD1E184025EA0031D78D /* Welcome */,
-				E69A270B1849486A00161827 /* Chat */,
+				E69A270B1849486A00161827 /* Main UI */,
 			);
 			name = Redacted;
 			sourceTree = "<group>";
@@ -658,12 +671,12 @@
 				E64393E218569365005B67A8 /* ImageEntity.m */,
 				E68CB85A1853FDB60088DFDF /* Image.h */,
 				E68CB85B1853FDB60088DFDF /* Image.m */,
-				E64393E718569366005B67A8 /* UserEntity.h */,
-				E64393E818569366005B67A8 /* UserEntity.m */,
+				E6582975185EBC5100F148F3 /* UserEntity.h */,
+				E6582976185EBC5100F148F3 /* UserEntity.m */,
 				E6C62DAE184C313D00F3424B /* User.h */,
 				E6C62DAF184C313D00F3424B /* User.m */,
-				E64393EA18569366005B67A8 /* ChatEntity.h */,
-				E64393EB18569366005B67A8 /* ChatEntity.m */,
+				E6582972185E639500F148F3 /* ChatEntity.h */,
+				E6582973185E639500F148F3 /* ChatEntity.m */,
 				E6C62DB1184C314F00F3424B /* Chat.h */,
 				E6C62DB2184C314F00F3424B /* Chat.m */,
 				E64393E418569366005B67A8 /* MessageEntity.h */,
@@ -685,7 +698,7 @@
 			name = WebServer;
 			sourceTree = "<group>";
 		};
-		E69A270B1849486A00161827 /* Chat */ = {
+		E69A270B1849486A00161827 /* Main UI */ = {
 			isa = PBXGroup;
 			children = (
 				E69A270C1849489200161827 /* ChatViewController.h */,
@@ -700,7 +713,7 @@
 				E6C62D6A184AE2D600F3424B /* ChatToolbar.m */,
 				E68CB85D185428F30088DFDF /* Contacts */,
 			);
-			name = Chat;
+			name = "Main UI";
 			sourceTree = "<group>";
 		};
 		E6C62D75184BC87D00F3424B /* MAFuture */ = {
@@ -828,12 +841,12 @@
 				E6C62D98184C2E8E00F3424B /* RHFetchedResultsManager.m in Sources */,
 				692B86AF153CD4CB000806A9 /* NSData+Conversion.m in Sources */,
 				E622BD881842D4D600965F67 /* ConnectViewController.m in Sources */,
+				E6582977185EBC5100F148F3 /* UserEntity.m in Sources */,
 				E6D142491852DE5E0037CA13 /* ContactViewController.m in Sources */,
 				E622BE1E1844185400965F67 /* GCDAsyncSocket.m in Sources */,
 				E69A270E1849489200161827 /* ChatViewController.m in Sources */,
 				E622BE61184422A700965F67 /* RedactedHTTPConnection.m in Sources */,
 				E6C62DAA184C30F400F3424B /* Message.m in Sources */,
-				E64393EC18569366005B67A8 /* ChatEntity.m in Sources */,
 				E6C62D74184AFAC200F3424B /* UserManager.m in Sources */,
 				E622BE16184417AA00965F67 /* ContextFilterLogFormatter.m in Sources */,
 				E622BE521844196200965F67 /* MultipartMessageHeaderField.m in Sources */,
@@ -845,7 +858,6 @@
 				E6C62D71184AF6FF00F3424B /* URLUtil.m in Sources */,
 				E6C62D88184BCD6900F3424B /* Result.m in Sources */,
 				E6C62DB3184C314F00F3424B /* Chat.m in Sources */,
-				E64393E918569366005B67A8 /* UserEntity.m in Sources */,
 				E6C62D99184C2E8E00F3424B /* RHManagedObject.m in Sources */,
 				E6C62D6E184AEEF500F3424B /* TITokenField.m in Sources */,
 				E622BE561844196200965F67 /* HTTPErrorResponse.m in Sources */,
@@ -858,6 +870,7 @@
 				E6C62D62184A93D400F3424B /* ChatNavigationBar.m in Sources */,
 				E622BE571844196200965F67 /* HTTPFileResponse.m in Sources */,
 				E622BE4C1844196200965F67 /* HTTPAuthenticationRequest.m in Sources */,
+				E6582974185E639500F148F3 /* ChatEntity.m in Sources */,
 				E6C62D82184BC89600F3424B /* MACompoundFuture.m in Sources */,
 				E622BE4E1844196200965F67 /* HTTPMessage.m in Sources */,
 				E6C62D65184ADD4A00F3424B /* NewChatViewController.m in Sources */,
@@ -879,6 +892,7 @@
 				E6C62DB0184C313D00F3424B /* User.m in Sources */,
 				E64393E618569366005B67A8 /* MessageEntity.m in Sources */,
 				E66AB6B5183F13E10023745A /* main.m in Sources */,
+				E6582971185E5B5500F148F3 /* ChatUtil.m in Sources */,
 				E6C62D81184BC89600F3424B /* MABaseFuture.m in Sources */,
 				E645CD18183F1DBD0031D78D /* CKHTTPConnection.m in Sources */,
 				E622BE541844196200965F67 /* HTTPDataResponse.m in Sources */,

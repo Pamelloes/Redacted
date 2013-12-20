@@ -2,7 +2,7 @@
 //  ChatEntity.m
 //  Redacted
 //
-//  Created by Joshua Brot on 12/9/13.
+//  Created by Joshua Brot on 12/15/13.
 //
 //
 
@@ -15,6 +15,8 @@
 @implementation ChatEntity
 
 @dynamic name;
+@dynamic uuid;
+@dynamic update;
 @dynamic config;
 @dynamic messages;
 @dynamic users;

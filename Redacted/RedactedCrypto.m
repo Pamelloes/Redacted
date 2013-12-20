@@ -9,12 +9,23 @@
 #import "RedactedCrypto.h"
 
 #import "AppDelegate.h"
-#import <stdio.h>
+#import <CommonCrypto/CommonCrypto.h>
 #import "DDLog.h"
 
 // HUGE portions derived (copied) from SecKeyWrapper.m: https://developer.apple.com/library/ios/samplecode/CryptoExercise/Listings/Classes_SecKeyWrapper_m.html
 
 #define kPaddingType kSecPaddingPKCS1
+
+#define kChosenCipherBlockSize  kCCBlockSizeAES128
+#define kChosenCipherKeySize    kCCKeySizeAES256
+
+// (See cssmtype.h and cssmapple.h on the Mac OS X SDK.)
+
+enum {
+    CSSM_ALGID_NONE =                   0x00000000L,
+    CSSM_ALGID_VENDOR_DEFINED =         CSSM_ALGID_NONE + 0x80000000L,
+    CSSM_ALGID_AES
+};
 
 // Identifiers used to find public and private key.
 static const uint8_t publicKeyIdentifier[]      = kPublicKeyTag;
@@ -25,6 +36,8 @@ static const uint8_t privateKeyIdentifier[]     = kPrivateKeyTag;
 }
 
 - (void) validate: (BOOL) condition Error: (NSString *) error;
+
+- (NSString *)hexString: (NSData *) data;
 
 @end
 
@@ -443,6 +456,237 @@ size_t encodeLength(unsigned char * buf, size_t length) {
 											  encoding:NSUTF8StringEncoding];
 	
 	return [NSString stringWithFormat: @"-----BEGIN PUBLIC KEY-----\n%@\n-----END PUBLIC KEY-----", encoded];
+}
+
+- (NSData *) publicKeyForString:(NSString *)publicKeyString {
+	if (![publicKeyString hasPrefix:@"-----BEGIN PUBLIC KEY-----\n"] || ![publicKeyString hasSuffix:@"\n-----END PUBLIC KEY-----"]) return nil;
+	NSString *b64enc = [publicKeyString substringWithRange:NSMakeRange(27, [publicKeyString length] - 25)];
+	NSData *data = [[NSData alloc] initWithBase64EncodedString:b64enc options:NSDataBase64Encoding64CharacterLineLength | NSDataBase64DecodingIgnoreUnknownCharacters];
+	
+	/* Now strip the uncessary ASN encoding guff at the start */
+    unsigned char * bytes = (unsigned char *) data.bytes;
+    size_t bytesLen = [data length];
+    
+    /* Strip the initial stuff */
+    size_t i = 0;
+    if (bytes[i++] != 0x30) return nil;
+    
+    /* Skip size bytes */
+    if (bytes[i] > 0x80) i += bytes[i] - 0x80 + 1;
+    else i++;
+    
+    if (i >= bytesLen) return nil;
+    
+    if (bytes[i] != 0x30) return nil;
+	
+    /* Skip OID */
+    i += 15;
+    
+    if (i >= bytesLen - 2) return nil;
+	
+    if (bytes[i++] != 0x03) return nil;
+    
+    /* Skip length and null */
+    if (bytes[i] > 0x80) i += bytes[i] - 0x80 + 1;
+    else i++;
+	
+    if (i >= bytesLen) return nil;
+	
+    if (bytes[i++] != 0x00) return nil;
+
+    if (i >= bytesLen) return nil;
+    
+   return [NSData dataWithBytes:&bytes[i] length:bytesLen - i];
+}
+
+#pragma mark - Symmetric Methods
+
+- (NSData *) generateSymmetric {
+    OSStatus sanityCheck = noErr;
+    uint8_t * symmetricKey = NULL;
+	
+    // Allocate some buffer space. I don't trust calloc.
+    symmetricKey = malloc( kChosenCipherKeySize * sizeof(uint8_t) );
+    
+    [self validate:symmetricKey != NULL Error: @"Problem allocating buffer space for symmetric key generation."];
+    
+    memset((void *)symmetricKey, 0x0, kChosenCipherKeySize);
+    
+    sanityCheck = SecRandomCopyBytes(kSecRandomDefault, kChosenCipherKeySize, symmetricKey);
+    [self validate:sanityCheck == noErr Error: [NSString stringWithFormat: @"Problem generating the symmetric key, OSStatus == %d.", (int)sanityCheck]];
+    
+    NSData *res = [[NSData alloc] initWithBytes:(const void *)symmetricKey length:kChosenCipherKeySize];
+    
+    if (symmetricKey) free(symmetricKey);
+	return res;
+}
+
+
+- (NSData *) deriveKey: (NSData *) key Constant: (NSData *) constant {
+	// Open CommonKeyDerivation.h for help
+    uint8_t * derived = NULL;
+	
+    // Allocate some buffer space. I don't trust calloc.
+    derived = malloc( kChosenCipherKeySize * sizeof(uint8_t) );
+    
+    [self validate:derived != NULL Error: @"Problem allocating buffer space for symmetric key generation."];
+    
+    memset((void *)derived, 0x0, kChosenCipherKeySize);
+	
+	CCKeyDerivationPBKDF(kCCPBKDF2, constant.bytes, constant.length, key.bytes, key.length, kCCPRFHmacAlgSHA256, 10000, derived, 32);
+	
+    NSData *res = [[NSData alloc] initWithBytes:(const void *)derived length:kChosenCipherKeySize];
+    
+    if (derived) free(derived);
+	return res;
+}
+
+- (NSData *)doCipher:(NSData *)plainText key:(NSData *)symmetricKey context:(CCOperation)encryptOrDecrypt padding:(CCOptions *)pkcs7 {
+    CCCryptorStatus ccStatus = kCCSuccess;
+    // Symmetric crypto reference.
+    CCCryptorRef thisEncipher = NULL;
+    // Cipher Text container.
+    NSData * cipherOrPlainText = nil;
+    // Pointer to output buffer.
+    uint8_t * bufferPtr = NULL;
+    // Total size of the buffer.
+    size_t bufferPtrSize = 0;
+    // Remaining bytes to be performed on.
+    size_t remainingBytes = 0;
+    // Number of bytes moved to buffer.
+    size_t movedBytes = 0;
+    // Length of plainText buffer.
+    size_t plainTextBufferSize = 0;
+    // Placeholder for total written.
+    size_t totalBytesWritten = 0;
+    // A friendly helper pointer.
+    uint8_t * ptr;
+    
+    // Initialization vector; dummy in this case 0's.
+    uint8_t iv[kChosenCipherBlockSize];
+    memset((void *) iv, 0x0, (size_t) sizeof(iv));
+    
+    [self validate:plainText != nil Error: @"PlainText object cannot be nil." ];
+    [self validate:symmetricKey != nil Error: @"Symmetric key object cannot be nil." ];
+    [self validate:pkcs7 != NULL Error: @"CCOptions * pkcs7 cannot be NULL." ];
+    [self validate:[symmetricKey length] == kChosenCipherKeySize Error: @"Disjoint choices for key size." ];
+	
+    plainTextBufferSize = [plainText length];
+    
+    [self validate:plainTextBufferSize > 0 Error: @"Empty plaintext passed in." ];
+    
+    // We don't want to toss padding on if we don't need to
+    if (encryptOrDecrypt == kCCEncrypt) {
+        if (*pkcs7 != kCCOptionECBMode) {
+            if ((plainTextBufferSize % kChosenCipherBlockSize) == 0) {
+                *pkcs7 = 0x0000;
+            } else {
+                *pkcs7 = kCCOptionPKCS7Padding;
+            }
+        }
+    } else if (encryptOrDecrypt != kCCDecrypt) {
+		[self validate: NO Error: [NSString stringWithFormat: @"Invalid CCOperation parameter [%d] for cipher context.", *pkcs7]];
+    }
+    
+    // Create and Initialize the crypto reference.
+    ccStatus = CCCryptorCreate( encryptOrDecrypt,
+							   kCCAlgorithmAES128,
+							   *pkcs7,
+							   (const void *)[symmetricKey bytes],
+							   kChosenCipherKeySize,
+							   (const void *)iv,
+							   &thisEncipher
+							   );
+    
+    [self validate: ccStatus == kCCSuccess Error: [NSString stringWithFormat: @"Problem creating the context, ccStatus == %d.", ccStatus]];
+    
+    // Calculate byte block alignment for all calls through to and including final.
+    bufferPtrSize = CCCryptorGetOutputLength(thisEncipher, plainTextBufferSize, true);
+    
+    // Allocate buffer.
+    bufferPtr = malloc( bufferPtrSize * sizeof(uint8_t) );
+    
+    // Zero out buffer.
+    memset((void *)bufferPtr, 0x0, bufferPtrSize);
+    
+    // Initialize some necessary book keeping.
+    
+    ptr = bufferPtr;
+    
+    // Set up initial size.
+    remainingBytes = bufferPtrSize;
+    
+    // Actually perform the encryption or decryption.
+    ccStatus = CCCryptorUpdate( thisEncipher,
+							   (const void *) [plainText bytes],
+							   plainTextBufferSize,
+							   ptr,
+							   remainingBytes,
+							   &movedBytes
+							   );
+    
+    [self validate: ccStatus == kCCSuccess Error: [NSString stringWithFormat: @"Problem with CCCryptorUpdate, ccStatus == %d.", ccStatus ]];
+    
+    // Handle book keeping.
+    ptr += movedBytes;
+    remainingBytes -= movedBytes;
+    totalBytesWritten += movedBytes;
+    
+    // Finalize everything to the output buffer.
+    ccStatus = CCCryptorFinal(  thisEncipher,
+							  ptr,
+							  remainingBytes,
+							  &movedBytes
+							  );
+    
+    totalBytesWritten += movedBytes;
+    
+    if (thisEncipher) {
+        (void) CCCryptorRelease(thisEncipher);
+        thisEncipher = NULL;
+    }
+    
+    [self validate: ccStatus == kCCSuccess Error: [NSString stringWithFormat: @"Problem with encipherment ccStatus == %d", ccStatus ]];
+    
+    cipherOrPlainText = [NSData dataWithBytes:(const void *)bufferPtr length:(NSUInteger)totalBytesWritten];
+	
+    if (bufferPtr) free(bufferPtr);
+    
+    return cipherOrPlainText;
+    
+    /*
+     Or the corresponding one-shot call:
+     
+     ccStatus = CCCrypt(    encryptOrDecrypt,
+	 kCCAlgorithmAES128,
+	 typeOfSymmetricOpts,
+	 (const void *)[self getSymmetricKeyBytes],
+	 kChosenCipherKeySize,
+	 iv,
+	 (const void *) [plainText bytes],
+	 plainTextBufferSize,
+	 (void *)bufferPtr,
+	 bufferPtrSize,
+	 &movedBytes
+	 );
+     */
+}
+
+#pragma mark - Hashing methods
+
+- (NSString *)hexString: (NSData *) data {
+    const unsigned char *dataBuffer = (const unsigned char *)[data bytes];
+    if (!dataBuffer)  return [NSString string];
+    NSUInteger dataLength = [data length];
+    NSMutableString *hexString = [NSMutableString stringWithCapacity:(dataLength * 2)];
+    for (int i = 0; i < dataLength; ++i)  [hexString appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)dataBuffer[i]]];
+    return [NSString stringWithString:hexString];
+}
+
+- (NSString *)hashSha256:(NSData *)data {
+	unsigned char result[32];
+	CC_SHA256([data bytes], [data length], result);
+	return [self hexString:[NSData dataWithBytes:result length:32]];
 }
 
 @end

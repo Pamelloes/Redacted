@@ -2,12 +2,13 @@
 //  ChatEntity.h
 //  Redacted
 //
-//  Created by Joshua Brot on 12/9/13.
+//  Created by Joshua Brot on 12/15/13.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+
 #import "RHManagedObject.h"
 
 @class Configuration, Message, User;
@@ -15,6 +16,8 @@
 @interface ChatEntity : RHManagedObject
 
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * uuid;
+@property (nonatomic, retain) NSNumber * update;
 @property (nonatomic, retain) Configuration *config;
 @property (nonatomic, retain) NSSet *messages;
 @property (nonatomic, retain) NSSet *users;

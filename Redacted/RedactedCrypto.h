@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import <CommonCrypto/CommonCrypto.h>
+
 // HUGE portions derived (copied) from SecKeyWrapper.m: https://developer.apple.com/library/ios/samplecode/CryptoExercise/Listings/Classes_SecKeyWrapper_m.html
 
 // constants used to find public, and private keys.
@@ -47,6 +49,13 @@
 - (SecKeyRef) keyRefWithPersistentKeyRef:(CFTypeRef)persistentRef;
 - (NSData *) bitsForPersistantKeyRef:(CFTypeRef)keyRef;
 - (NSString *) stringForPublicKey: (NSData *) publicKeyBits;
+- (NSData *) publicKeyForString: (NSString *) publicKeyString;
+
+- (NSData *) generateSymmetricKey;
+- (NSData *) deriveKey: (NSData *) key Constant: (NSData *) constant;
+- (NSData *) doCipher:(NSData *)plainText key:(NSData *)symmetricKey context:(CCOperation)encryptOrDecrypt padding:(CCOptions *)pkcs7;
+
+- (NSString *) hashSha256: (NSData *) data;
 
 @property (nonatomic, weak, readonly) AppDelegate *delegate;
 

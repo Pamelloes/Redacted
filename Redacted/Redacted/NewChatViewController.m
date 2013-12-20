@@ -46,7 +46,7 @@
 	[field.tokenField setDelegate:self];
 	[field setShouldSearchInBackground:NO];
 	[field setShouldSortResults:NO];
-	[field.tokenField addTarget:self action:@selector(tokenFieldFrameDidChange:) forControlEvents:TITokenFieldControlEventFrameDidChange];
+	[field.tokenField addTarget:self action:@selector(tokenFieldFrameDidChange:) forControlEvents:(NSUInteger)TITokenFieldControlEventFrameDidChange];
 	[field.tokenField setTokenizingCharacters:[NSCharacterSet characterSetWithCharactersInString:@",;."]]; // Default is a comma
     [field.tokenField setPromptText:@"To:"];
 	[field.tokenField setPlaceholder:@"Type a name"];
