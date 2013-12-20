@@ -20,7 +20,7 @@
 #define X_DEVICE_IS_IPAD 1
 #define X_DEVICE_IS_SIM 2
 
-@class HTTPServer, RedactedCrypto, Configuration, User, Contact, UserManager;
+@class HTTPServer, RedactedCrypto, Configuration, User, Contact, UserManager, ChatUtil;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
 	TorController *tor;
@@ -32,6 +32,7 @@
 	Contact *local;
 	
 	UserManager *usermanager;
+	ChatUtil *chatutil;
 	
 	UIWindow *window;
 	
@@ -66,6 +67,7 @@
 @property (nonatomic, strong, readonly) Contact *local;
 
 @property (nonatomic, strong, readonly) UserManager *usermanager;
+@property (nonatomic, strong, readonly) ChatUtil *chatutil;
 
 @property (strong, nonatomic) UIWindow *window;
 

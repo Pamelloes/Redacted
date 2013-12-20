@@ -53,8 +53,8 @@
 	NSMutableDictionary *result = [[NSMutableDictionary alloc] initWithCapacity:[chat.users count]];
 	for (User *u in chat.users) {
 		SecKeyRef ukey = [ad.usermanager keyForUser:u];
-		//Encrypt with our key first, then theirs.
-		NSString *enc = [[ad.crypto encryptData:[ad.crypto encryptData:key key:ad.crypto.privateKeyRef] key:ukey] base64EncodedStringWithOptions: 0];
+		NSData *encd = [ad.crypto encryptData: key key: ukey];
+		NSString *enc = [encd base64EncodedStringWithOptions: 0];
 		[result setObject:[NSString stringWithFormat:@"%@\0%@", enc, encrypted] forKey:u.name];
 	}
 	return result;
@@ -67,12 +67,9 @@
 	//Attempt to decrypt session key.
 	NSData *enkey = [[NSData alloc] initWithBase64EncodedString:[parts objectAtIndex:0] options:0];
 	if (enkey == nil) return nil; //Bad base64 encoding.
-	//Decrypt with our key first
-	NSData *deckey = [ad.crypto decryptData:enkey key:ad.crypto.privateKeyRef];
-	if (deckey == nil) return nil; //Not encrypted for us.
-	//Then decrypt with theirs
-	NSData *key = [ad.crypto decryptData:deckey key:[ad.usermanager keyForUser: user]];
-	if (key == nil) return nil; //Not encrypted from them.
+	//Decrypt with our key
+	NSData *key = [ad.crypto decryptData:enkey key:ad.crypto.privateKeyRef];
+	if (key == nil) return nil; //Not encrypted for us.
 	
 	//Attempt to decrypt message body.
 	NSData *enbody = [[NSData alloc] initWithBase64EncodedString:[parts objectAtIndex:1] options:0];
@@ -135,12 +132,9 @@
 	//Attempt to decrypt session key.
 	NSData *enkey = [[NSData alloc] initWithBase64EncodedString:[parts objectAtIndex:0] options:0];
 	if (enkey == nil) return nil; //Bad base64 encoding.
-	//Decrypt with our key first
-	NSData *deckey = [ad.crypto decryptData:enkey key:ad.crypto.privateKeyRef];
-	if (deckey == nil) return nil; //Not encrypted for us.
-	//Then decrypt with theirs
-	NSData *key = [ad.crypto decryptData:deckey key:[ad.usermanager keyForUser: msg.from]];
-	if (key == nil) return nil; //Not encrypted from them.
+	//Decrypt with our key
+	NSData *key = [ad.crypto decryptData:enkey key:ad.crypto.privateKeyRef];
+	if (key == nil) return nil; //Not encrypted for us.
 	
 	//Attempt to decrypt message body.
 	NSData *enbody = [[NSData alloc] initWithBase64EncodedString:[parts objectAtIndex:1] options:0];

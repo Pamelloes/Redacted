@@ -70,7 +70,8 @@ static const uint8_t privateKeyIdentifier[]     = kPrivateKeyTag;
 
 - (void) validate:(BOOL)condition Error:(NSString *)error {
 	if (condition) return;
-	DDLogError(@"%@", error);
+	NSLog(@"%@", error);
+	abort();
 }
 
 #pragma mark - Local Key Methods
@@ -284,7 +285,6 @@ static const uint8_t privateKeyIdentifier[]     = kPrivateKeyTag;
 		//NSLog(@"Encrypt: %lu %lu %lu", pos, epos, enpos);
 		sanityCheck = SecKeyEncrypt(key, kPaddingType, dataToEncrypt + pos * sizeof(uint8_t), MIN(cipherBufferSize - 11, dataLength - pos),  cipherBuffer + epos * sizeof(uint8_t), &enpos);
 		[self validate:sanityCheck == noErr Error: [NSString stringWithFormat:@"Could not encrypt data! OSStatus == %d.", (int) sanityCheck]];
-		
 		pos += cipherBufferSize - 11;
 		epos += enpos;
 		enpos = cipherBufferSize;
@@ -460,7 +460,7 @@ size_t encodeLength(unsigned char * buf, size_t length) {
 
 - (NSData *) publicKeyForString:(NSString *)publicKeyString {
 	if (![publicKeyString hasPrefix:@"-----BEGIN PUBLIC KEY-----\n"] || ![publicKeyString hasSuffix:@"\n-----END PUBLIC KEY-----"]) return nil;
-	NSString *b64enc = [publicKeyString substringWithRange:NSMakeRange(27, [publicKeyString length] - 25)];
+	NSString *b64enc = [publicKeyString substringWithRange:NSMakeRange(27, [publicKeyString length] - 25 - 27)];
 	NSData *data = [[NSData alloc] initWithBase64EncodedString:b64enc options:NSDataBase64Encoding64CharacterLineLength | NSDataBase64DecodingIgnoreUnknownCharacters];
 	
 	/* Now strip the uncessary ASN encoding guff at the start */
@@ -501,7 +501,7 @@ size_t encodeLength(unsigned char * buf, size_t length) {
 
 #pragma mark - Symmetric Methods
 
-- (NSData *) generateSymmetric {
+- (NSData *) generateSymmetricKey {
     OSStatus sanityCheck = noErr;
     uint8_t * symmetricKey = NULL;
 	

@@ -20,7 +20,10 @@
 #import "Configuration.h"
 #import "User.h"
 #import "UserManager.h"
+#import "ChatUtil.h"
 #import "Contact.h"
+
+#import "Chat.h"
 
 @interface AppDelegate ()
 
@@ -56,11 +59,33 @@
 	//[crypto deleteLocalKeys];
 	[crypto loadLocalKeys];
 	
-	NSLog(@"%@", [crypto hashSha256:[@"abc" dataUsingEncoding:NSASCIIStringEncoding]]);
-	abort();
-	
 	[self loadPersistantData];
 	//[User deleteWithPredicate:[NSPredicate predicateWithFormat:@"name like \"test\""] error:nil];
+	
+	/* Message Encryption "Test"
+	 
+	[Chat deleteAllWithError:nil];
+	//Configure an arbitrary Chat object.
+	Chat *chat = [Chat newEntity];
+	[chat addUsersObject:local.primary];
+	chat.name = @"o3o";
+	chat.uuid = @"THIS_SHOULD_BE_A_UUID!";
+	chat.update = [NSNumber numberWithLong:100];//Somewhere in the vacinity of 1970ish?
+	chat.config = config;
+	[config addChatsObject:chat];
+	
+	NSLog(@"%@", chatutil);
+	
+	NSDictionary *msg = [chatutil encryptMessage:@"THIS IS A TEST MESSAGE o3o" From:local.primary Chat:chat Duration:3];
+	NSString *entry = [msg objectForKey:local.primary.name];
+	NSLog(@"%@ %@", entry, msg);
+	Message *message = [chatutil validateMessage:entry From:local.primary];
+	NSString *decrypted = [chatutil decryptMessage:message];
+	NSLog(@"%@ %@", decrypted, message);
+	
+	abort();
+	*/
+	
 	
 	[self startWebserver];
 	
@@ -204,8 +229,9 @@
 
 - (void) loadPersistantData {
 	[self loadConfiguration];
-	usermanager = [[UserManager alloc] initWithConfiguration:config Crypto:crypto];
 	[self loadRootContact];
+	usermanager = [[UserManager alloc] initWithConfiguration:config Crypto:crypto];
+	chatutil = [[ChatUtil alloc] initWithAppDelegate:self];
 }
 
 - (void) loadConfiguration {

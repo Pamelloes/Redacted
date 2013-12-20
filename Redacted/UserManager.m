@@ -139,10 +139,10 @@
 }
 
 - (SecKeyRef) keyForUser:(User *)u {
-	if (u.pkeyref) {
+	/*if (u.pkeyref) {
 		SecKeyRef skr = [crypto keyRefWithPersistentKeyRef: u.pkeyref.bytes];
 		if (skr) return skr;
-	}
+	}*/
 	
 	NSData *data = [crypto publicKeyForString:u.pkey];
 	if (!data) return nil;
