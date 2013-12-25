@@ -18,6 +18,9 @@
 
 #define kChosenCipherBlockSize  kCCBlockSizeAES128
 #define kChosenCipherKeySize    kCCKeySizeAES256
+#define kChosenDigestLength     CC_SHA1_DIGEST_LENGTH
+
+#define kTypeOfSigPadding       kSecPaddingPKCS1SHA1
 
 // (See cssmtype.h and cssmapple.h on the Mac OS X SDK.)
 
@@ -541,6 +544,56 @@ size_t encodeLength(unsigned char * buf, size_t length) {
 	return res;
 }
 
+- (NSData *) signData:(NSData *)plainText withKey:(SecKeyRef)privateKey {
+    OSStatus sanityCheck = noErr;
+    NSData * signedHash = nil;
+    
+    uint8_t * signedHashBytes = NULL;
+    size_t signedHashBytesSize = 0;
+    
+    signedHashBytesSize = SecKeyGetBlockSize(privateKey);
+    
+    // Malloc a buffer to hold signature.
+    signedHashBytes = malloc( signedHashBytesSize * sizeof(uint8_t) );
+    memset((void *)signedHashBytes, 0x0, signedHashBytesSize);
+    
+    // Sign the SHA1 hash.
+    sanityCheck = SecKeyRawSign(    privateKey,
+								kTypeOfSigPadding,
+								(const uint8_t *)[[self hashSha256Raw:plainText] bytes],
+								kChosenDigestLength,
+								(uint8_t *)signedHashBytes,
+								&signedHashBytesSize
+                                );
+    
+    [self validate: sanityCheck == noErr Error: [NSString stringWithFormat: @"Problem signing the SHA1 hash, OSStatus == %d.", (int)sanityCheck]];
+    
+    // Build up signed SHA1 blob.
+    signedHash = [NSData dataWithBytes:(const void *)signedHashBytes length:(NSUInteger)signedHashBytesSize];
+    
+    if (signedHashBytes) free(signedHashBytes);
+    
+    return signedHash;
+}
+
+- (BOOL)verifySignature:(NSData *)plainText secKeyRef:(SecKeyRef)publicKey signature:(NSData *)sig {
+    size_t signedHashBytesSize = 0;
+    OSStatus sanityCheck = noErr;
+    
+    // Get the size of the assymetric block.
+    signedHashBytesSize = SecKeyGetBlockSize(publicKey);
+    
+    sanityCheck = SecKeyRawVerify(  publicKey,
+								  kTypeOfSigPadding,
+								  (const uint8_t *)[[self hashSha256Raw:plainText] bytes],
+								  kChosenDigestLength,
+								  (const uint8_t *)[sig bytes],
+								  signedHashBytesSize
+                                  );
+    
+    return (sanityCheck == noErr) ? YES : NO;
+}
+
 - (NSData *)doCipher:(NSData *)plainText key:(NSData *)symmetricKey context:(CCOperation)encryptOrDecrypt padding:(CCOptions *)pkcs7 {
     CCCryptorStatus ccStatus = kCCSuccess;
     // Symmetric crypto reference.
@@ -683,10 +736,14 @@ size_t encodeLength(unsigned char * buf, size_t length) {
     return [NSString stringWithString:hexString];
 }
 
-- (NSString *)hashSha256:(NSData *)data {
+- (NSData *)hashSha256Raw:(NSData *)data {
 	unsigned char result[32];
 	CC_SHA256([data bytes], [data length], result);
-	return [self hexString:[NSData dataWithBytes:result length:32]];
+	return [NSData dataWithBytes:result length:32];
+}
+
+- (NSString *)hashSha256:(NSData *)data {
+	return [self hexString:[self hashSha256Raw:data]];
 }
 
 @end

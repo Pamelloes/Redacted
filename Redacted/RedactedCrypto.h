@@ -53,8 +53,11 @@
 
 - (NSData *) generateSymmetricKey;
 - (NSData *) deriveKey: (NSData *) key Constant: (NSData *) constant;
+- (NSData *) signData:(NSData *)plainText withKey: (SecKeyRef) key;
+- (BOOL) verifySignature:(NSData *)plainText secKeyRef:(SecKeyRef)publicKey signature:(NSData *)sig;
 - (NSData *) doCipher:(NSData *)plainText key:(NSData *)symmetricKey context:(CCOperation)encryptOrDecrypt padding:(CCOptions *)pkcs7;
 
+- (NSData *) hashSha256Raw: (NSData *)data;
 - (NSString *) hashSha256: (NSData *) data;
 
 @property (nonatomic, weak, readonly) AppDelegate *delegate;

@@ -41,7 +41,7 @@
 
 @implementation AppDelegate
 
-@synthesize tor, httpServer, crypto, config, local, usermanager, window, rootNavigationController,
+@synthesize tor, httpServer, crypto, config, local, usermanager, chatutil, window, rootNavigationController,
     spoofUserAgent,
     dntHeader,
     usePipelining,
@@ -85,7 +85,6 @@
 	
 	abort();
 	*/
-	
 	
 	[self startWebserver];
 	

@@ -16,7 +16,7 @@
 #import "UserManager.h"
 #import "RedactedCrypto.h"
 
-#define MESSAGE_VERSION @"1.0"
+#define MESSAGE_VERSION @"1.0.1"
 
 @interface ChatUtil ()
 
@@ -44,6 +44,7 @@
 	//Generate message
 	NSString *decrypted = [NSString stringWithFormat:@"MSG\0%@\0%@\0%@\0%@", MESSAGE_VERSION, chat.uuid, [ad.crypto hashSha256:[[self headerForChat:chat] dataUsingEncoding:NSUTF8StringEncoding]],
 						   [self encryptMessage:msg Duration:count Key:key]];
+	decrypted = [NSString stringWithFormat:@"%@\0%@", decrypted, [[ad.crypto signData:[decrypted dataUsingEncoding:NSUTF8StringEncoding] withKey:ad.crypto.privateKeyRef] base64EncodedStringWithOptions:0]];
 	
 	//Encrypt message with session key
 	CCOptions options = kCCOptionPKCS7Padding;
@@ -86,6 +87,13 @@
 	//Validate version
 	if (![MESSAGE_VERSION isEqualToString:[parts objectAtIndex:1]]) {
 		DDLogError(@"Recieved message in version %@. We are in version %@! Some compatibility code should exist...", [parts objectAtIndex: 1], MESSAGE_VERSION);
+		return nil;
+	}
+	
+	//Validate signature
+	NSData *sig = [[NSData alloc] initWithBase64EncodedString:[parts lastObject] options:0];
+	if(![ad.crypto verifySignature:[[[parts subarrayWithRange:NSMakeRange(0, [parts count] - 1)] componentsJoinedByString:@"\0"] dataUsingEncoding:NSUTF8StringEncoding] secKeyRef:[ad.usermanager keyForUser:user] signature:sig]) {
+		DDLogError(@"Could not verify signature for message from user %@!", user);
 		return nil;
 	}
 	
